@@ -40,7 +40,7 @@ import { CandidatesComponent } from './landing/job/candidates/candidates.compone
 import { BlogComponent } from './landing/job/blog/blog.component';
 import { JobcategoriesComponent } from './landing/job/jobcategories/jobcategories.component';
 import { JobFooterComponent } from './landing/job/job-footer/job-footer.component';
-
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
   declarations: [
@@ -79,7 +79,8 @@ import { JobFooterComponent } from './landing/job/job-footer/job-footer.componen
     NgbAccordionModule,
     NgbDropdownModule,
     SlickCarouselModule,
-    CountUpModule
+    CountUpModule,
+    ScrollToModule.forRoot(),
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   exports: [BreadcrumbsComponent, ClientLogoComponent, ServicesComponent, CollectionComponent, CtaComponent, DesignedComponent, PlanComponent, FaqsComponent, ReviewComponent, CounterComponent, WorkProcessComponent, TeamComponent, ContactComponent, FooterComponent, 

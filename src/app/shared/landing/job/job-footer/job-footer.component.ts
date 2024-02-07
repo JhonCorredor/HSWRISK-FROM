@@ -8,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
 export class JobFooterComponent implements OnInit {
   // set the current year
   year: number = new Date().getFullYear();
+  currentSection = 'home';
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  /**
+  * Section changed method
+  * @param sectionId specify the current sectionID
+  */
+  onSectionChange(sectionId: string) {
+    this.currentSection = sectionId;
+  }
 }

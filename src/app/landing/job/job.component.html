@@ -1,75 +1,52 @@
 <div appScrollspy [spiedTags]="['SECTION']" (sectionChange)="onSectionChange($event)">
 	<!-- Begin page -->
 	<div class="layout-wrapper landing">
-		<nav class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar" id="navbar" (window:scroll)="windowScroll()">
+		<nav class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar" id="navbar"
+			(window:scroll)="windowScroll()">
 			<div class="container-fluid custom-container">
 				<a class="navbar-brand" routerLink="">
-					<img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="17" />
-					<img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light" height="17" />
+					<img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark"
+						height="90" />
+					<img src="assets/images/logo-dark.png" class="card-logo card-logo-light" alt="logo light"
+						height="90" />
 				</a>
-				<button
-					class="navbar-toggler py-0 fs-20 text-body"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-					(click)="collapse.toggle()"
-				>
+				<button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation" (click)="collapse.toggle()">
 					<i class="mdi mdi-menu"></i>
 				</button>
 
-				<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
+				<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse"
+					id="navbarSupportedContent">
 					<ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
 						<li class="nav-item">
-							<a
-								class="nav-link active"
-								href="javascript:void(0);"
-								[ngClass]="{ active: currentSection === 'hero' }"
-								[ngxScrollTo]="'#hero'"
-								>Home</a
-							>
+							<a class="nav-link active" href="javascript:void(0);"
+								[ngClass]="{ active: currentSection === 'hero' }" [ngxScrollTo]="'#hero'">Inicio</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="javascript:void(0);" [ngClass]="{ active: currentSection === 'process' }" [ngxScrollTo]="'#process'"
-								>Process</a
-							>
+							<a class="nav-link" href="javascript:void(0);"
+								[ngClass]="{ active: currentSection === 'process' }"
+								[ngxScrollTo]="'#process'">Nosotros</a>
 						</li>
 						<li class="nav-item">
-							<a
-								class="nav-link"
-								href="javascript:void(0);"
-								[ngClass]="{ active: currentSection === 'categories' }"
-								[ngxScrollTo]="'#categories'"
-								>Categories</a
-							>
+							<a class="nav-link" href="javascript:void(0);"
+								[ngClass]="{ active: currentSection === 'services' }"
+								[ngxScrollTo]="'#services'">Servicios</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="javascript:void(0);" [ngClass]="{ active: currentSection === 'findJob' }" [ngxScrollTo]="'#findJob'"
-								>Find Jobs</a
-							>
-						</li>
-						<li class="nav-item">
-							<a
-								class="nav-link"
-								href="javascript:void(0);"
+							<a class="nav-link" href="javascript:void(0);"
 								[ngClass]="{ active: currentSection === 'candidates' }"
-								[ngxScrollTo]="'#candidates'"
-								>Candidates</a
-							>
+								[ngxScrollTo]="'#candidates'">Academia</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="javascript:void(0);" [ngClass]="{ active: currentSection === 'blog' }" [ngxScrollTo]="'#blog'"
-								>Blog</a
-							>
+							<a class="nav-link" href="javascript:void(0);"
+								[ngClass]="{ active: currentSection === 'contact' }"
+								[ngxScrollTo]="'#contact'">Contacto</a>
 						</li>
 					</ul>
-
 					<div class="">
-						<a routerLink="/auth/signin/cover" class="btn btn-soft-primary"
-							><i class="ri-user-3-line align-bottom me-1"></i> Login & Register</a
-						>
+						<a routerLink="/auth/signin/cover" class="btn btn-soft-primary"><i
+								class="ri-user-3-line align-bottom me-1"></i> Inisiar Sesión</a>
 					</div>
 				</div>
 			</div>
@@ -82,51 +59,25 @@
 				<div class="row justify-content-between align-items-center">
 					<div class="col-lg-6">
 						<div>
-							<h1 class="display-6 fw-semibold text-capitalize mb-3 lh-base">Find your next job and build your dream here</h1>
+							<h1 class="display-6 fw-semibold text-capitalize mb-3 lh-base">Protegiendo tu bienestar
+								laboral</h1>
 							<p class="lead text-muted lh-base mb-4">
-								Find jobs, create trackable resumes and enrich your applications. Carefully crafted after analyzing the needs of different
-								industries.
+								Nos dedicamos a proteger tu bienestar laboral con nuestros servicios especializados en
+								Seguridad y Salud en el Trabajo (SST). Tu seguridad es nuestra prioridad número uno.
 							</p>
-							<form action="#" class="job-panel-filter">
-								<div class="row g-md-0 g-2">
-									<div class="col-md-4">
-										<div>
-											<input type="search" id="job-title" class="form-control filter-input-box" placeholder="Job, Company name..." />
-										</div>
-									</div>
-									<!--end col-->
-									<div class="col-md-4">
-										<div>
-											<select class="form-control" data-choices>
-												<option value="">Select job type</option>
-												<option value="Full Time">Full Time</option>
-												<option value="Part Time">Part Time</option>
-												<option value="Freelance">Freelance</option>
-												<option value="Internship">Internship</option>
-											</select>
-										</div>
-									</div>
-									<!--end col-->
-									<div class="col-md-4">
-										<div class="h-100">
-											<button class="btn btn-primary submit-btn w-100 h-100" type="submit">
-												<i class="ri-search-2-line align-bottom me-1"></i> Find Job
-											</button>
-										</div>
-									</div>
-									<!--end col-->
-								</div>
-								<!--end row-->
-							</form>
 
 							<ul class="treding-keywords list-inline mb-0 mt-3 fs-13">
-								<li class="list-inline-item text-danger fw-semibold">
-									<i class="mdi mdi-tag-multiple-outline align-middle"></i> Trending Keywords:
+								<li class="list-inline-item text-success fw-semibold">
+									<i class="fa-duotone fa-heart"></i> Valores corporativos:
 								</li>
-								<li class="list-inline-item"><a href="javascript:void(0)">Design,</a></li>
-								<li class="list-inline-item"><a href="javascript:void(0)">Development,</a></li>
-								<li class="list-inline-item"><a href="javascript:void(0)">Manager,</a></li>
-								<li class="list-inline-item"><a href="javascript:void(0)">Senior</a></li>
+								<li class="list-inline-item"><a href="javascript:void(0)">Respeto,</a></li>
+								<li class="list-inline-item"><a href="javascript:void(0)">Honestidad,</a></li>
+								<li class="list-inline-item"><a href="javascript:void(0)">Responsabilidad con el
+										Cliente,</a></li>
+								<li class="list-inline-item"><a href="javascript:void(0)">Servicio,</a></li>
+								<li class="list-inline-item"><a href="javascript:void(0)">Trabajo en Equipo,</a></li>
+								<li class="list-inline-item"><a href="javascript:void(0)">Calidad,</a></li>
+								<li class="list-inline-item"><a href="javascript:void(0)">Experticia</a></li>
 							</ul>
 						</div>
 					</div>
@@ -137,85 +88,55 @@
 								<div class="d-flex align-items-center">
 									<div class="avatar-sm flex-shrink-0 me-3">
 										<div class="avatar-title bg-warning-subtle text-warning rounded fs-18">
-											<i class="ri-mail-send-line"></i>
+											<i class="fa-duotone fa-user-helmet-safety"></i>
 										</div>
 									</div>
-									<h5 class="fs-15 lh-base mb-0">Work Inquiry from velzon</h5>
+									<h5 class="fs-15 lh-base mb-0">Tu seguridad, nuestro compromiso.</h5>
 								</div>
 							</div>
 
 							<div class="card p-3 rounded shadow-lg application-box">
-								<h5 class="fs-15 lh-base mb-3">Applications</h5>
+								<h5 class="fs-15 lh-base mb-3">Aplicaciones</h5>
 								<div class="avatar-group">
-									<a
-										href="javascript: void(0);"
-										class="avatar-group-item"
-										data-bs-toggle="tooltip"
-										data-bs-trigger="hover"
-										data-bs-placement="top"
-										ngbTooltip="Brent Gonzalez"
-									>
+									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
+										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Brent Gonzalez">
 										<div class="avatar-xs">
-											<img src="assets/images/users/avatar-3.jpg" alt="" class="rounded-circle img-fluid" />
+											<img src="assets/images/users/avatar-3.jpg" alt=""
+												class="rounded-circle img-fluid" />
 										</div>
 									</a>
-									<a
-										href="javascript: void(0);"
-										class="avatar-group-item"
-										data-bs-toggle="tooltip"
-										data-bs-trigger="hover"
-										data-bs-placement="top"
-										ngbTooltip="Ellen Smith"
-									>
+									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
+										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Ellen Smith">
 										<div class="avatar-xs">
 											<div class="avatar-title rounded-circle bg-danger">S</div>
 										</div>
 									</a>
-									<a
-										href="javascript: void(0);"
-										class="avatar-group-item"
-										data-bs-toggle="tooltip"
-										data-bs-trigger="hover"
-										data-bs-placement="top"
-										ngbTooltip="Ellen Smith"
-									>
+									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
+										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Ellen Smith">
 										<div class="avatar-xs">
-											<img src="assets/images/users/avatar-10.jpg" alt="" class="rounded-circle img-fluid" />
+											<img src="assets/images/users/avatar-10.jpg" alt=""
+												class="rounded-circle img-fluid" />
 										</div>
 									</a>
-									<a
-										href="javascript: void(0);"
-										class="avatar-group-item"
-										data-bs-toggle="tooltip"
-										data-bs-trigger="hover"
-										data-bs-placement="top"
-									>
+									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
+										data-bs-trigger="hover" data-bs-placement="top">
 										<div class="avatar-xs">
 											<div class="avatar-title rounded-circle bg-success">Z</div>
 										</div>
 									</a>
-									<a
-										href="javascript: void(0);"
-										class="avatar-group-item"
-										data-bs-toggle="tooltip"
-										data-bs-trigger="hover"
-										data-bs-placement="top"
-										title="Brent Gonzalez"
-									>
+									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
+										data-bs-trigger="hover" data-bs-placement="top" title="Brent Gonzalez">
 										<div class="avatar-xs">
-											<img src="assets/images/users/avatar-9.jpg" alt="" class="rounded-circle img-fluid" />
+											<img src="assets/images/users/avatar-9.jpg" alt=""
+												class="rounded-circle img-fluid" />
 										</div>
 									</a>
-									<a
-										href="javascript: void(0);"
-										class="avatar-group-item"
-										data-bs-toggle="tooltip"
-										data-bs-trigger="hover"
-										data-bs-placement="top"
-										title="More Appliances"
-									>
+									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
+										data-bs-trigger="hover" data-bs-placement="top" title="More Appliances">
 										<div class="avatar-xs">
-											<div class="avatar-title fs-13 rounded-circle bg-light border-dashed border text-primary">2k+</div>
+											<div
+												class="avatar-title fs-13 rounded-circle bg-light border-dashed border text-primary">
+												2k+</div>
 										</div>
 									</a>
 								</div>
@@ -237,10 +158,11 @@
 		</section>
 		<!-- end hero section -->
 
-		<app-process></app-process>
-		<app-jobcategories></app-jobcategories>
-		<app-findjobs></app-findjobs>
-		<app-candidates></app-candidates>
+		<!--Components-->
+		<app-services></app-services>
+		<!-- <app-collection></app-collection> -->
+		<!-- <app-client-logo></app-client-logo> -->
+		<app-contact></app-contact>
 		<app-blog></app-blog>
 		<app-job-footer></app-job-footer>
 
