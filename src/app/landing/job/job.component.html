@@ -25,8 +25,8 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="javascript:void(0);"
-								[ngClass]="{ active: currentSection === 'process' }"
-								[ngxScrollTo]="'#process'">Nosotros</a>
+								[ngClass]="{ active: currentSection === 'features' }"
+								[ngxScrollTo]="'#features'">Nosotros</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="javascript:void(0);"
@@ -99,36 +99,33 @@
 								<h5 class="fs-15 lh-base mb-3">Aplicaciones</h5>
 								<div class="avatar-group">
 									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
-										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Brent Gonzalez">
+										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Jhon Corredor">
 										<div class="avatar-xs">
-											<img src="assets/images/users/avatar-3.jpg" alt=""
-												class="rounded-circle img-fluid" />
+											<div class="avatar-title rounded-circle bg-warning">J</div>
 										</div>
 									</a>
 									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
-										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Ellen Smith">
+										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Sebastian Zambrano">
 										<div class="avatar-xs">
 											<div class="avatar-title rounded-circle bg-danger">S</div>
 										</div>
 									</a>
 									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
-										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Ellen Smith">
+										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Julieth Polanco">
 										<div class="avatar-xs">
-											<img src="assets/images/users/avatar-10.jpg" alt=""
-												class="rounded-circle img-fluid" />
+											<div class="avatar-title rounded-circle bg-info">J</div>
 										</div>
 									</a>
 									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
-										data-bs-trigger="hover" data-bs-placement="top">
+										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Aldemar">
 										<div class="avatar-xs">
-											<div class="avatar-title rounded-circle bg-success">Z</div>
+											<div class="avatar-title rounded-circle bg-success">A</div>
 										</div>
 									</a>
 									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
-										data-bs-trigger="hover" data-bs-placement="top" title="Brent Gonzalez">
+										data-bs-trigger="hover" data-bs-placement="top" title="Nicolas Vanegas">
 										<div class="avatar-xs">
-											<img src="assets/images/users/avatar-9.jpg" alt=""
-												class="rounded-circle img-fluid" />
+											<div class="avatar-title rounded-circle bg-primary">N</div>
 										</div>
 									</a>
 									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
@@ -158,12 +155,14 @@
 		</section>
 		<!-- end hero section -->
 
-		<!--Components-->
+		<!--Components Body-->
 		<app-services></app-services>
-		<!-- <app-collection></app-collection> -->
-		<!-- <app-client-logo></app-client-logo> -->
+		<app-collection></app-collection>
 		<app-contact></app-contact>
 		<app-blog></app-blog>
+		<br><br>
+		<app-client-logo></app-client-logo>
+		<br><br>
 		<app-job-footer></app-job-footer>
 
 		<!--start back-to-top-->

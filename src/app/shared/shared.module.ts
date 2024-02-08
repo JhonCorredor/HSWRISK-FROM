@@ -42,6 +42,8 @@ import { JobcategoriesComponent } from './landing/job/jobcategories/jobcategorie
 import { JobFooterComponent } from './landing/job/job-footer/job-footer.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     BreadcrumbsComponent,
@@ -80,6 +82,8 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     NgbDropdownModule,
     SlickCarouselModule,
     CountUpModule,
+    FormsModule,
+    ReactiveFormsModule,
     ScrollToModule.forRoot(),
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],

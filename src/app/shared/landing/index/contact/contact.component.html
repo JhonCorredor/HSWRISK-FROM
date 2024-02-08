@@ -27,20 +27,18 @@
             <!-- end col -->
             <div class="col-lg-8">
                 <div>
-                    <form>
+                    <form [formGroup]="frmContact">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label for="name" class="form-label fs-13">Nombre</label>
-                                    <input name="name" id="name" type="text"
-                                        class="form-control bg-light border-light" placeholder="Tú Nombre*">
+                                    <input  type="text" class="form-control bg-light border-light" formControlName="Name" placeholder="Tú Nombre*">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label for="email" class="form-label fs-13">Correo electrónico</label>
-                                    <input name="email" id="email" type="email"
-                                        class="form-control bg-light border-light" placeholder="Tú Correo electrónico*">
+                                    <input type="email" formControlName="Email" class="form-control bg-light border-light" placeholder="Tú Correo electrónico*">
                                 </div>
                             </div>
                         </div>
@@ -48,8 +46,7 @@
                             <div class="col-lg-12">
                                 <div class="mb-4">
                                     <label for="subject" class="form-label fs-13">Asunto</label>
-                                    <input type="text" class="form-control bg-light border-light" id="subject"
-                                        name="subject" placeholder="Tú Asunto.." />
+                                    <input type="text" class="form-control bg-light border-light" formControlName="Subjet" placeholder="Tú Asunto.." />
                                 </div>
                             </div>
                         </div>
@@ -57,7 +54,7 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="comments" class="form-label fs-13">Mensaje</label>
-                                    <textarea name="comments" id="comments" rows="3"
+                                    <textarea formControlName="Message" rows="3"
                                         class="form-control bg-light border-light"
                                         placeholder="Tú Mensaje..."></textarea>
                                 </div>
@@ -65,8 +62,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 text-end">
-                                <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary"
-                                    value="Enviar Mensaje">
+                                <button class="submitBnt btn btn-primary" (click)="SendEmail()">Enviar Mensaje</button>
                             </div>
                         </div>
                     </form>
