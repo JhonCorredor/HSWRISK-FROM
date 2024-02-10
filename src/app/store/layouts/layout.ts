@@ -47,11 +47,11 @@ const SIDEBAR_COLOR = {
 }
 
 const SIDEBAR_IMAGE = {
-  NONE: "none",
-  IMAGE1 : "image-1",
-  IMAGE2 : "image-2",
-  IMAGE3 : "image-3",
-  IMAGE4 : "image-4"
+  NONE: 'none',
+  IMAGE1 : 'image-1',
+  IMAGE2 : 'image-2',
+  IMAGE3 : 'image-3',
+  IMAGE4 : 'image-4'
 }
 
 const SIDEBAR_VISIBILITY = {

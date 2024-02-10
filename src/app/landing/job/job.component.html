@@ -6,9 +6,9 @@
 			<div class="container-fluid custom-container">
 				<a class="navbar-brand" routerLink="">
 					<img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark"
-						height="90" />
+						height="85" />
 					<img src="assets/images/logo-dark.png" class="card-logo card-logo-light" alt="logo light"
-						height="90" />
+						height="85" />
 				</a>
 				<button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -25,13 +25,13 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="javascript:void(0);"
-								[ngClass]="{ active: currentSection === 'features' }"
-								[ngxScrollTo]="'#features'">Nosotros</a>
+								[ngClass]="{ active: currentSection === 'services' }"
+								[ngxScrollTo]="'#services'">Servicios</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="javascript:void(0);"
-								[ngClass]="{ active: currentSection === 'services' }"
-								[ngxScrollTo]="'#services'">Servicios</a>
+								[ngClass]="{ active: currentSection === 'features' }"
+								[ngxScrollTo]="'#features'">Nosotros</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="javascript:void(0);"
@@ -45,7 +45,7 @@
 						</li>
 					</ul>
 					<div class="">
-						<a routerLink="/auth/signin/cover" class="btn btn-soft-primary"><i
+						<a routerLink="/auth/signin/cover" target="_blank" class="btn btn-soft-primary"><i
 								class="ri-user-3-line align-bottom me-1"></i> Inisiar Sesión</a>
 					</div>
 				</div>
@@ -96,7 +96,7 @@
 							</div>
 
 							<div class="card p-3 rounded shadow-lg application-box">
-								<h5 class="fs-15 lh-base mb-3">Aplicaciones</h5>
+								<h5 class="fs-15 lh-base mb-3">Inscripciones</h5>
 								<div class="avatar-group">
 									<a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip"
 										data-bs-trigger="hover" data-bs-placement="top" ngbTooltip="Jhon Corredor">
@@ -133,7 +133,7 @@
 										<div class="avatar-xs">
 											<div
 												class="avatar-title fs-13 rounded-circle bg-light border-dashed border text-primary">
-												2k+</div>
+												50+</div>
 										</div>
 									</a>
 								</div>

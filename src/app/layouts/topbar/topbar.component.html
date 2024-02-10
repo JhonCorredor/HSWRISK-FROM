@@ -4,21 +4,21 @@
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="javascript:void(0);" class="logo logo-dark">
+                    <a href="dashboard" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="assets/images/logo-sm.png" alt="" height="22">
+                            <img src="assets/images/favicon.ico" alt="" height="22">
                         </span>
                         <span class="logo-lg">
                             <img src="assets/images/logo-dark.png" alt="" height="17">
                         </span>
                     </a>
 
-                    <a href="javascript:void(0);" class="logo logo-light">
+                    <a href="dashboard" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="assets/images/logo-sm.png" alt="" height="22">
+                            <img src="assets/images/favicon.ico" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="assets/images/logo-light.png" alt="" height="17">
+                            <img src="assets/images/logo-dark.png" alt="" height="17">
                         </span>
                     </a>
                 </div>
@@ -34,7 +34,7 @@
                 <!-- App Search-->
                 <form class="app-search d-none d-md-block">
                     <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Search..." autocomplete="off" id="search-options" value="" (keyup)="Search()">
+                        <input type="text" class="form-control" placeholder="Buscar..." autocomplete="off" id="search-options" value="" (keyup)="Search()">
                         <span class="mdi mdi-magnify search-widget-icon"></span>
                         <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options" (click)="closeBtn()"></span>
                     </div>
@@ -114,7 +114,7 @@
                         </ngx-simplebar>
 
                         <div class="text-center pt-3 pb-1">
-                            <a href="pages/search-results" class="btn btn-primary btn-sm">View All Results <i class="ri-arrow-right-line ms-1"></i></a>
+                            <a href="pages/search-results" class="btn btn-primary btn-sm">Ver todos los resultados <i class="ri-arrow-right-line ms-1"></i></a>
                         </div>
                     </div>
                 </form>
@@ -130,7 +130,7 @@
                         <form class="p-3">
                             <div class="form-group m-0">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                    <input type="text" class="form-control" placeholder="Buscar ..." aria-label="Recipient's username">
                                     <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                     </div>
                 </div>
 
-                <div class="dropdown ms-1 topbar-head-dropdown header-item" ngbDropdown>
+                <div class="dropdown ms-1 topbar-head-dropdown header-item d-none" ngbDropdown>
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
                         @if(flagvalue === undefined){
                         <img src="{{valueset}}" alt="Header Language" height="20" class="rounded">
@@ -157,7 +157,7 @@
                     </div>
                 </div>
 
-                <div class="dropdown topbar-head-dropdown ms-1 header-item" ngbDropdown>
+                <div class="dropdown topbar-head-dropdown ms-1 header-item d-none" ngbDropdown>
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
                         <i class='bx bx-category-alt fs-22'></i>
                     </button>
@@ -220,7 +220,7 @@
                     </div>
                 </div>
 
-                <div class="dropdown topbar-head-dropdown ms-1 header-item" ngbDropdown>
+                <div class="dropdown topbar-head-dropdown ms-1 header-item d-none" ngbDropdown>
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-cart-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
                         <i class='bx bx-shopping-bag fs-22'></i>
                         <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-info">{{cart_length}}<span class="visually-hidden">unread messages</span></span>
@@ -304,7 +304,9 @@
                 <div ngbDropdown [autoClose]="false" class="dropdown topbar-head-dropdown ms-1 header-item">
                     <button type="button" ngbDropdownToggle class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class='bx bx-bell fs-22'></i>
-                        <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">3<span class="visually-hidden">unread messages</span></span>
+                        @if(allnotifications.length > 0){
+                            <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">{{allnotifications?.length}}</span>
+                        }
                     </button>
                     <div ngbDropdownMenu class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
 
@@ -312,10 +314,10 @@
                             <div class="p-3">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
+                                        <h6 class="m-0 fs-16 fw-semibold text-white"> Notificaciones </h6>
                                     </div>
                                     <div class="col-auto dropdown-tabs">
-                                        <span class="badge bg-light-subtle text-body fs-13"> {{allnotifications?.length}} New</span>
+                                        <span class="badge bg-light-subtle text-body fs-13"> {{allnotifications?.length}} Nueva</span>
                                     </div>
                                 </div>
                             </div>
@@ -324,7 +326,7 @@
                                 <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav nav-tabs dropdown-tabs nav-tabs-custom" id="notificationItemsTab">
                                     <li [ngbNavItem]="1">
                                         <a ngbNavLink>
-                                            All ({{allnotifications?.length}})
+                                            Totas ({{allnotifications?.length}})
                                         </a>
                                         <ng-template ngbNavContent>
                                             <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
@@ -375,15 +377,13 @@
                                                                 <img src="assets/images/svg/bell.svg" class="img-fluid" alt="user-pic">
                                                             </div>
                                                             <div class="text-center pb-5 mt-2">
-                                                                <h6 class="fs-18 fw-semibold lh-base">Hey! You have no any
-                                                                    notifications </h6>
+                                                                <h6 class="fs-18 fw-semibold lh-base">¡Ey! No tienes ninguna notificación.</h6>
                                                             </div>
                                                         </div>
                                                         }
                                                         @if(allnotifications?.length > 0){
                                                         <div class="my-3 text-center">
-                                                            <button type="button" class="btn btn-soft-success waves-effect waves-light">View
-                                                                All Notifications <i class="ri-arrow-right-line align-middle"></i></button>
+                                                            <button type="button" class="btn btn-soft-success waves-effect waves-light">Ver todas las notificaciones<i class="ri-arrow-right-line align-middle"></i></button>
                                                         </div>
                                                         }
                                                     </div>
@@ -395,7 +395,7 @@
                                     </li>
                                     <li [ngbNavItem]="2">
                                         <a ngbNavLink>
-                                            Messages
+                                            Mensajes
                                         </a>
                                         <ng-template ngbNavContent>
                                             <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
@@ -428,15 +428,13 @@
                                                                 <img src="assets/images/svg/bell.svg" class="img-fluid" alt="user-pic">
                                                             </div>
                                                             <div class="text-center pb-5 mt-2">
-                                                                <h6 class="fs-18 fw-semibold lh-base">Hey! You have no any
-                                                                    notifications </h6>
+                                                                <h6 class="fs-18 fw-semibold lh-base">¡Ey! No tienes ninguna notificación.</h6>
                                                             </div>
                                                         </div>
                                                         }
                                                         @if(messages?.length > 0){
                                                         <div class="my-3 text-center">
-                                                            <button type="button" class="btn btn-soft-success waves-effect waves-light">View
-                                                                All Messages <i class="ri-arrow-right-line align-middle"></i></button>
+                                                            <button type="button" class="btn btn-soft-success waves-effect waves-light">Ver todos los mensajes<i class="ri-arrow-right-line align-middle"></i></button>
                                                         </div>
                                                         }
                                                     </div>
@@ -448,7 +446,7 @@
                                     </li>
                                     <li [ngbNavItem]="3">
                                         <a ngbNavLink>
-                                            Alerts
+                                            Alertas
                                         </a>
                                         <ng-template ngbNavContent>
                                             <div class="tab-pane p-4" id="alerts-tab" role="tabpanel" aria-labelledby="alerts-tab">
@@ -456,8 +454,7 @@
                                                     <img src="assets/images/svg/bell.svg" class="img-fluid" alt="user-pic">
                                                 </div>
                                                 <div class="text-center pb-5 mt-2">
-                                                    <h6 class="fs-18 fw-semibold lh-base">Hey! You have no any
-                                                        notifications </h6>
+                                                    <h6 class="fs-18 fw-semibold lh-base">¡Ey! No tienes ninguna notificación.</h6>
                                                 </div>
                                             </div>
                                         </ng-template>
@@ -485,27 +482,28 @@
                 <div class="dropdown ms-sm-3 header-item topbar-user" ngbDropdown>
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+                            <div class="avatar-xs">
+                                <div class="avatar-title rounded-circle bg-success text-uppercase">{{ Avatar() }}</div>
+                            </div>
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{userData.first_name}}
-                                    {{userData.last_name}}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{userData.role
-                                    == 0 ? 'Admin':'User'}}</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ userLogin() }}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{ userRolLogin() }}</span>
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome Anna!</h6>
-                        <a class="dropdown-item" routerLink="/pages/profile"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
-                        <a class="dropdown-item" routerLink="/apps/chat"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
-                        <a class="dropdown-item" routerLink="/tasks/kanban"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
-                        <a class="dropdown-item" routerLink="/pages/faqs"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
+                        <h6 class="dropdown-header">Bienvenido(a) {{ userLogin() }}</h6>
+                        <a class="dropdown-item" routerLink="/dashboard" (click)="Profile()"><i class="fa-duotone fa-circle-user" style="--fa-primary-color: #adb5bd; --fa-secondary-color: #adb5bd;"></i> Perfil</a>
+                        <a class="dropdown-item" routerLink="/dashboard" (click)="ChangePassword()"><i class="fa-duotone fa-lock-keyhole" style="--fa-primary-color: #adb5bd; --fa-secondary-color: #adb5bd;"></i> Cambiar contraseña</a>
+                        <!-- <a class="dropdown-item" routerLink="/apps/chat"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Mensajes</span></a> -->
+                        <!-- <a class="dropdown-item" routerLink="/tasks/kanban"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Tablero de Tareas</span></a> -->
+                        <!-- <a class="dropdown-item" routerLink="/pages/faqs"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Ayuda</span></a> -->
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" routerLink="/pages/profile"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>
-                        <a class="dropdown-item" routerLink="/pages/profile"><span class="badge bg-success-subtle text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>
-                        <a class="dropdown-item" routerLink="/auth/lockscreen/basic"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
-                        <a class="dropdown-item" href="javascript: void(0);" (click)="logout()"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                        <!-- <a class="dropdown-item" routerLink="/pages/profile"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a> -->
+                        <!-- <a class="dropdown-item" routerLink="/pages/profile"><span class="badge bg-success-subtle text-success mt-1 float-end">Nuevo</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Ajustes</span></a> -->
+                        <!-- <a class="dropdown-item" routerLink="/auth/lockscreen/basic"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Bloquear pantalla</span></a> -->
+                        <a class="dropdown-item" href="javascript: void(0);" (click)="logout()"><i class="fa-duotone fa-arrow-right-from-bracket" style="--fa-primary-color: #adb5bd; --fa-secondary-color: #adb5bd;"></i> Cerrar sesión</a>
                     </div>
                 </div>
             </div>

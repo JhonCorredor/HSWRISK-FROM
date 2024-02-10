@@ -1,14 +1,8 @@
 export const environment = {
   production: true,
-  defaultauth: 'fakebackend',
-  firebaseConfig: {
-    apiKey: '',
-    authDomain: '',
-    databaseURL: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: '',
-    appId: '',
-    measurementId: ''
-  }
+  //Local
+  // url: 'https://localhost:44346/api/',
+
+  //Production
+  url: 'https://api.hswrisk.com/api/',
 };

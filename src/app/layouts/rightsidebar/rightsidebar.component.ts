@@ -38,11 +38,11 @@ export class RightsidebarComponent implements OnInit {
   constructor(private eventService: EventService, private offcanvasService: NgbOffcanvas, private store: Store<RootReducerState>) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      if (this.offcanvasService.hasOpenOffcanvas() == false) {
-        this.openEnd(this.filtetcontent);
-      };
-    }, 1000);
+    // setTimeout(() => {
+    //   if (this.offcanvasService.hasOpenOffcanvas() == false) {
+    //     this.openEnd(this.filtetcontent);
+    //   };
+    // }, 1000);
 
     this.store.select('layout').subscribe((data) => {
       this.layout = data.LAYOUT;
@@ -56,7 +56,11 @@ export class RightsidebarComponent implements OnInit {
       this.sidebarImage = data.SIDEBAR_IMAGE;
       this.preLoader = data.DATA_PRELOADER;
       this.sidebarVisibility = data.SIDEBAR_VISIBILITY
-    })
+    });
+
+    setTimeout(() => {
+      this.changeSidebarImage('img-3');
+    }, 200);
   }
 
   ngAfterViewInit() { }
@@ -217,7 +221,7 @@ export class RightsidebarComponent implements OnInit {
     this.store.dispatch(changeSidebarImage({ sidebarImage }));
     this.store.select(getSidebarImage).subscribe((image) => {
       document.documentElement.setAttribute('data-sidebar-image', image);
-    })
+    });
   }
 
   // PreLoader Image Change
@@ -236,5 +240,6 @@ export class RightsidebarComponent implements OnInit {
       }, 1000);
     }
   }
+
 
 }

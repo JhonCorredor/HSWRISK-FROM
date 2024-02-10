@@ -1,0 +1,36 @@
+<section class="content">
+    <div class="container-fluid">
+        <form [formGroup]="frmGeneral" class="mb-4 border shadow-lg">
+            <div class="modal-header bg-primary">
+                <h6 class="text-white">{{ titulo }}</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        <label>Código</label>
+                        <input type="text" class="form-control" formControlName="Codigo">
+                        <app-forms-messages [error]="frmGeneral.get('Codigo')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" formControlName="Nombre">
+                        <app-forms-messages [error]="frmGeneral.get('Nombre')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <label>Activo</label><br>
+                        <ui-switch formControlName="Activo"></ui-switch>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row float-right">
+                    <div class="col-md-12">
+                        <app-botones [botones]="botones" (eventSave)="save()" (eventCancel)="cancel()"></app-botones>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

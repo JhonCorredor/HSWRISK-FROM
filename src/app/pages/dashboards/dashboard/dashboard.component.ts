@@ -16,7 +16,7 @@ import { BestSelling, Recentelling, TopSelling, statData } from 'src/app/core/da
  * Ecommerce Component
  */
 export class DashboardComponent implements OnInit {
-
+  user: any;
   // bread crumb items
   breadCrumbItems!: Array<{}>;
   analyticsChart!: ChartType;
@@ -37,17 +37,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /**
-     * BreadCrumb
-     */
-    this.breadCrumbItems = [
-      { label: 'Dashboards' },
-      { label: 'Dashboard', active: true }
-    ];
-
-    if (sessionStorage.getItem('toast')) {
-      this.toastService.show('Logged in Successfull.', { classname: 'bg-success text-center text-white', delay: 5000 });
+    this.getUserLogin();
+    if (localStorage.getItem("token") != null) {
+      this.toastService.show('Iniciado sesión correctamente.', { classname: 'bg-success text-center text-white', delay: 5000 });
       sessionStorage.removeItem('toast');
+      this.cargarFormulario();
     }
 
     /**
@@ -60,6 +54,23 @@ export class DashboardComponent implements OnInit {
     this._SalesCategoryChart('["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-info"]');
   }
 
+  cargarFormulario() {
+    /**
+         * BreadCrumb
+         */
+    this.breadCrumbItems = [
+      { label: 'Dashboards' },
+      { label: 'Dashboard', active: true }
+    ];
+  }
+  
+  userLogin() {
+    return this.user;
+  }
+
+  getUserLogin() {
+    this.user = localStorage.getItem("userName");
+  }
 
   num: number = 0;
   option = {

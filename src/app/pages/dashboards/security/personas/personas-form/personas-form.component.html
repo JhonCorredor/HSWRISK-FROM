@@ -1,0 +1,93 @@
+<section class="content">
+    <div class="container-fluid">
+        <form [formGroup]="frmPersonas" class="mb-4 border shadow-lg">
+            <div class="modal-header bg-primary">
+                <h6 class="text-white">{{ titulo }}</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Tipo Documento</label>
+                        <ng-select [items]="ListTipoIdentificacion" bindLabel="textoMostrar" bindValue="id"
+                            formControlName="TipoDocumento"> </ng-select>
+                        <app-forms-messages [error]="frmPersonas.get('TipoDocumento')"
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Numero Identificación</label>
+                        <input type="text" class="form-control" formControlName="Documento">
+                        <app-forms-messages [error]="frmPersonas.get('Documento')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Primer Nombre</label>
+                        <input type="text" class="form-control" formControlName="PrimerNombre">
+                        <app-forms-messages [error]="frmPersonas.get('PrimerNombre')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Segundo Nombre</label>
+                        <input type="text" class="form-control" formControlName="SegundoNombre">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Primer Apellido</label>
+                        <input type="text" class="form-control" formControlName="PrimerApellido">
+                        <app-forms-messages [error]="frmPersonas.get('PrimerApellido')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Segundo Apellido</label>
+                        <input type="text" class="form-control" formControlName="SegundoApellido">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Genero</label>
+                        <ng-select [items]="listGeneros" bindLabel="textoMostrar" bindValue="id"
+                            formControlName="Genero"></ng-select>
+                        <app-forms-messages [error]="frmPersonas.get('Genero')"
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Correo</label>
+                        <input type="email" class="form-control" formControlName="Email">
+                        <app-forms-messages [error]="frmPersonas.get('Email')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Telefono</label>
+                        <input type="number" class="form-control" formControlName="Telefono">
+                        <app-forms-messages [error]="frmPersonas.get('Telefono')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>{{ key }}</label>
+                        <ng-select [items]="lista" bindLabel="nombre" bindValue="id" formControlName="Key_Id">
+                        </ng-select>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Direccion</label>
+                        <input type="text" class="form-control" formControlName="Direccion">
+                        <app-forms-messages [error]="frmPersonas.get('Direccion')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Activo</label><br>
+                        <ui-switch formControlName="Activo"></ui-switch>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row float-right">
+                    <div class="col-md-12">
+                        <app-botones [botones]="botones" (eventSave)="save()" (eventCancel)="cancel()"></app-botones>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 // search module
@@ -18,6 +18,7 @@ import { initFirebaseBackend } from './authUtils';
 import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 // Language
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -41,14 +42,10 @@ import { ApplicationEffects } from './store/Jobs/jobs_effect';
 import { ApikeyEffects } from './store/APIKey/apikey_effect';
 import { AuthenticationEffects } from './store/Authentication/authentication.effects';
 
+import { UiSwitchModule } from 'ngx-ui-switch';
+
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-}
-
-if (environment.defaultauth === 'firebase') {
-  initFirebaseBackend(environment.firebaseConfig);
-} else {
-  FakeBackendInterceptor;
 }
 
 @NgModule({
@@ -56,13 +53,27 @@ if (environment.defaultauth === 'firebase') {
     AppComponent
   ],
   imports: [
+    UiSwitchModule.forRoot({
+      size: 'small',
+      color: '#c22926',
+      switchColor: '#c22926',
+      defaultBgColor: 'white',
+      defaultBoColor: '#c22926',
+      checkedLabel: 'Si',
+      uncheckedLabel: 'No'
+    }),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      autoDismiss: true,
+      preventDuplicates: true
+    }),
     TranslateModule.forRoot({
-      defaultLanguage: 'en',
+      defaultLanguage: 'es',
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
-      }
+      }, 
     }),
     BrowserAnimationsModule,
     HttpClientModule,
@@ -95,6 +106,8 @@ if (environment.defaultauth === 'firebase') {
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

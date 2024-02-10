@@ -1,0 +1,15 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<div class="card card-height-100">
+  <div class="card-header align-items-center d-flex">
+    <h4 class="card-title mb-0 flex-grow-1">{{ title }}</h4>
+    <div class="flex-shrink-0">
+      <app-botones #botonesSuperior [botones]="botones" [dropdown]="false" (eventNew)="nuevo()"></app-botones>
+    </div>
+  </div>
+  <div class="card-body" style="padding: 40px;">
+    <div class="table-responsive table-card">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+        class="table table-bordered table-hover table-striped w-100"></table>
+    </div>
+  </div>
+</div>

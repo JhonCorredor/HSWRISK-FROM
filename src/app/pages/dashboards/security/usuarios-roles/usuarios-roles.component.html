@@ -1,0 +1,55 @@
+<form [formGroup]="frmUsuariosRol" class="my-3">
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Roles</label>
+            <ng-select [items]="listRoles()" bindLabel="textoMostrar" bindValue="id" formControlName="RolId">
+            </ng-select>
+            <app-forms-messages [error]="frmUsuariosRol.get('RolId')" [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Activo</label><br>
+            <ui-switch formControlName="Activo"></ui-switch>
+
+        </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-end">
+        <div>
+            <app-botones [botones]="botones" (eventSave)="save()"></app-botones>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="dt-responsive">
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                <table id="datatable" class="table table-bordered table-hover table-striped w-100">
+                    <thead>
+                        <tr>
+                            <th class="text-center">ROL</th>
+                            <th class="text-center">ESTADO</th>
+                            <th class="text-center">ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" *ngFor="let item of listUsuariosRoles(); index as i">
+                            <td>{{ item.rol }}</td>
+                            <td *ngIf="item.activo; else elseBlock"><label
+                                    class='text-center text-success'>Activo</label></td>
+                            <ng-template #elseBlock>
+                                <td><label class='text-center text-danger'>Inactivo</label></td>
+                            </ng-template>
+                            <td>
+                                <button class="btn btn-sm text-secondary" type="button" (click)="update(item)"><i
+                                        class="fa-duotone fa-pen-to-square"></i> Editar</button>
+                                <button class="btn btn-sm text-secondary" type="button"
+                                    (click)="deleteGeneric(item.id)"><i class="fa-duotone fa-trash-can"></i>
+                                    Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,51 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<div class="card card-height-100">
+    <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">{{ title }}</h4>
+        <div class="flex-shrink-0">
+            <app-botones [botones]="botones" (eventSave)="save()" (eventCancel)="cancel()"></app-botones>
+        </div>
+    </div>
+    <div class="card-body" style="padding: 40px;">
+        <form [formGroup]="frmRoles" class="mb-4">
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Código</label>
+                    <input type="text" class="form-control" formControlName="Codigo">
+                    <app-forms-messages [error]="frmRoles.get('Codigo')" [statusForm]=statusForm
+                        [statusForm]=statusForm></app-forms-messages>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" formControlName="Nombre">
+                    <app-forms-messages [error]="frmRoles.get('Nombre')" [statusForm]=statusForm
+                        [statusForm]=statusForm></app-forms-messages>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Activo</label><br>
+                    <ui-switch formControlName="Activo"></ui-switch>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer" *ngIf="id">
+        <ul ngbNav #nav="ngbNav" [destroyOnHide]="false" class="nav-tabs">
+            <li ngbNavItem>
+                <a ngbNavLink>Formularios
+                    <span data-bs-toggle="tooltip" data-bs-placement="left"
+                        title="En este formulario se asocian los Formularios a los que puede acceder el rol">
+                        <i class="fa-solid fa-circle-question"></i>
+                    </span>
+                </a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <app-roles-formularios [RolId]="id"></app-roles-formularios>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+</div>

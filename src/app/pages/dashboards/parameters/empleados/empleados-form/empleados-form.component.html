@@ -1,0 +1,65 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<div class="card card-height-100">
+    <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">{{ title }}</h4>
+        <div class="flex-shrink-0">
+            <app-botones [botones]="botones" (eventSave)="save()" (eventCancel)="cancel()"></app-botones>
+        </div>
+    </div>
+    <div class="card-body" style="padding: 40px;">
+        <form [formGroup]="frmEmpleados" class="mb-4">
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Código</label>
+                    <input type="text" class="form-control" formControlName="Codigo">
+                    <app-forms-messages [error]="frmEmpleados.get('Codigo')" [statusForm]=statusForm
+                        [statusForm]=statusForm></app-forms-messages>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Persona</label>
+                    <ng-select [items]="listPersonas()" bindLabel="textoMostrar" bindValue="id"
+                        formControlName="PersonaId">
+                    </ng-select>
+                    <app-forms-messages [error]="frmEmpleados.get('PersonaId')"
+                        [statusForm]=statusForm></app-forms-messages>
+                </div>
+                <div class="col-sm-1 col-md-1 col-lg-1">
+                    <br>
+                    <button type="button" class="btn mt-2" (click)="nuevaPersona()">
+                        <i class="fa-duotone fa-user-plus"
+                            style="--fa-primary-color: #adb5bd; --fa-secondary-color: #adb5bd;"></i>
+                    </button>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Empresa</label>
+                    <ng-select [items]="listEmpresas()" bindLabel="textoMostrar" bindValue="id"
+                        formControlName="EmpresaId">
+                    </ng-select>
+                    <app-forms-messages [error]="frmEmpleados.get('EmpresaId')"
+                        [statusForm]=statusForm></app-forms-messages>
+                </div>
+                <div class="col-sm-1 col-md-1 col-lg-1">
+                    <br>
+                    <button type="button" class="btn mt-2" (click)="nuevaEmpresa()">
+                        <i class="fa-duotone fa-briefcase"
+                            style="--fa-primary-color: #adb5bd; --fa-secondary-color: #adb5bd;"></i>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Cargo</label>
+                    <ng-select [items]="listCargos()" bindLabel="textoMostrar" bindValue="id" formControlName="CargoId">
+                    </ng-select>
+                    <app-forms-messages [error]="frmEmpleados.get('CargoId')"
+                        [statusForm]=statusForm></app-forms-messages>
+                </div>
+                <div class="col-sm-1 col-md-1 col-lg-1">
+                    <label>Activo</label><br>
+                    <ui-switch formControlName="Activo"></ui-switch>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

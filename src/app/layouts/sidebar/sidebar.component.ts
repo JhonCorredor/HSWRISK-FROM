@@ -1,10 +1,9 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-
-import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { environment } from 'src/environments/environment';
+import { GeneralParameterService } from 'src/app/generic/general.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,13 +18,16 @@ export class SidebarComponent implements OnInit {
   @ViewChild('sideMenu') sideMenu!: ElementRef;
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
-  constructor(private router: Router, public translate: TranslateService) {
+  constructor(private router: Router, public translate: TranslateService, private service: GeneralParameterService) {
     translate.setDefaultLang('en');
   }
 
   ngOnInit(): void {
     // Menu Items
-    this.menuItems = MENU;
+    var menuUser = localStorage.getItem("menu");
+    if (menuUser) {
+      this.menuItems = JSON.parse(menuUser);
+    }
     this.router.events.subscribe((event) => {
       if (document.documentElement.getAttribute('data-layout') != "twocolumn") {
         if (event instanceof NavigationEnd) {
@@ -57,42 +59,6 @@ export class SidebarComponent implements OnInit {
         menuItem.isCollapsed = !menuItem.isCollapsed
       } else {
         menuItem.isCollapsed = true
-      }
-      if (menuItem.subItems) {
-        menuItem.subItems.forEach((subItem: any) => {
-
-          if (subItem == item) {
-            menuItem.isCollapsed = !menuItem.isCollapsed
-            subItem.isCollapsed = !subItem.isCollapsed
-          } else {
-            subItem.isCollapsed = true
-          }
-          if (subItem.subItems) {
-            subItem.subItems.forEach((childitem: any) => {
-
-              if (childitem == item) {
-                childitem.isCollapsed = !childitem.isCollapsed
-                subItem.isCollapsed = !subItem.isCollapsed
-                menuItem.isCollapsed = !menuItem.isCollapsed
-              } else {
-                childitem.isCollapsed = true
-              }
-              if (childitem.subItems) {
-                childitem.subItems.forEach((childrenitem: any) => {
-
-                  if (childrenitem == item) {
-                    childrenitem.isCollapsed = false
-                    childitem.isCollapsed = false
-                    subItem.isCollapsed = false
-                    menuItem.isCollapsed = false
-                  } else {
-                    childrenitem.isCollapsed = true
-                  }
-                })
-              }
-            })
-          }
-        })
       }
     });
   }
@@ -162,8 +128,8 @@ export class SidebarComponent implements OnInit {
         return menuItem;
       }
 
-      if (menuItem.subItems) {
-        const foundItem = this.findMenuItem(pathname, menuItem.subItems);
+      if (menuItem.formularios) {
+        const foundItem = this.findMenuItem(pathname, menuItem.formularios);
         if (foundItem) {
           return foundItem;
         }
@@ -177,7 +143,7 @@ export class SidebarComponent implements OnInit {
    * @param item menuItem
    */
   hasItems(item: MenuItem) {
-    return item.subItems !== undefined ? item.subItems.length > 0 : false;
+    return item.formularios !== undefined ? item.formularios.length > 0 : false;
   }
 
   /**

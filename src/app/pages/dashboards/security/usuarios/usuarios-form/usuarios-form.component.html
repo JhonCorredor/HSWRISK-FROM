@@ -1,0 +1,58 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<div class="card card-height-100">
+  <div class="card-header align-items-center d-flex">
+    <h4 class="card-title mb-0 flex-grow-1">{{ title }}</h4>
+    <div class="flex-shrink-0">
+      <app-botones [botones]="botones" (eventSave)="save()" (eventCancel)="cancel()"></app-botones>
+    </div>
+  </div>
+  <div class="card-body" style="padding: 40px;">
+    <form [formGroup]="frmUsuarios" class="mb-4">
+      <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Usuario</label>
+          <input type="text" class="form-control" formControlName="UserName">
+          <app-forms-messages [error]="frmUsuarios.get('UserName')" [statusForm]=statusForm
+            [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Contraseña</label>
+          <input type="password" class="form-control" formControlName="Password">
+          <app-forms-messages [error]="frmUsuarios.get('Password')" [statusForm]=statusForm
+            [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Persona</label>
+          <ng-select [items]="listPersonas()" bindLabel="textoMostrar" bindValue="id" formControlName="PersonaId">
+          </ng-select>
+          <app-forms-messages [error]="frmUsuarios.get('PersonaId')" [statusForm]=statusForm
+            [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Activo</label><br>
+          <ui-switch formControlName="Activo"></ui-switch>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer" *ngIf="id">
+    <ul ngbNav #nav="ngbNav" [destroyOnHide]="false" class="nav-tabs">
+      <li ngbNavItem>
+        <a ngbNavLink>Roles
+          <span data-bs-toggle="tooltip" data-bs-placement="left"
+            title="En este formulario se asocian los roles pertenecientes al Usuario">
+            <i class="fa-solid fa-circle-question"></i>
+          </span>
+        </a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <app-usuarios-roles [UsuarioId]="id"></app-usuarios-roles>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</div>

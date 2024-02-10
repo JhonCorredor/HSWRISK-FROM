@@ -1,0 +1,14 @@
+<div *ngIf="( error?.errors != null && error?.touched  ) || !statusForm ">
+    <p *ngIf="error?.errors?.maxlength">
+        La cantidad de caracteres maximo permitido es de {{error?.errors?.maxlength?.requiredLength}}
+    </p>
+    <p *ngIf="error?.errors?.minlength">
+        La cantidad de caracteres minimo permitido es de {{error?.errors?.minlength?.requiredLength}}
+    </p>
+    <p *ngIf="error?.errors?.required" >Este campo es requerido</p>
+    <p *ngIf='error?.errors?.pattern?.requiredPattern == "/^-?\\d*[.,]?\\d{2,18}$/" '>Numero incorrecto (minimo 2 caracteres)</p>
+</div>
+
+<!-- <div *ngIf="showMessage()">
+    <p> Debe seleccionar alguna opcion </p>
+</div> -->

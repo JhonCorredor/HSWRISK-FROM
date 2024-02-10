@@ -3,7 +3,6 @@ import { DOCUMENT } from '@angular/common';
 import { EventService } from '../../core/services/event.service';
 
 //Logout
-import { environment } from '../../../environments/environment';
 import { AuthenticationService } from '../../core/services/auth.service';
 import { AuthfakeauthenticationService } from '../../core/services/authfake.service';
 import { Router } from '@angular/router';
@@ -17,6 +16,11 @@ import { allNotification, messages } from './data'
 import { CartModel } from './topbar.model';
 import { cartData } from './data';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GeneralParameterService } from '../../generic/general.service';
+import { DatatableParameter } from 'src/app/admin/datatable.parameters';
+import { PersonasFormComponent } from '../../pages/dashboards/security/personas/personas-form/personas-form.component'
+import { UsuariosPaswordFormComponent } from '../../pages/dashboards/security/usuarios/usuarios-pasword-form/usuarios-pasword-form.component'
+
 
 @Component({
   selector: 'app-topbar',
@@ -34,6 +38,9 @@ export class TopbarComponent implements OnInit {
   countryName: any;
   cookieValue: any;
   userData: any;
+  user: any;
+  userAvatar: any;
+  cargo: any;
   cartData!: CartModel[];
   total = 0;
   cart_length: any = 0;
@@ -46,10 +53,12 @@ export class TopbarComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) private document: any, private eventService: EventService, public languageService: LanguageService, private modalService: NgbModal,
     public _cookiesService: CookieService, public translate: TranslateService, private authService: AuthenticationService, private authFackservice: AuthfakeauthenticationService,
-    private router: Router, private TokenStorageService: TokenStorageService) { }
+    private router: Router, private TokenStorageService: TokenStorageService,
+    private service: GeneralParameterService) { }
 
   ngOnInit(): void {
     this.userData = this.TokenStorageService.getUser();
+    this.getUserLogin();
     this.element = document.documentElement;
 
     // Cookies wise Language set
@@ -151,14 +160,14 @@ export class TopbarComponent implements OnInit {
    * Language Listing
    */
   listLang = [
-    { text: 'English', flag: 'assets/images/flags/us.svg', lang: 'en' },
-    { text: 'Española', flag: 'assets/images/flags/spain.svg', lang: 'es' },
-    { text: 'Deutsche', flag: 'assets/images/flags/germany.svg', lang: 'de' },
-    { text: 'Italiana', flag: 'assets/images/flags/italy.svg', lang: 'it' },
-    { text: 'русский', flag: 'assets/images/flags/russia.svg', lang: 'ru' },
-    { text: '中国人', flag: 'assets/images/flags/china.svg', lang: 'ch' },
-    { text: 'français', flag: 'assets/images/flags/french.svg', lang: 'fr' },
-    { text: 'Arabic', flag: 'assets/images/flags/ar.svg', lang: 'ar' },
+    { text: 'Español', flag: 'assets/images/flags/spain.svg', lang: 'es' },
+    // { text: 'English', flag: 'assets/images/flags/us.svg', lang: 'en' },
+    // { text: 'Deutsche', flag: 'assets/images/flags/germany.svg', lang: 'de' },
+    // { text: 'Italiana', flag: 'assets/images/flags/italy.svg', lang: 'it' },
+    // { text: 'русский', flag: 'assets/images/flags/russia.svg', lang: 'ru' },
+    // { text: '中国人', flag: 'assets/images/flags/china.svg', lang: 'ch' },
+    // { text: 'français', flag: 'assets/images/flags/french.svg', lang: 'fr' },
+    // { text: 'Arabic', flag: 'assets/images/flags/ar.svg', lang: 'ar' },
   ];
 
   /***
@@ -176,7 +185,7 @@ export class TopbarComponent implements OnInit {
    */
   logout() {
     this.authService.logout();
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/auth/signin/cover']);
   }
 
   windowScroll() {
@@ -314,5 +323,90 @@ export class TopbarComponent implements OnInit {
     if (this.totalNotify == 0) {
       document.querySelector('.empty-notification-elem')?.classList.remove('d-none')
     }
+  }
+
+  userLogin() {
+    return this.user;
+  }
+
+  getUserLogin() {
+    var userId = localStorage.getItem("userId");
+    this.service.getById("Usuario", userId).subscribe((user: any) => {
+      if (user.status) {
+        this.service.getById("Persona", user.data.personaId).subscribe(
+          (persona: any) => {
+            if (persona.status) {
+              this.user = `${persona.data.primerNombre} ${persona.data.primerApellido}`
+              this.userAvatar = persona.data.primerNombre.charAt(0);
+            }
+          }
+        );
+        var data = new DatatableParameter(); data.pageNumber = ""; data.pageSize = ""; data.filter = ""; data.columnOrder = ""; data.directionOrder = ""; data.foreignKey = user.data.id; data.nameForeignKey = "UsuarioId";
+
+        this.service.datatableKey("UsuarioRol", data).subscribe(
+          (userRol: any) => {
+            if (userRol.status) {
+              if (userRol.data.length > 1) {
+                var listRoles: any[] = [];
+                userRol.data.forEach((item: any) => {
+                  listRoles.push(item.rol);
+                });
+                this.cargo = listRoles.join(', ');
+              } else {
+                this.cargo = userRol.data[0].rol;
+              }
+
+            }
+          }
+        )
+      }
+    });
+
+  }
+
+  userRolLogin() {
+    return this.cargo;
+  }
+
+  Avatar() {
+    return this.userAvatar;
+  }
+
+  Profile() {
+    var personaId = localStorage.getItem("persona_Id");
+
+    let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: false });
+
+    modal.componentInstance.titleData = "Persona";
+    modal.componentInstance.serviceName = "Persona";
+    modal.componentInstance.id = personaId;
+    modal.componentInstance.key = "Ciudad";
+
+    modal.result.then(res => {
+      if (res) {
+        setTimeout(() => {
+          location.reload();
+        }, 200);
+      }
+    })
+  }
+
+  ChangePassword() {
+    var userId = localStorage.getItem("userId");
+
+    let modal = this.modalService.open(UsuariosPaswordFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+
+    modal.componentInstance.titleData = "Usuario";
+    modal.componentInstance.serviceName = "Usuario";
+    modal.componentInstance.id = userId;
+    modal.componentInstance.key = "Persona";
+
+    modal.result.then(res => {
+      if (res) {
+        setTimeout(() => {
+          location.reload();
+        }, 200);
+      }
+    });
   }
 }

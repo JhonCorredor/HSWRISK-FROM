@@ -1,0 +1,37 @@
+<div *ngIf="!dropdown; else isDropdown">
+    <div #botonesNormal class="button-group">
+      <button class="mx-1 btn btn-outline-primary float-right" *ngIf="validateIfExists('btn-nuevo')" (click)="eventNew.emit()"><i class="fa-duotone fa-plus"></i> Nuevo</button>
+      <button class="mx-1 btn btn-outline-info float-right" *ngIf="validateIfExists('btn-traslado')" (click)="eventTraslate.emit()"><i class="fa-duotone fa-shuffle"></i> Traslado</button>
+      <button class="mx-1 btn btn-outline-primary float-right" *ngIf="validateIfExists('btn-modificar')" (click)="eventEdit.emit()"><i class="fa-duotone fa-pen-to-square"></i> Modificar</button>
+      <button class="mx-1 btn btn-outline-danger float-right" *ngIf="validateIfExists('btn-eliminar')" (click)="eventDelete.emit()"><i class="far fa-trash-alt"></i> Eliminar</button>
+      <button class="mx-1 btn btn-outline-secondary float-right" *ngIf="validateIfExists('btn-archivo')" (click)="eventArchive.emit()"><i class="fas fa-file"></i> Subir archivo</button>
+      <button class="mx-1 btn btn-outline-info float-right" *ngIf="validateIfExists('btn-imprimir')" (click)="eventPrint.emit()"><i class="fas fa-print"></i> Imprimir</button>
+      <button class="mx-1 btn btn-outline-info float-right" *ngIf="validateIfExists('btn-buscar')" (click)="eventSearch.emit()"><i class="fas fa-search"></i> Buscar</button>
+      <button class="mx-1 btn btn-outline-danger float-right" *ngIf="validateIfExists('btn-limpiar')" (click)="eventClean.emit()"><i class="fas fa-broom"></i> Limpiar</button>
+      <button class="mx-1 btn btn-outline-secondary float-right" *ngIf="validateIfExists('btn-cancelar')" (click)="eventCancel.emit()"><i class="fa-duotone fa-xmark"></i> Cancelar</button>
+      <button class="mx-1 btn btn-outline-danger btn-observaciones" data-observacion="$observacion" *ngIf="validateIfExists('btn-observaciones')" (click)="eventObservaciones.emit()"><i class="fas far fa-eye"></i></button>
+      <button class="mx-1 btn btn-outline-success float-right" *ngIf="validateIfExists('btn-descargar-archivo')" (click)="eventDowloand.emit()"><i class="fas far fa-save"></i> Decargar</button>
+      <button class="mx-1 btn btn-outline-primary float-right" *ngIf="validateIfExists('btn-agregar')" (click)="eventAgg.emit()"><i class="fas fa-plus"></i> Agregar</button>
+      <button class="mx-1 btn btn-outline-success float-right" *ngIf="validateIfExists('btn-importar-empleado')" (click)="eventImportarEmpleado.emit()"><i class="fa-solid fa-file-excel"></i> Importar</button>
+      <button class="mx-1 btn btn-outline-success float-right" *ngIf="validateIfExists('btn-carge-masivo')" (click)="eventCargeMasivo.emit()"><i class="fas far fa-eye"></i> Carge masivo</button>
+      <button class="mx-1 btn btn-outline-secondary float-right" *ngIf="validateIfExists('btn-excel-empleado')" (click)="eventExcelEmpleado.emit()"><i class="fas fa-file"></i> Descargar Plantilla</button>
+      <button type="submit" class="mx-1 btn btn-outline-primary float-right" *ngIf="validateIfExists('btn-guardar')" (click)="eventSave.emit()"><i class="fa-duotone fa-floppy-disk"></i> Guardar</button>
+    </div>
+  </div>
+  
+  <ng-template #isDropdown>
+    <div #botonesDropdown class="btn-group">
+      <div role="group"  class="button-group " aria-label="Basic example">
+        <a title="Movimiento" class="btn btn-sm btn-outline-primary btn-dropdown-movimiento" data-id="$id" (click)="eventEdit.emit()" *ngIf="validateIfExists('btn-movimiento')"><i class="fa-duotone fa-person-dolly" data-id="$id"></i> Movimiento</a>
+        <a title="Productos" class="btn btn-sm btn-outline-primary btn-dropdown-productos" data-id="$id" (click)="eventEdit.emit()" *ngIf="validateIfExists('btn-producto')"><i class="fa-duotone fa-shirt" data-id="$id"></i> Productos</a>
+        <a title="Eliminar" class="btn btn-sm btn-outline-primary btn-dropdown-eliminar" data-id="$id" (click)="eventDelete.emit()" *ngIf="validateIfExists('btn-eliminar')"><i class="fa-duotone fa-trash-can" data-id="$id"></i> Eliminar</a>
+        <a title="Editar" class="btn btn-sm btn-outline-primary btn-dropdown-modificar" data-id="$id" (click)="eventEdit.emit()" *ngIf="validateIfExists('btn-modificar')"><i class="fa-duotone fa-pen-to-square" data-id="$id"></i> Editar</a>
+        <a title="Imprimir Recibo" class="btn btn-sm btn-outline-primary btn-dropdown-Imprimir-tikect" data-id="$id" (click)="eventEdit.emit()" *ngIf="validateIfExists('btn-Imprimir-tikect')"><i class="fa-duotone fa-print" data-id="$id"></i> Imprimir</a>
+        <a title="Editar" class="btn btn-sm btn-outline-primary btn-dropdown-modificarDetalleInventarioBodega" data-id="$id" (click)="eventEdit.emit()" *ngIf="validateIfExists('btn-modificarDetalleInventarioBodega')"><i class="fa-duotone fa-pen-to-square" data-id="$id"></i> Editar</a>
+        <a title="Ver" class="btn btn-sm btn-outline-primary btn-dropdown-ver" data-id="$id" (click)="eventSee.emit()" *ngIf="validateIfExists('btn-ver')"><i class="fa-duotone fa-eye" data-id="$id"></i> Ver</a>
+        <a title="Cambiar contraseña" class="btn btn-sm btn-outline-primary btn-dropdown-contraseña" data-id="$id" (click)="eventChangePassword.emit()" *ngIf="validateIfExists('btn-cambiar-contraseña')" ><i class="fa-duotone fa-key" data-id="$id"></i> Cambiar Contraseña</a> 
+        <a title="Descargar" class="btn btn-sm btn-outline-primary btn-dropdown-descargar" data-id="$id" (click)="eventDowloand.emit()" *ngIf="validateIfExists('btn-descargar')" ><i class="fa-duotone fa-download" data-id="$id"></i> Descargar</a>
+      </div>
+    </div>
+  </ng-template>
+  

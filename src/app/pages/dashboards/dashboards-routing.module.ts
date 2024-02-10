@@ -2,38 +2,163 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Component Pages
-import { AnalyticsComponent } from "./analytics/analytics.component";
-import { CrmComponent } from "./crm/crm.component";
-import { CryptoComponent } from "./crypto/crypto.component";
-import { ProjectsComponent } from "./projects/projects.component";
-import { NftComponent } from "./nft/nft.component";
-import { JobComponent } from './job/job.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { GeneralParameterIndexComponent } from './general-parameter/general-parameter-index/general-parameter-index.component';
+import { GeneralParameterKeyIndexComponent } from './general-paremeter-key/general-parameter-key-index/general-parameter-key-index.component';
+import { ModulosIndexComponent } from './security/modulos/modulos-index/modulos-index.component';
+import { FormulariosIndexComponent } from './security/formularios/formularios-index/formularios-index.component';
+import { RolesIndexComponent } from './security/roles/roles-index/roles-index.component';
+import { RolesFormComponent } from './security/roles/roles-form/roles-form.component';
+import { PersonasIndexComponent } from './security/personas/personas-index/personas-index.component';
+import { UsuariosIndexComponent } from './security/usuarios/usuarios-index/usuarios-index.component';
+import { UsuariosFormComponent } from './security/usuarios/usuarios-form/usuarios-form.component';
+import { EmpresaIndexComponent } from './parameters/empresa/empresa-index/empresa-index.component';
+import { EmpresaFormComponent } from './parameters/empresa/empresa-form/empresa-form.component';
+import { EmpleadosIndexComponent } from './parameters/empleados/empleados-index/empleados-index.component';
+import { EmpleadosFormComponent } from './parameters/empleados/empleados-form/empleados-form.component';
+
 
 const routes: Routes = [
   {
-    path: "analytics",
-    component: AnalyticsComponent
+    path: "",
+    component: DashboardComponent
+  },
+
+  //Modulos
+  { path: 'seguridad/modulos', component: ModulosIndexComponent },
+
+  //Formularios
+  { path: 'seguridad/formularios', component: FormulariosIndexComponent },
+
+  //Roles
+  { path: 'seguridad/roles', component: RolesIndexComponent },
+  { path: 'seguridad/roles/crear', component: RolesFormComponent },
+  { path: 'seguridad/roles/editar/:id', component: RolesFormComponent },
+
+  //Personas
+  { path: 'seguridad/personas', component: PersonasIndexComponent },
+
+  //Usuarios
+  { path: 'seguridad/usuarios', component: UsuariosIndexComponent },
+  { path: 'seguridad/usuarios/crear', component: UsuariosFormComponent },
+  { path: 'seguridad/usuarios/editar/:id', component: UsuariosFormComponent },
+
+
+  //Empresa
+  { path: 'operativo/empresa', component: EmpresaIndexComponent},
+  { path: 'operativo/empresa/crear', component: EmpresaFormComponent},
+  { path: 'operativo/empresa/editar/:id', component: EmpresaFormComponent},
+
+  //Empleados
+  { path: 'parametros/empleados', component: EmpleadosIndexComponent },
+  { path: 'parametros/empleados/crear', component: EmpleadosFormComponent },
+  { path: 'parametros/empleados/editar/:id', component: EmpleadosFormComponent },
+  
+  //General
+  {
+    path: 'parametros/cargos',
+    component: GeneralParameterIndexComponent,
+    data: {
+      ruta: 'Cargos',
+      titulo: 'Cargo',
+      modulo: 'Parametros',
+      iconModule: 'fa-duotone fa-gears',
+      iconForm: 'fa-duotone fa-users-gear',
+    },
   },
   {
-    path: "crm",
-    component: CrmComponent
+    path: 'parametros/paises',
+    component: GeneralParameterIndexComponent,
+    data: {
+      ruta: 'Paises',
+      titulo: 'Pais',
+      modulo: 'Parametros',
+      iconModule: 'fa-duotone fa-gears',
+      iconForm: 'fa-duotone fa-earth-americas',
+    },
   },
   {
-    path: "crypto",
-    component: CryptoComponent
+    path: 'parametros/tiposEstados',
+    component: GeneralParameterIndexComponent,
+    data: {
+      ruta: 'TiposEstados',
+      titulo: 'TipoEstado',
+      modulo: 'Parametros',
+      iconModule: 'fa-duotone fa-gears',
+      iconForm: 'fa-duotone fa-bars',
+    },
   },
   {
-    path: "projects",
-    component: ProjectsComponent
+    path: 'operativo/arl',
+    component: GeneralParameterIndexComponent,
+    data: {
+      ruta: 'Arl',
+      titulo: 'Arl',
+      modulo: 'Operativo',
+      iconModule: 'fa-duotone fa-shop',
+      iconForm: 'fa-duotone fa-user-helmet-safety',
+    },
   },
   {
-    path: "nft",
-    component: NftComponent
+    path: 'operativo/jornada',
+    component: GeneralParameterIndexComponent,
+    data: {
+      ruta: 'Jornadas',
+      titulo: 'Jornada',
+      modulo: 'Operativo',
+      iconModule: 'fa-duotone fa-shop',
+      iconForm: 'fa-duotone fa-user-clock',
+    },
   },
   {
-    path: "job",
-    component: JobComponent
-  }
+    path: 'operativo/nivel',
+    component: GeneralParameterIndexComponent,
+    data: {
+      ruta: 'Niveles',
+      titulo: 'Nivel',
+      modulo: 'Operativo',
+      iconModule: 'fa-duotone fa-shop',
+      iconForm: 'fa-duotone fa-layer-group',
+    },
+  },
+
+  //General key
+  {
+    path: 'parametros/ciudades',
+    component: GeneralParameterKeyIndexComponent,
+    data: {
+      ruta: 'Ciudades',
+      titulo: 'Ciudad',
+      modulo: 'Parametros',
+      iconModule: 'fa-duotone fa-gears',
+      iconForm: 'fa-duotone fa-city',
+      key: 'Departamento',
+    },
+  },
+  {
+    path: 'parametros/departamentos',
+    component: GeneralParameterKeyIndexComponent,
+    data: {
+      ruta: 'Departamentos',
+      titulo: 'Departamento',
+      modulo: 'Parametros',
+      iconModule: 'fa-duotone fa-gears',
+      iconForm: 'fa-duotone fa-map-location-dot',
+      key: 'Pais',
+    },
+  },
+  {
+    path: 'parametros/estados',
+    component: GeneralParameterKeyIndexComponent,
+    data: {
+      ruta: 'Estados',
+      titulo: 'Estado',
+      modulo: 'Parametros',
+      iconModule: 'fa-duotone fa-gears',
+      iconForm: 'fa-duotone fa-sliders',
+      key: 'TipoEstado',
+    },
+  },
 ];
 
 @NgModule({

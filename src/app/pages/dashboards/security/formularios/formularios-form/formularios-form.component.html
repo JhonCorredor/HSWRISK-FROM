@@ -1,0 +1,68 @@
+<section class="content">
+    <div class="container-fluid">
+        <form [formGroup]="frmFormularios" class="mb-4 border shadow-lg">
+            <div class="modal-header bg-primary">
+                <h6 class="text-white">{{ titulo }}</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Activo</label><br>
+                        <ui-switch formControlName="Activo"></ui-switch>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Código</label>
+                        <input type="text" class="form-control" formControlName="Codigo">
+                        <app-forms-messages [error]="frmFormularios.get('Codigo')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" formControlName="Nombre">
+                        <app-forms-messages [error]="frmFormularios.get('Nombre')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Url</label>
+                        <input type="text" class="form-control" formControlName="Url">
+                        <app-forms-messages [error]="frmFormularios.get('Url')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>{{ key }}</label>
+                        <ng-select [items]="lista" bindLabel="nombre" bindValue="id" formControlName="Key_Id">
+                        </ng-select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <label>Icono:</label><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1 col-md-1 col-lg-1" *ngFor="let item of listIcons; let i = index">
+                        <div class="card" (click)="iconoSelect(i , this)" id="icon{{i}}" #iconoHTML>
+                            <div class="card-body p-2">
+                                <h5 class="text-center"><i class="{{item.textoMostrar}}"
+                                        style="--fa-primary-color: #adb5bd; --fa-secondary-color: #adb5bd;"></i></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <app-forms-messages [error]="frmFormularios.get('Icono')"
+                        [statusForm]=statusForm></app-forms-messages>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row float-right">
+                    <div class="col-md-12">
+                        <app-botones [botones]="botones" (eventSave)="save()" (eventCancel)="cancel()"></app-botones>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
