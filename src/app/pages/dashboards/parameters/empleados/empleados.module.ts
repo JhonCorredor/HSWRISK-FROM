@@ -8,6 +8,4 @@ export interface Empleado extends Base {
     empresa: string;
     cargoId: number;
     cargo: string;
-    cajaId: number;
-    caja: string;
 }

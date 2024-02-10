@@ -65,7 +65,7 @@ export class RolesFormComponent implements OnInit {
         }
       },
       (error) => {
-        this.helperService.showMessage(MessageType.ERROR, error.error.message);
+        this.helperService.showMessage(MessageType.ERROR, error);
       }
     );
   }

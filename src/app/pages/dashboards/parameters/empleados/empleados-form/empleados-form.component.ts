@@ -66,7 +66,6 @@ export class EmpleadosFormComponent implements OnInit {
     this.cargarPersonas(false);
     this.cargarEmpresas(false);
     this.cargarCargos();
-    this.cargarCajas();
   }
 
   cargarPersonas(nuevo: boolean) {
@@ -125,22 +124,6 @@ export class EmpleadosFormComponent implements OnInit {
     });
   }
 
-  cargarCajas() {
-    this.service.getAll('Caja').subscribe((res) => {
-      res.data.forEach((item: any) => {
-        this.listCajas.update(listCajas => {
-          const DataSelectDto: DataSelectDto = {
-            id: item.id,
-            textoMostrar: `${item.codigo} - ${item.nombre}`,
-            activo: item.activo
-          };
-
-          return [...listCajas, DataSelectDto];
-        });
-      });
-    });
-  }
-
   save() {
     if (this.frmEmpleados.invalid) {
       this.statusForm = false;
@@ -159,7 +142,7 @@ export class EmpleadosFormComponent implements OnInit {
         }
       },
       (error) => {
-        this.helperService.showMessage(MessageType.WARNING, error.error.message);
+        this.helperService.showMessage(MessageType.WARNING, error);
       }
     );
   }

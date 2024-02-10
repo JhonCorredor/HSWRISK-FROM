@@ -15,7 +15,6 @@
                         <th class="text-center">PERSONA</th>
                         <th class="text-center">CARGO</th>
                         <th class="text-center">EMPRESA</th>
-                        <th class="text-center">CAJA</th>
                         <th class="text-center">ESTADO</th>
                         <th class="text-center">ACCIONES</th>
                     </tr>
@@ -26,7 +25,6 @@
                         <td>{{ item.persona }}</td>
                         <td>{{ item.cargo }}</td>
                         <td>{{ item.empresa }}</td>
-                        <td>{{ item.caja }}</td>
                         <td *ngIf="item.activo; else elseBlock"><label
                                 class='text-center text-success'>Activo</label></td>
                         <ng-template #elseBlock>

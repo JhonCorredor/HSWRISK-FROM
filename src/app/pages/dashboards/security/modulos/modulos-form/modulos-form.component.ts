@@ -81,7 +81,7 @@ export class ModulosFormComponent implements OnInit {
       },
       (error) => {
         this.modalActive.close();
-        this.helperService.showMessage(MessageType.ERROR, error.error.message);
+        this.helperService.showMessage(MessageType.ERROR, error);
       }
     )
   }

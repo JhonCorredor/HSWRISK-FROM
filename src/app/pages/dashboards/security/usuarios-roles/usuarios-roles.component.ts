@@ -129,7 +129,7 @@ export class UsuariosRolesComponent implements OnInit {
       (error) => {
         this.helperService.showMessage(
           MessageType.WARNING,
-          error.error.message
+          error
         );
       }
     );
@@ -151,7 +151,7 @@ export class UsuariosRolesComponent implements OnInit {
           }
         },
         (error) => {
-          this.helperService.showMessage(MessageType.WARNING, error.error.message);
+          this.helperService.showMessage(MessageType.WARNING, error);
         }
       )
     });

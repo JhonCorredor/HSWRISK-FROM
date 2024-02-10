@@ -45,8 +45,6 @@ export class EmpleadosIndexComponent implements OnInit {
               empresa: item.empresa,
               cargoId: item.cargoId,
               cargo: item.cargo,
-              cajaId: item.cajaId,
-              caja: item.caja,
             };
 
             return [...listEmpleados, Empleado];
