@@ -1,7 +1,25 @@
-/* .dt-buttons {
-    display: flex !important;
-    justify-content: end !important;
-} */
+:root {
+    --vz-primary: #103D66 !important;
+    --vz-primary-text-emphasis: #103D66 !important;
+    --vz-link-hover-color: #103D66 !important;
+    --vz-primary-rgb: 7, 58, 90 !important;
+    --vz-secondary: #6c757d !important;
+    --vz-secondary-rgb: 108, 117, 125 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.current {
+    background-color: #103D66 !important;
+    border-color: #103D66 !important;
+}
+
+thead {
+    --vz-bg-opacity: 1;
+    background-color: rgba(var(--vz-primary-rgb), var(--vz-bg-opacity)) !important;
+}
+thead {
+    color: #fff !important;
+    background-color: RGBA(var(--vz-primary-rgb), var(--vz-bg-opacity, 1)) !important;
+}
 
 .dataTables_length {
     float: left !important;
@@ -13,11 +31,19 @@
     margin-top: 25px !important;
 }
 
+.dataTables_info{
+    float: left !important;
+}
+
+.dataTables_paginate{
+    float: right !important;
+}
+
 .buttons-html5,
 .buttons-print {
     display: inline-block;
     font-weight: 400;
-    color: #212529;
+    color: #0F3D65;
     text-align: center;
     vertical-align: middle;
     -webkit-user-select: none;
@@ -62,7 +88,7 @@
 
 .buttons-html5:hover,
 .buttons-print:hover {
-    color: #212529;
+    color: #0F3D65;
     text-decoration: none;
 }
 
@@ -79,7 +105,7 @@
     margin: 2px !important;
 }
 
-input[type=search]{
+input[type=search] {
     display: inline !important;
     width: 100%;
     padding: 0.5rem 0.9rem;
@@ -94,7 +120,7 @@ input[type=search]{
     border: var(--vz-border-width) solid var(--vz-input-border-custom);
     border-radius: var(--vz-border-radius);
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    margin-left: 3px!important; 
+    margin-left: 3px !important;
 }
 
 input[type=search]:focus {
@@ -105,15 +131,24 @@ input[type=search]:focus {
     box-shadow: 0 0 1 0.25rem rgba(var(--vz-primary-rgb), 0.25);
 }
 
-#datatable_paginate{
-    float: right!important;
+#datatable_paginate {
+    float: right !important;
 }
 
-#datatable_info{
-    float: left!important;
+#datatable_info {
+    float: left !important;
 }
 
-table.dataTable > thead .sorting:before, table.dataTable > thead .sorting_asc:before, table.dataTable > thead .sorting_desc:before, table.dataTable > thead .sorting_asc_disabled:before, table.dataTable > thead .sorting_desc_disabled:before , table.dataTable > thead .sorting:after, table.dataTable > thead .sorting_asc:after, table.dataTable > thead .sorting_desc:after, table.dataTable > thead .sorting_asc_disabled:after, table.dataTable > thead .sorting_desc_disabled:after {
+table.dataTable>thead .sorting:before,
+table.dataTable>thead .sorting_asc:before,
+table.dataTable>thead .sorting_desc:before,
+table.dataTable>thead .sorting_asc_disabled:before,
+table.dataTable>thead .sorting_desc_disabled:before,
+table.dataTable>thead .sorting:after,
+table.dataTable>thead .sorting_asc:after,
+table.dataTable>thead .sorting_desc:after,
+table.dataTable>thead .sorting_asc_disabled:after,
+table.dataTable>thead .sorting_desc_disabled:after {
     content: "";
 }
 
@@ -126,6 +161,8 @@ table.dataTable > thead .sorting:before, table.dataTable > thead .sorting_asc:be
     background: #64bd63 !important;
 }
 
-#datatable_previous:hover, #datatable_next:hover, .paginate_button:hover{
-    cursor: pointer!important;
+#datatable_previous:hover,
+#datatable_next:hover,
+.paginate_button:hover {
+    cursor: pointer !important;
 }

@@ -30,19 +30,20 @@ export class BotonesComponent implements OnInit {
   @Output() eventPrecotizacion = new EventEmitter<any>();
   @Output() eventGenerarCotizacion = new EventEmitter<any>();
   @Output() eventExcelEmpleado = new EventEmitter<any>();
-  @Output() eventImportarEmpleado= new EventEmitter<any>();
-  @Output() eventCargeMasivo= new EventEmitter<any>();
-  @Output() eventFichaTecnica= new EventEmitter<any>();
-  @Output() eventVerImagen= new EventEmitter<any>();
-  @Output() eventCopy= new EventEmitter<any>();
-  @Output() eventGenerarOrdenProduccion= new EventEmitter<any>();
+  @Output() eventImportarEmpleado = new EventEmitter<any>();
+  @Output() eventCargeMasivo = new EventEmitter<any>();
+  @Output() eventFichaTecnica = new EventEmitter<any>();
+  @Output() eventVerImagen = new EventEmitter<any>();
+  @Output() eventCopy = new EventEmitter<any>();
+  @Output() eventGenerarOrdenProduccion = new EventEmitter<any>();
+  @Output() eventImportarCliente = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  validateIfExists(boton : any ) : Boolean {
+  validateIfExists(boton: any): Boolean {
     if (this.botones.find(i => i == boton)) {
       return true
     }

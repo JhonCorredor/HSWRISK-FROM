@@ -43,6 +43,8 @@ import { ApikeyEffects } from './store/APIKey/apikey_effect';
 import { AuthenticationEffects } from './store/Authentication/authentication.effects';
 
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -53,6 +55,7 @@ export function createTranslateLoader(http: HttpClient): any {
     AppComponent
   ],
   imports: [
+    NgxSpinnerModule,
     UiSwitchModule.forRoot({
       size: 'small',
       color: '#c22926',

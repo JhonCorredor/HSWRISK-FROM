@@ -15,6 +15,7 @@
       <button class="mx-1 btn btn-outline-success float-right" *ngIf="validateIfExists('btn-importar-empleado')" (click)="eventImportarEmpleado.emit()"><i class="fa-solid fa-file-excel"></i> Importar</button>
       <button class="mx-1 btn btn-outline-success float-right" *ngIf="validateIfExists('btn-carge-masivo')" (click)="eventCargeMasivo.emit()"><i class="fas far fa-eye"></i> Carge masivo</button>
       <button class="mx-1 btn btn-outline-secondary float-right" *ngIf="validateIfExists('btn-excel-empleado')" (click)="eventExcelEmpleado.emit()"><i class="fas fa-file"></i> Descargar Plantilla</button>
+      <button class="mx-1 btn btn-outline-secondary float-right" *ngIf="validateIfExists('btn-importar-cliente')" (click)="eventImportarCliente.emit()"><i class="fas fa-file"></i> Subir archivo</button>
       <button type="submit" class="mx-1 btn btn-outline-primary float-right" *ngIf="validateIfExists('btn-guardar')" (click)="eventSave.emit()"><i class="fa-duotone fa-floppy-disk"></i> Guardar</button>
     </div>
   </div>

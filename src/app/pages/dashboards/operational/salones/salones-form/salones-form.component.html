@@ -1,0 +1,72 @@
+<section>
+    <div>
+        <form [formGroup]="frmSalones" class="border shadow-lg">
+            <div class="modal-header bg-primary">
+                <h6 class="text-white">{{ titulo }}</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Activo</label><br>
+                        <ui-switch formControlName="Activo"></ui-switch>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Código</label>
+                        <input type="text" class="form-control" formControlName="Codigo">
+                        <app-forms-messages [error]="frmSalones.get('Codigo')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" formControlName="Nombre">
+                        <app-forms-messages [error]="frmSalones.get('Nombre')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Aforo</label>
+                        <input type="number" class="form-control" formControlName="Aforo">
+                        <app-forms-messages [error]="frmSalones.get('Aforo')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Ciudad</label>
+                        <ng-select [items]="listCiudades()" bindLabel="textoMostrar" bindValue="id"
+                            formControlName="CiudadId">
+                        </ng-select>
+                        <app-forms-messages [error]="frmSalones.get('CiudadId')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Contingencia</label>
+                        <ng-select [items]="listaContingencia()" bindLabel="textoMostrar" bindValue="id"
+                            formControlName="ContingenciaId">
+                        </ng-select>
+                        <app-forms-messages [error]="frmSalones.get('ContingenciaId')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Estado</label>
+                        <ng-select [items]="listEstados()" bindLabel="textoMostrar" bindValue="id"
+                            formControlName="EstadoId">
+                        </ng-select>
+                        <app-forms-messages [error]="frmSalones.get('EstadoId')" [statusForm]=statusForm
+                            [statusForm]=statusForm></app-forms-messages>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row float-right">
+                    <div class="col-md-12">
+                        <app-botones [botones]="botones" (eventSave)="save()" (eventCancel)="cancel()"></app-botones>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

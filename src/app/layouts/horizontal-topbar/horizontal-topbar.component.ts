@@ -26,7 +26,17 @@ export class HorizontalTopbarComponent implements OnInit {
 
   ngOnInit(): void {
     // Menu Items
-    this.menuItems = MENU;
+    var menuUser = localStorage.getItem("menu");
+    if (menuUser) {
+      this.menuItems = JSON.parse(menuUser);
+    }
+    this.router.events.subscribe((event) => {
+      if (document.documentElement.getAttribute('data-layout') != "twocolumn") {
+        if (event instanceof NavigationEnd) {
+          this.initActiveMenu();
+        }
+      }
+    });
   }
 
   /***
@@ -137,7 +147,7 @@ export class HorizontalTopbarComponent implements OnInit {
    * @param item menuItem
    */
   hasItems(item: MenuItem) {
-    return item.subItems !== undefined ? item.subItems.length > 0 : false;
+    return item.formularios !== undefined ? item.formularios.length > 0 : false;
   }
 
   /**

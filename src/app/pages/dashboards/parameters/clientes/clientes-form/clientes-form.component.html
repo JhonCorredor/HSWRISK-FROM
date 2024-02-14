@@ -1,0 +1,178 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<div class="card card-height-100">
+  <div class="card-header align-items-center d-flex">
+    <h4 class="card-title mb-0 flex-grow-1">{{ title }}</h4>
+    <div class="flex-shrink-0">
+      <app-botones [botones]="botones" (eventSave)="save()" (eventCancel)="cancel()"></app-botones>
+    </div>
+  </div>
+  <div class="card-body" style="padding: 40px;">
+    <form [formGroup]="frmClientes" class="mb-4">
+      <p class="text-muted">
+        Generales
+      </p>
+      <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Persona</label>
+          <ng-select [items]="listPersonas()" bindLabel="textoMostrar" bindValue="id" formControlName="PersonaId">
+          </ng-select>
+          <app-forms-messages [error]="frmClientes.get('PersonaId')" [statusForm]="statusForm"></app-forms-messages>
+        </div>
+        <div class="col-sm-1 col-md-1 col-lg-1">
+          <button type="button" class="btn mt-4" (click)="nuevaPersona()">
+            <i class="fa-duotone fa-user-plus" style="
+                      --fa-primary-color: #adb5bd;
+                      --fa-secondary-color: #adb5bd;
+                    "></i>
+          </button>
+        </div>
+
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Codigo</label>
+          <input type="text" class="form-control" formControlName="Codigo" />
+          <app-forms-messages [error]="frmClientes.get('Codigo')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Rh</label>
+          <ng-select [items]="listaRh" bindLabel="nombre" bindValue="nombre" formControlName="Rh">
+          </ng-select>
+          <app-forms-messages [error]="frmClientes.get('Rh')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+      </div>
+      <br>
+      <p class="text-muted">
+        Educativo
+      </p>
+      <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Nivel Educativo</label>
+          <ng-select [items]="listaNivelEducativo" bindLabel="nombre" bindValue="nombre"
+            formControlName="NivelEducativo">
+          </ng-select>
+          <app-forms-messages [error]="frmClientes.get('NivelEducativo')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Lecto Escritura</label>
+          <ng-select [items]="listaLectoEscritura" bindLabel="nombre" bindValue="nombre"
+            formControlName="LectoEscritura">
+          </ng-select>
+          <app-forms-messages [error]="frmClientes.get('LectoEscritura')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+      </div>
+      <br>
+      <p class="text-muted">
+        Empresa
+      </p>
+      <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Tipo de Cliente</label>
+          <ng-select [items]="listaTipoCliente" bindLabel="nombre" bindValue="nombre" formControlName="TipoCliente">
+          </ng-select>
+          <app-forms-messages [error]="frmClientes.get('TipoCliente')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Empresa</label>
+          <ng-select [items]="listEmpresas()" bindLabel="textoMostrar" bindValue="id" formControlName="EmpresaId">
+          </ng-select>
+          <app-forms-messages [error]="frmClientes.get('EmpresaId')" [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-1 col-md-1 col-lg-1">
+          <button type="button" class="btn mt-4" (click)="nuevaEmpresa()">
+            <i class="fa-duotone fa-briefcase" style="--fa-primary-color: #adb5bd; --fa-secondary-color: #adb5bd;"></i>
+          </button>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Arl</label>
+          <ng-select [items]="listArl()" bindLabel="textoMostrar" bindValue="id" formControlName="ArlId">
+          </ng-select>
+          <app-forms-messages [error]="frmClientes.get('ArlId')" [statusForm]="statusForm"></app-forms-messages>
+        </div>
+        <div class="col-sm-1 col-md-1 col-lg-1">
+          <button type="button" class="btn mt-4" (click)="nuevaArl()">
+            <i class="fa-duotone fa-user-helmet-safety" style="
+                      --fa-primary-color: #adb5bd;
+                      --fa-secondary-color: #adb5bd;
+                    "></i>
+          </button>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Cargo Actual</label>
+          <input type="text" class="form-control" formControlName="CargoActual" />
+          <app-forms-messages [error]="frmClientes.get('CargoActual')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Area de Trabajo</label>
+          <input type="text" class="form-control" formControlName="AreaTrabajo" />
+          <app-forms-messages [error]="frmClientes.get('AreaTrabajo')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+      </div>
+      <br>
+      <p class="text-muted">
+        Acudiente
+      </p>
+      <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Nombre</label>
+          <input type="text" class="form-control" formControlName="Acudiente" />
+          <app-forms-messages [error]="frmClientes.get('Acudiente')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Teléfono</label>
+          <input type="number" class="form-control" formControlName="TelefonoAcudiente" />
+          <app-forms-messages [error]="frmClientes.get('TelefonoAcudiente')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+      </div>
+      <br>
+      <p class="text-muted">
+        Salud
+      </p>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label>Enfermedades</label>
+          <textarea formControlName="Enfermedades" class="form-control" rows="4"></textarea>
+          <app-forms-messages [error]="frmClientes.get('Enfermedades')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label>Alergias</label>
+          <textarea formControlName="Alergias" class="form-control" rows="4"></textarea>
+          <app-forms-messages [error]="frmClientes.get('Alergias')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label>Medicamentos</label>
+          <textarea formControlName="Medicamentos" class="form-control" rows="4"></textarea>
+          <app-forms-messages [error]="frmClientes.get('Medicamentos')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label>Lesiones</label>
+          <textarea formControlName="Lesiones" class="form-control" rows="4"></textarea>
+          <app-forms-messages [error]="frmClientes.get('Lesiones')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

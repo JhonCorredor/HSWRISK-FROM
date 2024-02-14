@@ -1,0 +1,125 @@
+<form [formGroup]="frmCursoDetalles" class="my-3">
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Fecha de Inicio</label>
+            <input type="date" formControlName="FechaInicio" class="form-control">
+            <app-forms-messages [error]="frmCursoDetalles.get('FechaInicio')"
+                [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Fecha de Fin</label>
+            <input type="date" formControlName="FechaFin" class="form-control">
+            <app-forms-messages [error]="frmCursoDetalles.get('FechaFin')" [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Duracion</label>
+            <input type="number" formControlName="Duracion" class="form-control">
+            <app-forms-messages [error]="frmCursoDetalles.get('Duracion')" [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Precio</label>
+            <input type="number" formControlName="Precio" class="form-control">
+            <app-forms-messages [error]="frmCursoDetalles.get('Precio')" [statusForm]=statusForm></app-forms-messages>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Salon</label>
+            <ng-select [items]="listSalones()" bindLabel="textoMostrar" bindValue="id" formControlName="SalonId">
+            </ng-select>
+            <app-forms-messages [error]="frmCursoDetalles.get('SalonId')" [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Nivel</label>
+            <ng-select [items]="listNiveles()" bindLabel="textoMostrar" bindValue="id" formControlName="NivelId">
+            </ng-select>
+            <app-forms-messages [error]="frmCursoDetalles.get('NivelId')" [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Jornada</label>
+            <ng-select [items]="listJornadas()" bindLabel="textoMostrar" bindValue="id" formControlName="JornadaId">
+            </ng-select>
+            <app-forms-messages [error]="frmCursoDetalles.get('JornadaId')"
+                [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Estado</label>
+            <ng-select [items]="listEstados()" bindLabel="textoMostrar" bindValue="id" formControlName="EstadoId">
+            </ng-select>
+            <app-forms-messages [error]="frmCursoDetalles.get('EstadoId')" [statusForm]=statusForm></app-forms-messages>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label>Empleado</label>
+            <ng-select [items]="listEmpleados()" bindLabel="textoMostrar" bindValue="id" formControlName="EmpleadoId">
+            </ng-select>
+            <app-forms-messages [error]="frmCursoDetalles.get('EmpleadoId')"
+                [statusForm]=statusForm></app-forms-messages>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>Activo</label><br>
+            <ui-switch formControlName="Activo"></ui-switch>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>Virtual</label><br>
+            <ui-switch formControlName="Virtual"></ui-switch>
+        </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-end">
+        <div>
+            <app-botones [botones]="botones" (eventSave)="save()"></app-botones>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="dt-responsive">
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                <table id="datatable" class="table table-bordered table-hover table-striped w-100">
+                    <thead>
+                        <tr>
+                            <th class="text-center">FECHA INICIO</th>
+                            <th class="text-center">FECHA FIN</th>
+                            <th class="text-center">EMPLEADO</th>
+                            <th class="text-center">DURACION</th>
+                            <th class="text-center">PRECIO</th>
+                            <th class="text-center">VIRTUAL</th>
+                            <th class="text-center">SALON</th>
+                            <th class="text-center">NIVEL</th>
+                            <th class="text-center">JORNADA</th>
+                            <th class="text-center">ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" *ngFor="let item of listCursoDetalles(); index as i">
+                            <td>{{ item.fechaInicio | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ item.fechaFin | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ item.empleado }}</td>
+                            <td>{{ item.duracion }}</td>
+                            <td>{{ item.precio }}</td>
+                            <td *ngIf="item.virtual; else elseBlock"><label class='text-center text-success'>Si</label>
+                            </td>
+                            <ng-template #elseBlock>
+                                <td><label class='text-center text-danger'>No</label></td>
+                            </ng-template>
+                            <td>{{ item.salon }}</td>
+                            <td>{{ item.nivel }}</td>
+                            <td>{{ item.jornada }}</td>
+                            <td>
+                                <button class="btn btn-sm text-secondary" type="button" (click)="update(item)"><i
+                                        class="fa-duotone fa-pen-to-square"></i> Editar</button>
+                                <button class="btn btn-sm text-secondary" type="button"
+                                    (click)="deleteGeneric(item.id)"><i class="fa-duotone fa-trash-can"></i>
+                                    Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

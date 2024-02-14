@@ -16,6 +16,12 @@ import { EmpresaIndexComponent } from './parameters/empresa/empresa-index/empres
 import { EmpresaFormComponent } from './parameters/empresa/empresa-form/empresa-form.component';
 import { EmpleadosIndexComponent } from './parameters/empleados/empleados-index/empleados-index.component';
 import { EmpleadosFormComponent } from './parameters/empleados/empleados-form/empleados-form.component';
+import { ClientesIndexComponent } from './parameters/clientes/clientes-index/clientes-index.component';
+import { ClientesFormComponent } from './parameters/clientes/clientes-form/clientes-form.component';
+import { CursosIndexComponent } from './operational/cursos/cursos-index/cursos-index.component';
+import { CursosFormComponent } from './operational/cursos/cursos-form/cursos-form.component';
+import { SalonesIndexComponent } from './operational/salones/salones-index/salones-index.component';
+import { ContingenciasIndexComponent } from './operational/contingencias/contingencias-index/contingencias-index.component';
 
 
 const routes: Routes = [
@@ -45,15 +51,31 @@ const routes: Routes = [
 
 
   //Empresa
-  { path: 'operativo/empresa', component: EmpresaIndexComponent},
-  { path: 'operativo/empresa/crear', component: EmpresaFormComponent},
-  { path: 'operativo/empresa/editar/:id', component: EmpresaFormComponent},
+  { path: 'operativo/empresa', component: EmpresaIndexComponent },
+  { path: 'operativo/empresa/crear', component: EmpresaFormComponent },
+  { path: 'operativo/empresa/editar/:id', component: EmpresaFormComponent },
 
   //Empleados
   { path: 'parametros/empleados', component: EmpleadosIndexComponent },
   { path: 'parametros/empleados/crear', component: EmpleadosFormComponent },
   { path: 'parametros/empleados/editar/:id', component: EmpleadosFormComponent },
+
+  //Cliente
+  { path: 'parametros/clientes', component: ClientesIndexComponent },
+  { path: 'parametros/clientes/crear', component: ClientesFormComponent },
+  { path: 'parametros/clientes/editar/:id', component: ClientesFormComponent },
+
+  //Cursos
+  { path: 'operativo/cursos', component: CursosIndexComponent },
+  { path: 'operativo/cursos/crear', component: CursosFormComponent },
+  { path: 'operativo/cursos/editar/:id', component: CursosFormComponent },
   
+  //Salones
+  { path: 'operativo/salones', component: SalonesIndexComponent },
+
+  //Contingencias
+  { path: 'operativo/contingencias', component: ContingenciasIndexComponent },
+
   //General
   {
     path: 'parametros/cargos',

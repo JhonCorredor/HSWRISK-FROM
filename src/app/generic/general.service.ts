@@ -21,7 +21,7 @@ export class GeneralParameterService {
   }
 
   public datatableKey(ruta: String, data: DatatableParameter): Observable<any> {
-    return this.http.get<any>(`${this.url}${ruta}/datatable?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}`, {headers: this.header});
+    return this.http.get<any>(`${this.url}${ruta}/datatable?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}`, { headers: this.header });
   }
 
   public getById(ruta: String, id: any): Observable<any> {
@@ -45,5 +45,9 @@ export class GeneralParameterService {
 
   public delete(ruta: String, id: any): Observable<any> {
     return this.http.delete<any>(`${this.url}${ruta}/${id}`, { headers: this.header });
+  }
+
+  public saveDetalles(ruta: String, data: any): Observable<any> {
+    return this.http.post<any>(`${this.url}${ruta}/saveDetalles`, data, { headers: this.header });
   }
 }
