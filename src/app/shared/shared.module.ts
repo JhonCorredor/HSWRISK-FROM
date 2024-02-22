@@ -11,6 +11,7 @@ import { CountUpModule } from 'ngx-countup';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ClientLogoComponent } from './landing/index/client-logo/client-logo.component';
 import { ServicesComponent } from './landing/index/services/services.component';
+import { AcademyComponent } from './landing/index/academy/academy.component';
 import { CollectionComponent } from './landing/index/collection/collection.component';
 import { CtaComponent } from './landing/index/cta/cta.component';
 import { DesignedComponent } from './landing/index/designed/designed.component';
@@ -49,6 +50,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BreadcrumbsComponent,
     ClientLogoComponent,
     ServicesComponent,
+    AcademyComponent,
     CollectionComponent,
     CtaComponent,
     DesignedComponent,
@@ -87,7 +89,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ScrollToModule.forRoot(),
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  exports: [BreadcrumbsComponent, ClientLogoComponent, ServicesComponent, CollectionComponent, CtaComponent, DesignedComponent, PlanComponent, FaqsComponent, ReviewComponent, CounterComponent, WorkProcessComponent, TeamComponent, ContactComponent, FooterComponent, 
+  exports: [BreadcrumbsComponent, ClientLogoComponent, ServicesComponent,AcademyComponent, CollectionComponent, CtaComponent, DesignedComponent, PlanComponent, FaqsComponent, ReviewComponent, CounterComponent, WorkProcessComponent, TeamComponent, ContactComponent, FooterComponent, 
     WalletComponent, MarketPlaceComponent, FeaturesComponent, CategoriesComponent, DiscoverComponent, TopCreatorComponent,   ScrollspyDirective,
     LandingScrollspyDirective, ProcessComponent, FindjobsComponent, CandidatesComponent, BlogComponent, JobcategoriesComponent, JobFooterComponent]
 })

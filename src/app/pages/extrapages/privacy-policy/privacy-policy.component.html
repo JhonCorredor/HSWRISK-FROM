@@ -1,156 +1,419 @@
-<!-- Start Breadcrumbs -->
-<app-breadcrumbs title="PRIVACY POLICY" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
-<!-- End Breadcrumbs -->
-<div class="row justify-content-center">
-    <div class="col-lg-10">
-        <div class="card">
-            <div class="bg-warning-subtle position-relative">
-                <div class="card-body p-5">
-                    <div class="text-center">
-                        <h3>Privacy Policy</h3>
-                        <p class="mb-0 text-muted">Last update: 16 Sept, 2022</p>
-                    </div>
-                </div>
-                <div class="shape">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        xmlns:svgjs="http://svgjs.com/svgjs" width="1440" height="60" preserveAspectRatio="none"
-                        viewBox="0 0 1440 60">
-                        <g mask="url(&quot;#SvgjsMask1001&quot;)" fill="none">
-                            <path d="M 0,4 C 144,13 432,48 720,49 C 1008,50 1296,17 1440,9L1440 60L0 60z"
-                                style="fill: var(--vz-secondary-bg);"></path>
-                        </g>
-                        <defs>
-                            <mask id="SvgjsMask1001">
-                                <rect width="1440" height="60" fill="#ffffff"></rect>
-                            </mask>
-                        </defs>
-                    </svg>
-                </div>
-            </div>
-            <div class="card-body p-4">
-                <div class="d-flex">
-                    <div class="flex-shrink-0 me-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-check-circle text-success icon-dual-success icon-xs">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                    </div>
-                    <div class="flex-grow-1">
-                        <h5>Privacy Policy for velzon</h5>
-                        <p class="text-muted">At Website Name, accessible at Website.com, one of our main priorities is
-                            the privacy of our visitors. This Privacy Policy document contains types of information that
-                            is collected and recorded by Website Name and how we use it.</p>
-                        <p class="text-muted">If you have additional questions or require more information about our
-                            Privacy Policy, do not hesitate to contact us through email at Email&#64;Website.com</p>
-                        <p class="text-muted">This privacy policy applies only to our online activities and is valid for
-                            visitors to our website with regards to the information that they shared and/or collect in
-                            Website Name. This policy is not applicable to any information collected offline or via
-                            channels other than this website.</p>
-                        <p class="text-muted">How we use your information:</p>
-                        <ul class="text-muted ul-padd">
-                            <li>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                    suffered alteration in some form, by injected humour, or randomised words which
-                                    don't look even slightly believable.</p>
-                            </li>
-                            <li>
-                                <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
-                                    anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators
-                                    on the Internet tend to repeat predefined chunks as necessary, making this the first
-                                    true generator on the Internet.</p>
-                            </li>
-                            <li>
-                                <p>On the other hand, we denounce with righteous indignation and dislike men who are so
-                                    beguiled and demoralized by the charms of pleasure of the moment.</p>
-                            </li>
-                            <li>
-                                <p>It uses a dictionary of over 200 Latin words, combined with a handful of model
-                                    sentence structures, to generate Lorem Ipsum which looks reasonable. The generated
-                                    Lorem Ipsum is therefore always free from repetition, injected humour, or
-                                    non-characteristic words etc.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+<div class="layout-wrapper landing">
+    <nav class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar" id="navbar"
+        (window:scroll)="windowScroll()">
+        <div class="container-fluid custom-container">
+            <a class="navbar-brand" href="">
+                <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="70" />
+                <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light"
+                    height="70" />
+            </a>
+            <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation" (click)="collapse.toggle()">
+                <i class="mdi mdi-menu"></i>
+            </button>
 
-                <div class="d-flex">
-                    <div class="flex-shrink-0 me-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-check-circle text-success icon-dual-success icon-xs">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                    </div>
-                    <div class="flex-grow-1">
-                        <h5>How we use your information</h5>
-                        <p class="text-muted">If you contact us directly, we may receive additional information about
-                            you such as your name, email address, phone number, the contents of the message and/or
-                            attachments you may send us, and any other information you may choose to provide.</p>
-                        <p class="text-muted">Communicate with you, either directly or through one of our partners,
-                            including for customer service, to provide you with updates and other information relating
-                            to the website, and for marketing and promotional purposes.</p>
-                        <p class="text-muted">When you register for an Account, we may ask for your contact information,
-                            including items such as name, company name, address, email address, and telephone number.
-                        </p>
-                        <p class="text-muted">We use the information we collect in various ways, including to:</p>
-                        <ul class="text-muted vstack gap-2 ul-padd">
-                            <li>
-                                Provide, operate, and maintain our website
-                            </li>
-                            <li>
-                                Improve, personalize, and expand our website
-                            </li>
-                            <li>
-                                Understand and analyze how you use our website
-                            </li>
-                            <li>
-                                Develop new products, services, features, and functionality
-                            </li>
-                            <li>
-                                Send you emails
-                            </li>
-                            <li>
-                                Find and prevent fraud
-                            </li>
-                        </ul>
-                        <p class="text-muted">Like any other website, Website Name uses ‘cookies'. These cookies are
-                            used to store information including visitors' preferences, and the pages on the website that
-                            the visitor accessed or visited. The information is used to optimize the users' experience
-                            by customizing our web page content based on visitors' browser type and/or other
-                            information.</p>
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <div class="flex-shrink-0 me-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-check-circle text-success icon-dual-success icon-xs">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                    </div>
-                    <div class="flex-grow-1">
-                        <p class="text-muted">Some of advertisers on our site may use cookies and web beacons. Our
-                            advertising partners are listed below. Each of our advertising partners has their own
-                            Privacy Policy for their policies on user data. For easier access, we hyperlinked to their
-                            Privacy Policies below.</p>
-                        <p class="text-muted"><b>Website Name's Privacy Policy does not apply to other advertisers or
-                                websites. Thus, we are advising you to consult the respective Privacy Policies of these
-                                third-party ad servers for more detailed information. It may include their practices and
-                                instructions about how to opt-out of certain options. You may find a complete list of
-                                these Privacy Policies and their links here: Privacy Policy Links.</b></p>
-                    </div>
-                </div>
-
-
-                <div class="text-end">
-                    <a href="javascript:void(0);" class="btn btn-danger">I'm Understand</a>
+            <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse"
+                id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="" [ngClass]="{ active: currentSection === 'hero' }"
+                            [ngxScrollTo]="'#hero'">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'services' }"
+                            [ngxScrollTo]="'#services'">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'features' }"
+                            [ngxScrollTo]="'#features'">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'academy' }"
+                            [ngxScrollTo]="'#academy'">Academia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'contact' }"
+                            [ngxScrollTo]="'#contact'">Contacto</a>
+                    </li>
+                </ul>
+                <div class="">
+                    <a href="/auth/signin/cover" target="_blank" class="btn btn-soft-primary"><i
+                            class="ri-user-3-line align-bottom me-1"></i> Inisiar Sesión</a>
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
+    <br>
+    <section class="section" id="ptivacy-policy">
+        <div class="d-flex justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-12 p-5">
+                <h2 class="mb-5 fw-semibold text-center">Política de protección de datos personales y provacidad</h2>
+                <br />
+                <p>
+                    Autorizo en forma permanente a HSW RISK para que realice el tratamiento a mis Datos Personales,
+                    conforme la política de tratamientos de datos que se indica a continuación:
+                </p>
+                <p>
+                    De acuerdo con la Ley 1581 de 2012 y sus decretos reglamentarios, HSW RISK (en adelante
+                    "HSW RISK") adopta la presente política de protección de Privacidad de los Datos Personales, la cual
+                    regula la recolección, almacenamiento, tratamiento, protección y administración de los Datos
+                    Personales que HSW RISK obtenga de sus clientes, proveedores, empleados y demás personas con las
+                    cuales HSW RISK tenga o llegue a tener alguna relación de cualquier naturaleza.
+                </p>
+                <p>
+                    HSW RISK podrá modificar la presente política, con el fin de adecuarla a cambios en la legislación y
+                    jurisprudencia vigente y adaptarla a prácticas de industria. En ese evento, anunciará en su
+                    página web, o por otros medios adecuados, la introducción de tales cambios con la debida
+                    anticipación.
+                </p>
+                <p>
+                    Los Datos Personales que libre y voluntariamente los clientes, proveedores, empleados o cualquier
+                    otra persona suministre a HSW RISK por cualquier medio, son introducidos en sus bases de datos, de las
+                    cuales HSW RISK es responsable.
+                </p>
+                <p>
+                    HSW RISK trata los Datos Personales de forma adecuada y segura, cumpliendo todos los requisitos de ley
+                    y siguiendo las recomendaciones de la normatividad vigente sobre seguridad de la información basada
+                    en ISO27001, la cual utiliza como guía para sus procesos internos.
+                </p>
+                <br />
+                <h4>1. ASPECTOS GENERALES DEL TRATAMIENTO DE DATOS:</h4>
+                <br />
+                <h5 class="ms-3 mb-3">1.1. Identificación del responsable del tratamiento:</h5>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> HSW RISK, con domicilio principal en la ciudad de Santiago de Cali, departamento del Valle del Cauca, en la dirección Carrera. 7 B Bis #70-92; página web:
+                    www.hswrisk.com, correo electrónico: (hswrisk&#64;gmail.com); Teléfono: (+57) 3218884788.</p>
+                <h5 class="ms-3 mb-3">1.2. Naturaleza de la información personal recolectada:</h5>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> HSW RISK recolectará información de contacto y
+                    cualquier otra información que sea pertinente de acuerdo con la naturaleza de la relación que HSW RISK
+                    sostenga con el titular del Dato Personal, sea esta de carácter laboral, comercial o de cualquier
+                    otra índole. En general, los Datos Personales que HSW RISK recolecta, tienen la siguiente naturaleza
+                    dependiendo del titular del dato, asi</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> <strong> Interesados en relaciones
+                        comerciales.</strong> Personas que por su propia voluntad contactan a HSW RISK a través de sus
+                    diferentes sitios web, correo electrónico, chats, llamadas telefónicas u otros medios, con el fin de
+                    solicitar información acerca de sus productos o servicios, evaluar los productos o servicios,
+                    evaluar las posibilidades de alianzas comerciales, proveer a HSW RISK sus productos y servicios y en
+                    general, evaluar la posibilidad de desarrollar algún tipo de relación con la compañía. En estos
+                    casos la Información Personal que se solicita es de carácter básico, relacionada con la
+                    identificación de la persona y compañía a la que pertenece, cargo, correo electrónico, teléfonos, y
+                    ciudad, entre otras variables relevantes para direccionar a clientes o partners prospecto a los
+                    productos más afines a sus necesidades. En ocasiones, al ser contactados a través del sitio web de
+                    HSW RISK, los servidores de la compañía obtienen, para propósitos estadísticos, datos en relación con
+                    el sistema operativo que utiliza la persona que contacta a HSW RISK, la versión y el tipo de browser y
+                    la dirección IP, lo mismo que aquellas secciones de nuestra página en las que la persona manifestó
+                    un interés y que son descargadas a través de “cookies” operadas por el navegador.</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> <strong> Cliente, proveedores y
+                        otros.</strong> Cuando se concreta una relación comercial definitiva, HSW RISK recolecta la
+                    Información Personal necesaria para gestionar de manera adecuada dicha relación, de acuerdo con los
+                    parámetros establecidos en la presente política y cumpliendo todos los requisitos de ley y bajo los
+                    parámetros de los Acuerdos de Términos de Servicio que HSW RISK suscribe con sus clientes para operar
+                    sus Plataformas, Software o Productos.</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> <strong> Interesados en vincularse
+                        laboralmente a HSW RISK.</strong> Personas que por su propia voluntad envían su hoja de vida a la
+                    compañía, con el objeto de ser tenidas en cuenta en los procesos de selección. La Información
+                    Personal suministrada en la Hoja de Vida es utilizada únicamente para efectos del proceso de
+                    selección, reclutamiento y contratación, por el personal del área encargada de llevar a cabo dichos
+                    procesos. HSW RISK solo compartirá la información recolectada con personas naturales o jurídicas que
+                    presten un servicio a HSW RISK dentro de nuestro ciclo comercial o de servicio al cliente, y que
+                    provean un todo momento un estándar de cuidado de la información igual o más riguroso que el
+                    utilizado por HSW RISK, respetando siempre las políticas de tratamiento de datos de HSW RISK.</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> <strong> Empleados.</strong> La Información
+                    Personal sobre los empleados es estrictamente confidencial y se ajusta a los requisitos de la ley
+                    colombiana. Solo es utilizada por quienes, en razón de su cargo, tienen que ver con la gestión de la
+                    relación laboral. HSW RISK no hace público Datos Personales relacionados con los empleados a personas
+                    ajenas a la relación laboral o a entidades y personas ajenas a la compañía, salvo aquellas
+                    estrictamente requeridas para cumplir procesos especializados de recursos humanos, con quienes se
+                    procede a la firma de documentos de confidencialidad.</p>
+                <h5 class="ms-3 mb-3">1.3. Fuentes de la información:</h5>
+                <p class="ms-3">HSW RISK recolecta información de las siguientes fuentes:</p>
+                <p class="ms-3"><strong>1.3.1.</strong> Directamente del titular de la información.</p>
+                <p class="ms-3"><strong>1.3.2.</strong> Automáticamente cuando el titular de la información utiliza los
+                    sitios web de HSW RISK. En los sitios web de HSW RISK se utilizan cookies y otras herramientas que
+                    recolectan información, muchas veces no considerada Información Personal por su naturaleza técnica,
+                    de quienes los visitan; a manera de ejemplo, por el simple hecho de ingresar a dichos sitios web
+                    puede obtenerse de manera automática la siguiente información:</p>
+                <p class="ms-3"><strong>1.3.2.1.</strong> Los hipervínculos a los que ha dado click. Información acerca
+                    del explorador que utiliza. Detalles de las páginas que ha visto.</p>
+                <p class="ms-3"><strong>1.3.2.2.</strong> Su dirección IP.</p>
+                <p class="ms-3"><strong>1.3.2.3.</strong> Posiblemente información de sitios que visitó antes de llegar
+                    al portal (conocidos como “referral links”).</p>
+                <p class="ms-3"><strong>1.3.2.4.</strong> Teniendo en cuenta lo anterior, si el Titular de la
+                    información NO quiere que la misma sea recolectada automáticamente, deberá deshabilitar de su
+                    explorador de Internet la configuración de aceptación automática de cookies. Allí podrá bloquearla,
+                    así como detectar cuando dicha información esté siendo enviada desde su equipo. Es de tener en
+                    cuenta que, si se deshabilitan las “cookies”, se puede ver afectada la experiencia en el sitio web.
+                </p>
+                <p class="ms-3"><strong>1.3.2.5.</strong> De otras fuentes. HSW RISK podrá obtener Información Personal de
+                    bases de datos públicas o de terceras personas autorizadas por el titular de los datos para
+                    compartir información, incluyendo de la Plataforma de Software.</p>
+                <h5 class="ms-3 mb-3">1.4. Tratamiento al que serán sometidos los Datos Personales:</h5>
+                <p class="ms-3"><strong>1.4.1.</strong> La Información Personal obtenida por HSW RISK, podrá ser objeto de
+                    almacenamiento, uso, circulación o supresión, según sea la finalidad para la cual haya sido
+                    recolectada, y/o de acuerdo con lo establecido en la ley.</p>
+                <p class="ms-3"><strong>1.4.2.</strong> La información sujeta a tratamiento debe ser veraz, completa,
+                    exacta, actualizada, comprobable y comprensible.</p>
+                <p class="ms-3"><strong>1.4.3. Finalidad del tratamiento:</strong> La Información Personal recolectada
+                    por HSW RISK se utiliza, con la autorización de los titulares de la misma, para los siguientes fines:
+                </p>
+                <p class="ms-3"><strong>1.4.3.1.</strong> Prestar al titular de la información los servicios
+                    contratados, así como la asistencia, consultoría y soporte necesarios para cumplir las obligaciones
+                    emanadas de la relación comercial.</p>
+                <p class="ms-3"><strong>1.4.3.2.</strong> Mantener actualizados a los clientes sobre el desarrollo de
+                    los procesos comerciales que se adelanten, así como de la oferta o ejecución de servicios prestados
+                    por HSW RISK incluyendo los servicios en la nube.</p>
+                <p class="ms-3"><strong>1.4.3.3.</strong> Realizar las gestiones necesarias para dar cumplimiento a las
+                    obligaciones inherentes a los servicios y productos contratados con HSW RISK.</p>
+                <p class="ms-3"><strong>1.4.3.4.</strong> Materializar potenciales relaciones jurídicas con personas
+                    interesadas en ser clientes, aliados, proveedores o empleados de HSW RISK.</p>
+                <p class="ms-3"><strong>1.4.3.5.</strong> Ofrecer información sobre productos y servicios propios de
+                    HSW RISK o de sus aliados de negocio, así como compartir oportunidades comerciales. Para este propósito
+                    el titular que comparta sus datos básicos podrá ser contactado telefónicamente, vía correo
+                    electrónico, vía chat (por ejemplo, WhatsApp), vía Facebook, Instagram, Linkedin u otras
+                    aplicaciones web o “redes sociales”, o a través de medios como el correo físico, aún después de
+                    terminada la relación comercial.</p>
+                <p class="ms-3"><strong>1.4.3.6.</strong> Realizar actividades de mercadeo, promoción, publicidad,
+                    compras, mejoras en el servicio y producto, consultas, controles, verificaciones, alianzas,
+                    acuerdos, así como cualquier otra actividad relacionada con los servicios de HSW RISK, los de sus
+                    aliados de negocios y los de sus productos actuales y futuros.</p>
+                <p class="ms-3"><strong>1.4.3.7.</strong> Llevar estadísticas de uso de las herramientas, productos y
+                    servicios ofertados, así como evaluar la calidad percibida de los mismos por parte del cliente, los
+                    proveedores e interesados.</p>
+                <p class="ms-3"><strong>1.4.3.8.</strong> Atender consultas, quejas, peticiones, sugerencias,
+                    felicitaciones y reclamos.</p>
+                <p class="ms-3"><strong>1.4.3.9.</strong> Hacer su propia gestión administrativa, contable y fiscal,
+                    incluyendo, pero sin limitarse a gestión de facturación, gestión de cobros y pagos, gestión de
+                    proveedores, gestión de clientes e informes a autoridades fiscales o laborales.</p>
+                <p class="ms-3"><strong>1.4.3.10.</strong> Vincular personal a la empresa y cumplir con sus obligaciones
+                    legales como empleador, tales como, pero sin limitarse a gestión de personal, gestión de temporales
+                    y practicantes, gestión de nómina, prevención de riesgos laborales, formación de personal,
+                    afiliaciones y pagos al sistema de la seguridad social y bienestar laboral, actividades de retención
+                    en la fuente, entre otras afines.</p>
+                <p class="ms-3"><strong>1.4.3.11.</strong> Llevar a cabo actividades encaminadas a controlar y minimizar
+                    riesgos en cuanto a la seguridad de las instalaciones físicas y sitios virtuales de la empresa.</p>
+                <p class="ms-3"><strong>1.4.3.12.</strong> Transmitir datos a terceros dentro o fuera del país, que
+                    tengan o llegasen a tener cualquier tipo de relación comercial y/o contractual con HSW RISK, esta
+                    relación podrá ser a título oneroso o gratuito</p>
+                <p class="ms-3"><strong>1.4.3.13.</strong> Generar procesos de analítica financiera y analítica de datos
+                    para brindar información que pueda ser de interés para el cliente empresario y para el negocio del
+                    cliente, incluyendo el ofrecimiento de servicios o productos que puedan atender las necesidades de
+                    su negocio que sean prestados de manera directa por HSW RISK o por medio de terceros proveedores o
+                    Aliados; así como el ofrecimiento de ofertas y/o alianzas de financiación desarrolladas por
+                    entidades que hagan parte del sistema financiero o el ecosistema fintech.</p>
+                <p class="ms-3"><strong>1.4.3.14.</strong> Realizar procesos de análisis sobre la información
+                    suministrada o ingresada a HSW RISK en cualquiera de sus plataformas, servicios o productos de
+                    software, de manera directa o indirecta, haciendo uso de herramientas o métodos tradicionales, así
+                    como de tecnologías emergentes de analítica.</p>
+                <p class="ms-3"><strong>1.4.3.15.</strong> Compartir resultados de dichos análisis con Aliados de
+                    negocio que tengan acuerdos de tratamiento de datos con HSW RISK, con el propósito de proveer a los
+                    clientes de HSW RISK de productos o servicios de dichos Aliados que puedan ser de su utilidad a los
+                    clientes de HSW RISK o de los Aliados de HSW RISK.</p>
+                <p class="ms-3"><strong>1.4.3.16.</strong> Cualquier otra finalidad que HSW RISK considere necesaria,
+                    siempre y cuando, se respete la presente Política de Tratamiento de Datos Personales y la ley.</p>
+                <p class="ms-3">Las actividades anteriormente mencionadas, para las cuales se utilizan los Datos
+                    Personales, son realizadas por HSW RISK o por quienes HSW RISK contrate para llevarlas a cabo, de acuerdo
+                    con sus necesidades. Se hace mención explícita de la utilización por parte de HSW RISK de servicios de
+                    CRM y de “cloud services” de proveedores que operan su infraestructura tecnológica desde los EEUU,
+                    por lo cual los datos de los titulares pueden reposar en dicho país cuando sean tramitados en las
+                    herramientas o infraestructura en la nube referida.</p>
+                <h5 class="ms-3 mb-3">1.5. Tratamiento de datos sensibles:</h5>
+                <p class="ms-3"><strong>1.5.1.</strong> Son Datos Sensibles aquellos que afectan la intimidad del
+                    titular o cuyo uso indebido puede generar su discriminación, tales como aquellos relacionados con su
+                    origen racial o étnico, vida sexual, salud, datos biométricos (es decir aquellos que permiten
+                    identificar a una persona por sus rasgos físicos, de voz, de movimiento, tales como: fotos, huellas,
+                    firmas, mapa del iris, etc.,) o datos relacionados con su convicción religiosa o filosófica u
+                    orientación política.</p>
+                <p class="ms-3"><strong>1.5.2.</strong> El titular de la información tiene derecho a no suministrar
+                    Información Sensible solicitada por HSW RISK. Igualmente se recomienda al titular abstenerse de remitir
+                    información de carácter sensible que no sea ni deba ser necesaria para la prestación de los
+                    servicios de HSW RISK</p>
+                <h5 class="ms-3 mb-3">1.6. Tratamiento de datos de menores de edad:</h5>
+                <p class="ms-3"><strong>1.6.1.</strong> Los servicios prestados por HSW RISK son diseñados para mayores de
+                    edad. En todo caso, HSW RISK solo trata información o datos personales de menores de edad que hayan
+                    sido recolectados con el consentimiento expreso de los padres o sus representantes legales, según
+                    sea el caso, y solo para aquellos fines que sean pertinentes de acuerdo con la presente política.
+                </p>
+                <h5 class="ms-3 mb-3">1.7. Autorización para el tratamiento de Datos Personales:</h5>
+                <p class="ms-3"><strong>1.7.1.</strong> HSW RISK informará al titular de la información personal acerca de
+                    la presente política y obtendrá la autorización respectiva para hacer el tratamiento de sus Datos
+                    Personales. Igualmente informará al titular sobre los cambios que se efectúen a la presente política
+                    y obtendrá una nueva autorización en caso de que el cambio se refiera a la finalidad del
+                    tratamiento.</p>
+                <p class="ms-3"><strong>1.7.2.</strong> La autorización podrá ser obtenida por HSW RISK mediante documento
+                    escrito, vía correo electrónico, verbalmente o telefónicamente, vía autorización electrónica en un
+                    formulario o página web, o por cualquier otro medio que permita conservar, consultar o probar la
+                    respectiva autorización. Así mismo, la autorización del titular podrá ser manifestada mediante
+                    conductas inequívocas que permitan concluir de manera razonable que otorgó la autorización. En
+                    ningún caso HSW RISK asimilará el silencio del titular a una conducta inequívoca. HSW RISK no requerirá
+                    autorización del titular de la información personal cuando se trate de:</p>
+                <p class="ms-3"><strong>1.7.2.1.</strong> Información requerida por una entidad pública o administrativa
+                    en ejercicio de sus funciones legales o por orden judicial.</p>
+                <p class="ms-3"><strong>1.7.2.2.</strong> Datos de naturaleza pública.</p>
+                <p class="ms-3"><strong>1.7.2.3.</strong> Casos de urgencia médica o sanitaria.</p>
+                <p class="ms-3"><strong>1.7.2.4.</strong> Tratamiento de información autorizado por la ley para fines
+                    históricos, estadísticos o científicos.</p>
+                <p class="ms-3"><strong>1.7.2.5.</strong> Datos relacionados con el registro civil de las personas.</p>
+                <h5 class="ms-3 mb-3">1.8. Confidencialidad:</h5>
+                <p class="ms-3"><strong>1.8.1.</strong> HSW RISK no hará pública la Información Personal de sus empleados,
+                    clientes, proveedores, interesados, o cualquier otra persona con la que sostenga alguna relación de
+                    cualquier índole y solo dará a conocer dicha información, salvo autorización expresa y escrita por
+                    el titular de la misma, por mandato legal o en caso de solicitud de una autoridad gubernamental y a
+                    aquellas personas autorizadas por HSW RISK que deban conocerla para hacer el respectivo tratamiento de
+                    la información, o a aquellas personas autorizadas por la ley.</p>
+                <p class="ms-3">HSW RISK puede ser a la vez responsable y encargado del tratamiento de Datos Personales. En
+                    caso de que desempeñe ambos roles, deberá cumplir con los deberes legales propios de cada uno de
+                    ellos a saber:</p>
+                <h5 class="ms-3 mb-3">1.9. Deberes de HSW RISK como responsable del tratamiento:</h5>
+                <p class="ms-3"><strong>1.9.1.</strong> Garantizar al titular, en todo tiempo, el pleno y efectivo
+                    ejercicio del derecho de hábeas data.</p>
+                <p class="ms-3"><strong>1.9.2.</strong> Solicitar y conservar, en las condiciones previstas en la Ley
+                    1581 de 2012, y sus decretos reglamentarios, copia de la respectiva autorización otorgada por el
+                    titular.</p>
+                <p class="ms-3"><strong>1.9.3.</strong> Informar debidamente al titular sobre la finalidad de la
+                    recolección y los derechos que le asisten por virtud de la autorización otorgada.</p>
+                <p class="ms-3"><strong>1.9.4.</strong> Conservar la información bajo las condiciones de seguridad para
+                    impedir su adulteración, pérdida, consulta, uso o acceso no autorizado o fraudulento.</p>
+                <p class="ms-3"><strong>1.9.5.</strong> Garantizar que la información que se suministre al encargado del
+                    tratamiento de datos sea veraz, completa, exacta, actualizada, comprobable y comprensible.</p>
+                <p class="ms-3"><strong>1.9.6.</strong> Actualizar la información, comunicando de forma oportuna al
+                    Encargado del tratamiento, todas las novedades respecto de los datos que previamente le haya
+                    suministrado y adoptar las demás medidas necesarias para que la información suministrada a este se
+                    mantenga actualizada.</p>
+                <p class="ms-3"><strong>1.9.7.</strong> Rectificar la información cuando sea incorrecta y comunicar lo
+                    pertinente al encargado del tratamiento de datos.</p>
+                <p class="ms-3"><strong>1.9.8.</strong> Suministrar al encargado del tratamiento de datos, según el
+                    caso, únicamente datos cuyo tratamiento esté previamente autorizado de conformidad con lo previsto
+                    en la Ley 1581 de 2012.</p>
+                <p class="ms-3"><strong>1.9.9.</strong> Exigir al encargado del tratamiento de datos en todo momento, el
+                    respeto a las condiciones de seguridad y privacidad de la información del titular.</p>
+                <p class="ms-3"><strong>1.9.10.</strong> Tramitar las consultas y reclamos formulados en los términos
+                    señalados en la Ley 1581 de 2012.</p>
+                <p class="ms-3"><strong>1.9.11.</strong> Adoptar un manual interno de políticas y procedimientos para
+                    garantizar el adecuado cumplimiento de la ley una vez se haya presentado la reclamación y no haya
+                    finalizado el trámite respectivo.</p>
+                <p class="ms-3"><strong>1.9.12.</strong> Informar al encargado del tratamiento de datos cuando
+                    determinada información se encuentra en discusión por parte del titular, y en especial, para la
+                    atención de consultas y reclamos.</p>
+                <p class="ms-3"><strong>1.9.13.</strong> Informar a solicitud del titular sobre el uso dado a sus datos.
+                </p>
+                <p class="ms-3"><strong>1.9.14.</strong> Informar a la Superintendencia de Industria y Comercio cuando
+                    se presenten violaciones a los códigos de seguridad y existan riesgos en la administración de la
+                    información de los titulares.</p>
+                <p class="ms-3"><strong>1.9.15.</strong> Cumplir las instrucciones y requerimientos que imparta la
+                    Superintendencia de Industria y Comercio.</p>
+                <h5 class="ms-3 mb-3">1.10. Deberes de HSW RISK como encargado del tratamiento de datos:</h5>
+                <p class="ms-3"><strong>1.10.1.</strong> Garantizar al titular, en todo tiempo, el pleno y efectivo
+                    ejercicio del derecho de hábeas data.</p>
+                <p class="ms-3"><strong>1.10.2.</strong> Conservar la información bajo las condiciones de seguridad
+                    necesarias para prevenir su adulteración, pérdida, consulta, uso o acceso no autorizado o
+                    fraudulento.</p>
+                <p class="ms-3"><strong>1.10.3.</strong> Realizar oportunamente la actualización, rectificación o
+                    supresión de los datos en los términos de la ley.</p>
+                <p class="ms-3"><strong>1.10.4.</strong> Actualizar la información reportada por los responsables del
+                    tratamiento de datos dentro de los 5 días hábiles contados a partir de su recibo.</p>
+                <p class="ms-3"><strong>1.10.5.</strong> Tramitar las consultas y los reclamos formulados por los
+                    titulares en los términos señalados en la ley.</p>
+                <p class="ms-3"><strong>1.10.6.</strong> Adoptar un manual interno de políticas y procedimientos para
+                    garantizar el adecuado cumplimiento de la ley y, en especial, para la atención de consultas y
+                    reclamos por parte de los titulares.</p>
+                <p class="ms-3"><strong>1.10.7.</strong> Registrar en la base de datos las leyendas “reclamo en
+                    trámite”.</p>
+                <p class="ms-3"><strong>1.10.8.</strong> Insertar en la base de datos la leyenda “información en
+                    discusión judicial” una vez notificado por parte de la autoridad competente sobre procesos
+                    judiciales relacionados con la calidad del dato personal.</p>
+                <p class="ms-3"><strong>1.10.9.</strong> Abstenerse de circular información que esté siendo
+                    controvertida por el titular y cuyo bloqueo haya sido ordenado por la Superintendencia de Industria
+                    y Comercio.</p>
+                <p class="ms-3"><strong>1.10.10.</strong> Permitir el acceso a la información únicamente a las personas
+                    que pueden tener acceso a ella.</p>
+                <p class="ms-3"><strong>1.10.11.</strong> Informar a la Superintendencia de Industria y Comercio cuando
+                    se presenten violaciones a los códigos de seguridad y existan riesgos en la administración de la
+                    información de los titulares.</p>
+                <p class="ms-3"><strong>1.10.12.</strong> Cumplir las instrucciones y requerimientos que imparta la
+                    Superintendencia de Industria y Comercio.</p>
+                <h5 class="ms-3 mb-3">1.11. Derechos del Titular de la Información:</h5>
+                <p class="ms-3">Los titulares de la información tienen los siguientes derechos:</p>
+                <p class="ms-3"><strong>1.11.1.</strong> Conocer, actualizar y rectificar los datos personales frente a
+                    HSW RISK. Este derecho se podrá ejercer, entre otros, frente a datos parciales, inexactos, incompletos,
+                    fraccionados, que induzcan a error, o aquellos cuyo tratamiento esté expresamente prohibido o no
+                    haya sido autorizado.</p>
+                <p class="ms-3"><strong>1.11.2.</strong> Solicitar prueba de la autorización otorgada a HSW RISK, salvo
+                    cuando expresamente se exceptúe como requisito para el tratamiento de datos de conformidad con la
+                    ley.</p>
+                <p class="ms-3"><strong>1.11.3.</strong> Ser informado por HSW RISK, previa solicitud, respecto del uso que
+                    les hayan dado a sus datos personales.</p>
+                <p class="ms-3"><strong>1.11.4.</strong> Presentar ante la Superintendencia de Industria y Comercio
+                    quejas por infracciones al régimen de protección de datos personales.</p>
+                <p class="ms-3"><strong>1.11.5.</strong> Revocar la autorización y/o solicitar la supresión del dato
+                    personal cuando en el tratamiento no se respeten los principios, derechos y garantías
+                    constitucionales y legales.</p>
+                <p class="ms-3"><strong>1.11.6.</strong> Acceder en forma gratuita a los datos personales que hayan sido
+                    objeto de tratamiento.</p>
+                <h5 class="ms-3 mb-3">1.12. Procedimientos:</h5>
+                <p class="ms-3">El área de seguridad de la información, será la responsable de atender las peticiones,
+                    consultas, quejas y reclamos de los titulares de los datos, de acuerdo con los procedimientos que se
+                    describen a continuación.</p>
+                <p class="ms-3">El titular de la información o sus causahabientes tienen derecho a consultar la
+                    información personal del titular, tratada por HSW RISK. Para ello podrá radicar la consulta en la
+                    dirección Carrera. 7 B Bis #70-92; página web: www.hswrisk.com, correo electrónico: (hswrisk&#64;gmail.com);
+                    Teléfono: (+57) 3218884788.</p>
+                <p class="ms-3">Al realizar la solicitud, se deberá suministrar la siguiente información:</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> Si se trata del titular: Copia del documento
+                    de identidad (C.C., T.I., C.E. o pasaporte).</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> Si se trata del causahabiente: Copia del
+                    documento de identidad, registro civil de defunción del titular, documento que acredite la calidad
+                    en que actúa y el número del documento de identidad del titular.</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> Si se trata de un representante legal y/o
+                    apoderado: Copia de documento de identidad válido, poder que lo faculte para el trámite y el número
+                    del documento de identidad del titular.</p>
+                <h5 class="ms-3 mb-3">1.13. La consulta será atendida en el término legal vigente para dar respuestas a
+                    las mismas.</h5>
+                <h5 class="ms-3 mb-3">1.14. Reclamos:</h5>
+                <p class="ms-3">El titular de la información tiene derecho a solicitar la actualización, rectificación y
+                    supresión de la información de carácter personal, así como revocar la autorización otorgada a HSW RISK.
+                    Para ello podrá radicar el reclamo en la dirección Carrera. 7 B Bis #70-92; página web: www.hswrisk.com,
+                    correo electrónico: (hswrisk&#64;gmail.com); Teléfono: (+57) 3218884788.</p>
+                <p class="ms-3">Al realizar el reclamo, se deberá suministrar la siguiente información:</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> Si se trata del titular: Copia del documento
+                    de identidad (C.C., T.I., C.E. o pasaporte).</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> Si se trata del causahabiente: Copia del
+                    documento de identidad, registro civil de defunción del titular, documento que acredite la calidad
+                    en que actúa y el número del documento de identidad del titular.</p>
+                <p class="ms-5"><i class="fa-duotone fa-circle-small"></i> Si se trata de un representante legal y/o
+                    apoderado: Copia de documento de identidad válido, poder que lo faculte para el trámite y el número
+                    del documento de identidad del titular.</p>
+                <p class="ms-3">Adicionalmente, la solicitud deberá indicar claramente lo que se pretende con la
+                    reclamación, es decir, si se requiere una actualización, una corrección o supresión del dato o una
+                    revocación de la autorización otorgada a HSW RISK para el tratamiento de la información personal.</p>
+                <p class="ms-3">Así mismo, en la solicitud se deberá identificar al titular, hacer una descripción de
+                    los hechos que dan lugar a la reclamación, suministrar los datos de contacto y aportar los
+                    documentos que se quiere hacer valer.</p>
+                <p class="ms-3">Una vez recibido el reclamo completo, se incluirá en la base de datos la leyenda
+                    “solicitud en trámite” y el motivo de la misma, en un término no mayor a 2 días hábiles. Dicha
+                    leyenda se mantendrá hasta que la solicitud sea decidida.</p>
+                <p class="ms-3">El término máximo para atender el reclamo será el término legal vigente para dar
+                    respuestas a los mismos.</p>
+                <h5 class="ms-3 mb-3">1.15. Vigencia de la Política de Protección de Datos Personales y de Privacidad:
+                </h5>
+                <p class="ms-3">La presente política estará vigente desde su divulgación por cualquier medio. HSW RISK se
+                    reserva el derecho de actualizarla o modificarla en cualquier momento, de lo cual dará aviso
+                    oportuno por cualquier medio, a los destinatarios de la misma.</p>
+                <h5 class="ms-3 mb-3">1.16. Vigencia de las Bases de Datos de HSW RISK:</h5>
+                <p class="ms-3">Las bases de datos personales de HSW RISK estarán vigentes por el período de tiempo exigido
+                    por la ley que le sea aplicable, o por el contrato que las regule, o por el tiempo necesario para
+                    cumplir con la finalidad de la base de datos de acuerdo con la presente política. En ningún caso
+                    HSW RISK suprimirá o eliminará bases de datos que por ley deban permanecer vigentes durante un tiempo
+                    específico, cuando el período de vigencia establecido en el contrato que las regula o la finalidad
+                    para las cuales fueron creadas, determinen un período de vigencia inferior al legalmente
+                    establecido.</p>
+            </div>
+        </div>
+    </section>
 </div>
+
+
+
+<!--start back-to-top-->
+<button (click)="topFunction()" class="btn btn-primary btn-icon landing-back-top" id="back-to-top">
+    <i class="ri-arrow-up-line"></i>
+</button>

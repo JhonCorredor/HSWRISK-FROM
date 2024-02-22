@@ -105,6 +105,7 @@ export class FormulariosFormComponent implements OnInit {
       { textoMostrar: "fa-duotone fa-screen-users", name: "salon" },
       { textoMostrar: "fa-duotone fa-triangle-exclamation", name: "contingencia" },
       { textoMostrar: "fa-duotone fa-person-chalkboard", name: "curso" },
+      { textoMostrar: "fa-duotone fa-clipboard-check", name: "inscripcion" },
     ]
   }
 

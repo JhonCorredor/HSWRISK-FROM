@@ -10,6 +10,8 @@ import { PersonasFormComponent } from '../../../security/personas/personas-form/
 import { DataSelectDto } from 'src/app/generic/dataSelectDto';
 import { GeneralParameterFormComponent } from '../../../general-parameter/general-parameter-form/general-parameter-form.component';
 import { EmpresaFormComponent } from '../../empresa/empresa-form/empresa-form.component';
+import { ClientesArchivosComponent } from '../clientes-archivos/clientes-archivos.component';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-clientes-form',
@@ -42,7 +44,7 @@ export class ClientesFormComponent implements OnInit {
     { nombre: 'TECNOLOGO' },
     { nombre: 'UNIVERSITARIO' },
     { nombre: 'OTRO' },
-  
+
   ];
 
   constructor(
@@ -53,17 +55,17 @@ export class ClientesFormComponent implements OnInit {
     private router: Router
   ) {
     this.frmClientes = new FormGroup({
-      Codigo: new FormControl(null, [Validators.required]),
+      Codigo: new FormControl(""),
       TipoCliente: new FormControl(null, [Validators.required]),
       NivelEducativo: new FormControl(null, [Validators.required]),
       CargoActual: new FormControl(null, [Validators.required]),
       AreaTrabajo: new FormControl(null, [Validators.required]),
       LectoEscritura: new FormControl(null, [Validators.required]),
       Rh: new FormControl(null, [Validators.required]),
-      Enfermedades: new FormControl("N/A", [Validators.required]),
-      Alergias: new FormControl("N/A", [Validators.required]),
-      Medicamentos: new FormControl("N/A", [Validators.required]),
-      Lesiones: new FormControl("N/A", [Validators.required]),
+      Enfermedades: new FormControl("NO REFIERE", [Validators.required]),
+      Alergias: new FormControl("NO REFIERE", [Validators.required]),
+      Medicamentos: new FormControl("NO REFIERE", [Validators.required]),
+      Lesiones: new FormControl("NO REFIERE", [Validators.required]),
       Acudiente: new FormControl(null, [Validators.required]),
       TelefonoAcudiente: new FormControl(null, [Validators.required]),
       PersonaId: new FormControl(null, [Validators.required]),
@@ -259,7 +261,7 @@ export class ClientesFormComponent implements OnInit {
   }
 }
 @NgModule({
-  declarations: [ClientesFormComponent],
-  imports: [CommonModule, GeneralModule],
+  declarations: [ClientesFormComponent, ClientesArchivosComponent],
+  imports: [CommonModule, GeneralModule, NgbNavModule],
 })
 export class ClientesFormModule { }

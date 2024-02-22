@@ -1,0 +1,39 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<div class="card card-height-100">
+    <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">{{ title }}</h4>
+        <div class="flex-shrink-0">
+            <app-botones [botones]="botones" (eventSave)="save()" (eventCancel)="cancel()"></app-botones>
+        </div>
+    </div>
+    <div class="card-body" style="padding: 40px;">
+        <form [formGroup]="frmInscripciones" class="mb-4">
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Cliente</label>
+                    <ng-select [items]="listClientes()" bindLabel="textoMostrar" bindValue="id"
+                        formControlName="ClienteId">
+                    </ng-select>
+                    <app-forms-messages [error]="frmInscripciones.get('ClienteId')"
+                        [statusForm]="statusForm"></app-forms-messages>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Curso</label>
+                    <ng-select [items]="listCursos()" bindLabel="textoMostrar" bindValue="id"
+                        formControlName="CursoId" (change)="onChangeCurso($event)">
+                    </ng-select>
+                    <app-forms-messages [error]="frmInscripciones.get('CursoId')"
+                        [statusForm]="statusForm"></app-forms-messages>
+                </div>
+                <div class="col-sm-5 col-md-5 col-lg-5" *ngIf="curso">
+                    <label>Detalle del Curso</label>
+                    <ng-select [items]="listCursosDetalles()" bindLabel="textoMostrar" bindValue="id"
+                        formControlName="CursoDetalleId">
+                    </ng-select>
+                    <app-forms-messages [error]="frmInscripciones.get('CursoDetalleId')"
+                        [statusForm]="statusForm"></app-forms-messages>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

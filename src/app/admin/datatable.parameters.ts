@@ -9,5 +9,7 @@ export class DatatableParameter {
     public directionOrder!: string;
     public parametersTable!: string;
     public apiUrl! : string;
+    public fechaInicio! : string;
+    public fechaFin! : string;
   }
   

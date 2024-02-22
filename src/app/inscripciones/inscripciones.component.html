@@ -1,0 +1,297 @@
+<div class="layout-wrapper landing">
+    <nav class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar" id="navbar"
+        (window:scroll)="windowScroll()">
+        <div class="container-fluid custom-container">
+            <a class="navbar-brand" href="">
+                <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="70" />
+                <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light"
+                    height="70" />
+            </a>
+            <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation" (click)="collapse.toggle()">
+                <i class="mdi mdi-menu"></i>
+            </button>
+
+            <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse"
+                id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="" [ngClass]="{ active: currentSection === 'hero' }"
+                            [ngxScrollTo]="'#hero'">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'services' }"
+                            [ngxScrollTo]="'#services'">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'features' }"
+                            [ngxScrollTo]="'#features'">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'academy' }"
+                            [ngxScrollTo]="'#academy'">Academia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'contact' }"
+                            [ngxScrollTo]="'#contact'">Contacto</a>
+                    </li>
+                </ul>
+                <div class="">
+                    <a href="/auth/signin/cover" target="_blank" class="btn btn-soft-primary"><i
+                            class="ri-user-3-line align-bottom me-1"></i> Inisiar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <section class="section" id="inscripcion">
+        <div class="d-flex justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-12 p-5">
+                <h2 class="mb-5 fw-semibold text-center">Inscripción</h2>
+                <form [formGroup]="frmInscripcion">
+                    <p class="text-muted">Generales</p>
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Tipo Documento *</label>
+                            <ng-select [items]="ListTipoIdentificacion" bindLabel="textoMostrar" bindValue="id"
+                                formControlName="TipoDocumento"> </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('TipoDocumento')"
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Número Identificación *</label>
+                            <input type="text" class="form-control" formControlName="Documento">
+                            <app-forms-messages [error]="frmInscripcion.get('Documento')" [statusForm]=statusForm
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Primer Nombre *</label>
+                            <input type="text" class="form-control" formControlName="PrimerNombre">
+                            <app-forms-messages [error]="frmInscripcion.get('PrimerNombre')" [statusForm]=statusForm
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Segundo Nombre</label>
+                            <input type="text" class="form-control" formControlName="SegundoNombre">
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Primer Apellido *</label>
+                            <input type="text" class="form-control" formControlName="PrimerApellido">
+                            <app-forms-messages [error]="frmInscripcion.get('PrimerApellido')" [statusForm]=statusForm
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Segundo Apellido</label>
+                            <input type="text" class="form-control" formControlName="SegundoApellido">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Género *</label>
+                            <ng-select [items]="listGeneros" bindLabel="textoMostrar" bindValue="id"
+                                formControlName="Genero"></ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('Genero')"
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Rh *</label>
+                            <ng-select [items]="listaRh" bindLabel="nombre" bindValue="nombre" formControlName="Rh">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('Rh')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Correo *</label>
+                            <input type="email" class="form-control" formControlName="Email">
+                            <app-forms-messages [error]="frmInscripcion.get('Email')" [statusForm]=statusForm
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Teléfono *</label>
+                            <input type="number" class="form-control" formControlName="Telefono">
+                            <app-forms-messages [error]="frmInscripcion.get('Telefono')" [statusForm]=statusForm
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Dirección *</label>
+                            <input type="text" class="form-control" formControlName="Direccion">
+                            <app-forms-messages [error]="frmInscripcion.get('Direccion')" [statusForm]=statusForm
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Ciudad *</label>
+                            <ng-select [items]="listCiudades()" bindLabel="textoMostrar" bindValue="id"
+                                formControlName="CiudadId">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('CiudadId')" [statusForm]=statusForm
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Nivel Educativo *</label>
+                            <ng-select [items]="listaNivelEducativo" bindLabel="nombre" bindValue="nombre"
+                                formControlName="NivelEducativo">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('NivelEducativo')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Lecto Escritura *</label>
+                            <ng-select [items]="listaLectoEscritura" bindLabel="nombre" bindValue="nombre"
+                                formControlName="LectoEscritura">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('LectoEscritura')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Arl *</label>
+                            <ng-select [items]="listArl()" bindLabel="textoMostrar" bindValue="id"
+                                formControlName="ArlId">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('ArlId')"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Cargo Actual *</label>
+                            <input type="text" class="form-control" formControlName="CargoActual" />
+                            <app-forms-messages [error]="frmInscripcion.get('CargoActual')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Area de Trabajo *</label>
+                            <input type="text" class="form-control" formControlName="AreaTrabajo" />
+                            <app-forms-messages [error]="frmInscripcion.get('AreaTrabajo')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Nombre Acudiente *</label>
+                            <input type="text" class="form-control" formControlName="Acudiente" />
+                            <app-forms-messages [error]="frmInscripcion.get('Acudiente')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Teléfono Acudiente *</label>
+                            <input type="number" class="form-control" formControlName="TelefonoAcudiente" />
+                            <app-forms-messages [error]="frmInscripcion.get('TelefonoAcudiente')"
+                                [statusForm]="statusForm" [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                    </div>
+                    <br>
+                    <p class="text-muted">Salud</p>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Enfermedades *</label>
+                            <textarea formControlName="Enfermedades" class="form-control" rows="4"></textarea>
+                            <app-forms-messages [error]="frmInscripcion.get('Enfermedades')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Alergias *</label>
+                            <textarea formControlName="Alergias" class="form-control" rows="4"></textarea>
+                            <app-forms-messages [error]="frmInscripcion.get('Alergias')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Medicamentos *</label>
+                            <textarea formControlName="Medicamentos" class="form-control" rows="4"></textarea>
+                            <app-forms-messages [error]="frmInscripcion.get('Medicamentos')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Lesiones *</label>
+                            <textarea formControlName="Lesiones" class="form-control" rows="4"></textarea>
+                            <app-forms-messages [error]="frmInscripcion.get('Lesiones')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row d-none">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Tipo de Cliente</label>
+                            <ng-select [items]="listaTipoCliente" bindLabel="nombre" bindValue="nombre"
+                                formControlName="TipoCliente" [readonly]="true">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('TipoCliente')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Empresa</label>
+                            <ng-select [items]="listEmpresas()" bindLabel="textoMostrar" bindValue="id"
+                                formControlName="EmpresaId" [readonly]="true">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('EmpresaId')"
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                    </div>
+                    <br>
+                    <p class="text-muted">Curso</p>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 col-lg-3">
+                            <label>Nombre *</label>
+                            <ng-select [items]="listCursos()" bindLabel="textoMostrar" bindValue="id"
+                                formControlName="CursoId" (change)="onChangeCurso($event)">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('CursoId')"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-5 col-md-5 col-lg-5" *ngIf="curso">
+                            <label>Detalle del Curso *</label>
+                            <ng-select [items]="listCursosDetalles()" bindLabel="textoMostrar" bindValue="id"
+                                formControlName="CursoDetalleId">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('CursoDetalleId')"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                    </div>
+                    <br>
+                    <p class="text-muted">Documentos <span data-bs-toggle="tooltip" data-bs-placement="left" title="Los documentos deben estar llamados de la siguiente forma con su número de documento:
+    - Documento de identidad: cc_1000000000.
+    - Eps: EPS_1000000000.
+Reemplaza el (1000000000) por tu número de documento.">
+                            <i class="fa-duotone fa-circle-question"></i>
+                        </span></p>
+                    <p class="text-muted">Los documentos deben estar llamados de la siguiente forma con su número de documento:<br>
+                        &nbsp;&nbsp;&nbsp; - Documento de identidad: CC_1000000000.<br>
+                        &nbsp;&nbsp;&nbsp; - Eps: EPS_1000000000.<br>
+                        Reemplaza el (1000000000) por tu número de documento.
+                    </p>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Documento de Identidad *</label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+                            <input type="file" class="form-control mt-2" accept=".pdf" formControlName="DocumentoIdentidad" (change)="onChangeDocumento($event)">
+                            <app-forms-messages [error]="frmInscripcion.get('DocumentoIdentidad')"
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Eps *</label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+                            <input type="file" class="form-control mt-2" accept=".pdf" formControlName="Eps" (change)="onChangeEps($event)">
+                            <app-forms-messages [error]="frmInscripcion.get('Eps')"
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12 text-end">
+                            <button class="submitBnt btn btn-primary" (click)="save()">Inscribirse</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--start back-to-top-->
+<button (click)="topFunction()" class="btn btn-primary btn-icon landing-back-top" id="back-to-top">
+    <i class="ri-arrow-up-line"></i>
+</button>

@@ -16,6 +16,7 @@ thead {
     --vz-bg-opacity: 1;
     background-color: rgba(var(--vz-primary-rgb), var(--vz-bg-opacity)) !important;
 }
+
 thead {
     color: #fff !important;
     background-color: RGBA(var(--vz-primary-rgb), var(--vz-bg-opacity, 1)) !important;
@@ -31,11 +32,11 @@ thead {
     margin-top: 25px !important;
 }
 
-.dataTables_info{
+.dataTables_info {
     float: left !important;
 }
 
-.dataTables_paginate{
+.dataTables_paginate {
     float: right !important;
 }
 
@@ -165,4 +166,31 @@ table.dataTable>thead .sorting_desc_disabled:after {
 #datatable_next:hover,
 .paginate_button:hover {
     cursor: pointer !important;
+}
+
+.dt-buttons {
+    text-align: right !important;
+}
+
+.buttons-html5,
+.buttons-print {
+    color: #103D66 !important;
+    background-color: #fff !important;
+    border-color: #103D66 !important;
+    border-radius: 0.25rem!important;
+}
+
+.buttons-html5:hover,
+.buttons-print:hover {
+    color: #fff !important;
+    background-color: #103D66 !important;
+    border-color: #103D66 !important;
+}
+
+.buttons-copy::before{
+    content: "Copiar | ";
+}
+
+.buttons-print::before{
+    content: "Imprimir | ";
 }

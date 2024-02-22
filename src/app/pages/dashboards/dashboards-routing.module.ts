@@ -22,6 +22,8 @@ import { CursosIndexComponent } from './operational/cursos/cursos-index/cursos-i
 import { CursosFormComponent } from './operational/cursos/cursos-form/cursos-form.component';
 import { SalonesIndexComponent } from './operational/salones/salones-index/salones-index.component';
 import { ContingenciasIndexComponent } from './operational/contingencias/contingencias-index/contingencias-index.component';
+import { InscripcionesIndexComponent } from './operational/inscripciones/inscripciones-index/inscripciones-index.component';
+import { IncripcionesFormComponent } from './operational/inscripciones/inscripciones-form/inscripciones-form.component';
 
 
 const routes: Routes = [
@@ -75,6 +77,12 @@ const routes: Routes = [
 
   //Contingencias
   { path: 'operativo/contingencias', component: ContingenciasIndexComponent },
+
+  //Inscripcion
+  { path: 'operativo/inscripciones', component: InscripcionesIndexComponent },
+  { path: 'operativo/inscripciones/crear', component: IncripcionesFormComponent },
+  { path: 'operativo/inscripciones/editar/:id', component: IncripcionesFormComponent },
+
 
   //General
   {

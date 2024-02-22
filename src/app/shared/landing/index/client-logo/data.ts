@@ -1,18 +1,21 @@
 const ClientLogo = [
   {
-    image: 'assets/images/clients/logoipsum-289.png',
+    image: 'assets/images/clients/aguasdebuga.png',
   },
   {
-    image: 'assets/images/clients/logoipsum-288.png',
+    image: 'assets/images/clients/lubristone.png',
   },
   {
-    image: 'assets/images/clients/logoipsum-284.png',
+    image: 'assets/images/clients/moma.png',
   },
   {
-    image: 'assets/images/clients/logoipsum-286.png',
+    image: 'assets/images/clients/fundacionrespirar.png',
   },
   {
-    image: 'assets/images/clients/logoipsum-287.png',
+    image: 'assets/images/clients/wireless.png',
+  },
+  {
+    image: 'assets/images/clients/positiva.png',
   },
 ];
 

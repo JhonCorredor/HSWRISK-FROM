@@ -1,0 +1,121 @@
+<div class="layout-wrapper landing">
+    <nav class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar" id="navbar"
+        (window:scroll)="windowScroll()">
+        <div class="container-fluid custom-container">
+            <a class="navbar-brand" href="">
+                <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="70" />
+                <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light"
+                    height="70" />
+            </a>
+            <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation" (click)="collapse.toggle()">
+                <i class="mdi mdi-menu"></i>
+            </button>
+
+            <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse"
+                id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="" [ngClass]="{ active: currentSection === 'hero' }"
+                            [ngxScrollTo]="'#hero'">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'services' }"
+                            [ngxScrollTo]="'#services'">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'features' }"
+                            [ngxScrollTo]="'#features'">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'academy' }"
+                            [ngxScrollTo]="'#academy'">Academia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'contact' }"
+                            [ngxScrollTo]="'#contact'">Contacto</a>
+                    </li>
+                </ul>
+                <div class="">
+                    <a href="/auth/signin/cover" target="_blank" class="btn btn-soft-primary"><i
+                            class="ri-user-3-line align-bottom me-1"></i> Iniciar sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section job-hero-section bg-light pb-0" id="academy">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6">
+                    <div>
+                        <h1 class="display-6 fw-semibold text-capitalize mb-3 lh-base">Mejora tus habilidades</h1>
+                        <p class="lead text-muted lh-base mb-4">Nuestra experiencia nos respalda como un gran aliado
+                            estratégico en el proceso de formación continuada de la comunidad SG-SST.</p>
+                        <a href="/inscripcion" target="_blank" class="btn btn-primary"><i
+                                class="ri-arrow-right-line align-bottom"></i> Inscribete Ahora</a>
+                    </div>
+                </div>
+                <!--end col-->
+                <div class="col-lg-4">
+                    <div class="position-relative home-img text-center mt-5 mt-lg-0">
+                        <img src="assets/images/job-profile2.png" alt="" class="user-img" />
+
+                        <div class="circle-effect">
+                            <div class="circle"></div>
+                            <div class="circle2"></div>
+                            <div class="circle3"></div>
+                            <div class="circle4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="cursos">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center mb-5">
+                        <h1 class="mb-3 ff-secondary fw-semibold lh-base">Nuestros cursos</h1>
+                        <p class="text-muted">Ofrecemos una excelente posibilidad de capacitación en Seguridad y Salud
+                            en el Trabajo tanto para profesionales como para empresas a un precio accesible, sin
+                            restricciones geográficas, de forma innovadora, confiable y con contenido de alto nivel.</p>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+            <div class="row g-3">
+                @for (data of Cursos; track $index) {
+                <div class="col-lg-4">
+                    <div class="d-flex p-3">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="avatar-sm icon-effect">
+                                <div class="avatar-title bg-transparent text-primary rounded-circle">
+                                    <i class="{{data.icon}} fs-36"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="fs-18">{{data.title}}</h5>
+                            <p class="text-muted my-3 ff-secondary">{{data.content}}</p>
+                        </div>
+                    </div>
+                </div>
+                }
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </section>
+</div>
+
+<!--start back-to-top-->
+<button (click)="topFunction()" class="btn btn-primary btn-icon landing-back-top" id="back-to-top">
+    <i class="ri-arrow-up-line"></i>
+</button>

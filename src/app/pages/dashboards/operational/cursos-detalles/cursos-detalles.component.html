@@ -53,7 +53,7 @@
     <br>
     <div class="row">
         <div class="col-sm-3 col-md-3 col-lg-3">
-            <label>Empleado</label>
+            <label>Instructor</label>
             <ng-select [items]="listEmpleados()" bindLabel="textoMostrar" bindValue="id" formControlName="EmpleadoId">
             </ng-select>
             <app-forms-messages [error]="frmCursoDetalles.get('EmpleadoId')"
@@ -84,7 +84,7 @@
                         <tr>
                             <th class="text-center">FECHA INICIO</th>
                             <th class="text-center">FECHA FIN</th>
-                            <th class="text-center">EMPLEADO</th>
+                            <th class="text-center">INSTRUCTOR</th>
                             <th class="text-center">DURACION</th>
                             <th class="text-center">PRECIO</th>
                             <th class="text-center">VIRTUAL</th>

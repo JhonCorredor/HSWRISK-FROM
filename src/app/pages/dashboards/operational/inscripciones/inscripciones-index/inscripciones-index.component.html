@@ -1,0 +1,64 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<div class="card card-height-100">
+    <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">{{ title }}
+            <span data-bs-toggle="tooltip" data-bs-placement="left"
+                title="Inicialmente se muestran los registros de inscripcion del ultimo curso">
+                <i class="fa-duotone fa-circle-question"></i>
+            </span>
+        </h4>
+        <div class="flex-shrink-0">
+            <app-botones #botonesSuperior [botones]="botones" [dropdown]="false" (eventNew)="nuevo()"
+                (eventImportarCliente)="importarDatos()"></app-botones>
+        </div>
+    </div>
+    <div class="card-body" style="padding: 40px;">
+        <form [formGroup]="frmInscripciones" class="mt-1">
+            <label>Filtros de busqueda:</label>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <label>Fecha Inicio:</label>
+                    <input type="datetime-local" class="form-control" formControlName="FechaInicio">
+                    <app-forms-messages [error]="frmInscripciones.get('FechaInicio')"
+                        [statusForm]="statusForm"></app-forms-messages>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <label>Fecha Fin:</label>
+                    <input type="datetime-local" class="form-control" formControlName="FechaFin">
+                    <app-forms-messages [error]="frmInscripciones.get('FechaFin')"
+                        [statusForm]="statusForm"></app-forms-messages>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <label>Curso:</label>
+                    <ng-select [items]="listCursos()" bindLabel="textoMostrar" bindValue="id" formControlName="CursoId"
+                        (change)="onChangeCurso($event)">
+                    </ng-select>
+                    <app-forms-messages [error]="frmInscripciones.get('CursoId')"
+                        [statusForm]="statusForm"></app-forms-messages>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-5 col-md-5 col-lg-5" *ngIf="curso">
+                    <label>Detalle del Curso:</label>
+                    <ng-select [items]="listCursosDetalles()" bindLabel="textoMostrar" bindValue="id"
+                        formControlName="CursoDetalleId" (change)="onChangeCursoDetalle($event)">
+                    </ng-select>
+                    <app-forms-messages [error]="frmInscripciones.get('CursoDetalleId')"
+                        [statusForm]="statusForm"></app-forms-messages>
+                </div>
+                <div class="col-sm-1 col-md-1 col-lg-1" *ngIf="cursoDetalle">
+                    <button type="button" class="btn btn-lg mt-4" (click)="buscar()">
+                        <i class="fa-duotone fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive table-card mt-5">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                class="table table-bordered table-hover table-striped w-100"></table>
+        </div>
+    </div>
+
+</div>

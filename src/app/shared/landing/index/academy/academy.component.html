@@ -1,0 +1,46 @@
+<!-- start services -->
+<section class="section" id="academy">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <h1 class="mb-3 ff-secondary fw-semibold lh-base">Academia</h1>
+                    <p class="text-muted">Ofrecemos una excelente posibilidad de capacitación en Seguridad y Salud en el
+                        Trabajo tanto para profesionales como para empresas a un precio accesible, sin restricciones
+                        geográficas, de forma innovadora, confiable y con contenido de alto nivel.</p>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+
+        <div class="row g-3">
+            @for (data of Services; track $index) {
+            <div class="col-lg-4">
+                <div class="d-flex p-3">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm icon-effect">
+                            <div class="avatar-title bg-transparent text-primary rounded-circle">
+                                <i class="{{data.icon}} fs-36"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="fs-18">{{data.title}}</h5>
+                        <p class="text-muted my-3 ff-secondary">{{data.content}}</p>
+                        @if(data.title == "Gestión de inducción para contratistas"){
+                            <a href="auth/signin/cover" target="_blank" class="ff-secondary fw-semibold">Iniciar sesión</a>
+                        }@else{
+                            <a href="academia" class="ff-secondary fw-semibold">Ver más</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            }
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container -->
+</section>
+<!-- end services -->

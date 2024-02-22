@@ -110,7 +110,7 @@ export class CursosDetallesComponent implements OnInit {
     }
 
     cargarJornadas() {
-        this.service.getAll('Nivel').subscribe((res) => {
+        this.service.getAll('Jornada').subscribe((res) => {
             res.data.forEach((item: any) => {
                 this.listJornadas.update(listJornadas => {
                     const DataSelectDto: DataSelectDto = {

@@ -6,6 +6,10 @@ import { LayoutComponent } from './layouts/layout.component';
 // Auth
 import { AuthGuard } from './core/guards/auth.guard';
 
+//Inscripcion
+import { InscripcionesComponent } from './inscripciones/inscripciones.component';
+import { AcademiaComponent } from './academia/academia.component';
+
 const routes: Routes = [
 	{
 		path: 'dashboard',
@@ -20,10 +24,13 @@ const routes: Routes = [
 		canActivate: [AuthGuard],
 	},
 	{ path: '', loadChildren: () => import('./landing/landing.module').then((m) => m.LandingModule) },
+	{ path: 'inscripcion', component: InscripcionesComponent },
+	{ path: 'academia', component: AcademiaComponent },
+
 ];
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

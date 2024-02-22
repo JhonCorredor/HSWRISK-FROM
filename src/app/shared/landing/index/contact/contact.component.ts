@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HelperService, Messages, MessageType } from '../../../../admin/helper.service';
 
 @Component({
   selector: 'app-contact',
@@ -11,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
  * Contact Component
  */
 export class ContactComponent implements OnInit {
+  statusForm: boolean = true;
   frmContact: FormGroup;
   sender_name: string = "HSW RISK";
   sender_email: string = "josepoza125@gmail.com";
@@ -19,12 +21,15 @@ export class ContactComponent implements OnInit {
   api_key: string = "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";
   templateId: number = 1;
 
-  constructor() {
+  constructor(
+    private helperService: HelperService,
+  ) {
     this.frmContact = new FormGroup({
       Name: new FormControl(null, Validators.required),
       Email: new FormControl(null, Validators.required),
       Subjet: new FormControl(null, Validators.required),
       Message: new FormControl(null, Validators.required),
+      TratamientoDatos: new FormControl(false, Validators.required),
     });
   }
 
@@ -32,6 +37,14 @@ export class ContactComponent implements OnInit {
   }
 
   SendEmail() {
+    if (this.frmContact.invalid || this.frmContact.controls["TratamientoDatos"].value != true) {
+      this.statusForm = false;
+      this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
+      return;
+    }
+
+    this.helperService.showLoading();
+
     var data = {
       ...this.frmContact.value
     }
@@ -44,23 +57,27 @@ export class ContactComponent implements OnInit {
         'api-key': this.api_key
       },
       body: JSON.stringify({
-        sender: {name: this.sender_name, email: this.sender_email},
+        sender: { name: this.sender_name, email: this.sender_email },
         headers: {
           'sender.ip': '1.2.3.4',
           'X-Mailin-custom': 'some_custom_header',
           idempotencyKey: 'abc-123'
         },
-        to: [{email: this.to_email, name: this.to_name}],
+        to: [{ email: this.to_email, name: this.to_name }],
         templateId: this.templateId,
-        params: {name: data.Name, correo: data.Email, asunto: data.Subjet, mensaje: data.Message},
+        params: { name: data.Name, correo: data.Email, asunto: data.Subjet, mensaje: data.Message },
         subject: "CONTACTO",
         batchId: '5c6cfa04-eed9-42c2-8b5c-6d470d978e9d'
       })
     };
-    
+
     fetch('https://api.brevo.com/v3/smtp/email', options)
       .then(response => response.json())
-      .then(response => console.log(response))
+      .then(response => this.helperService.showMessage(MessageType.PROGRESS, response.message))
       .catch(err => console.error(err));
+
+    setTimeout(() => {
+      this.helperService.hideLoading();
+    }, 200);
   }
 }

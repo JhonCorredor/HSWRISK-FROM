@@ -8,7 +8,6 @@ import { LANGUAGE_DATATABLE } from 'src/app/admin/datatable.language';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ClientesImportComponent } from '../clientes-import/clientes-import.component';
 
 @Component({
   selector: 'app-clientes-index',
@@ -19,7 +18,7 @@ import { ClientesImportComponent } from '../clientes-import/clientes-import.comp
 export class ClientesIndexComponent implements OnInit {
   title = 'Listado de Clientes';
   breadcrumb!: any[];
-  botones: String[] = ['btn-importar-cliente', 'btn-nuevo'];
+  botones: String[] = ['btn-nuevo'];
   public dtTrigger: Subject<any> = new Subject();
   @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -194,15 +193,6 @@ export class ClientesIndexComponent implements OnInit {
         }
       );
     });
-  }
-
-  importarDatos(){
-    let modal = this.modalService.open(ClientesImportComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
-    modal.result.then(res => {
-      if (res) {
-        this.refrescarTabla();
-      }
-    })
   }
 }
 

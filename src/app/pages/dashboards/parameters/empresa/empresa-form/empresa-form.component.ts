@@ -184,7 +184,7 @@ export class EmpresaFormComponent implements OnInit {
           } else {
             var ruta: string[] = this.router.url.toString().split('/');
 
-            if (ruta[2] != 'empresa') {
+            if (ruta[3] != 'empresa') {
               this.modalService.dismissAll();
             } else {
               this.helperService.redirectApp(`dashboard/operativo/empresa`);
@@ -204,7 +204,7 @@ export class EmpresaFormComponent implements OnInit {
         if (response.status) {
           var ruta: string[] = this.router.url.toString().split('/');
 
-          if (ruta[2] != 'empresa') {
+          if (ruta[3] != 'empresa') {
             this.modalService.dismissAll();
           } else {
             this.helperService.redirectApp(`dashboard/operativo/empresa`);

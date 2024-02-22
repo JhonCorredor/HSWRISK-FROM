@@ -1,7 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbNavModule, NgbDropdownModule, NgbAccordionModule, NgbTooltipModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbDropdownModule, NgbAccordionModule, NgbTooltipModule, NgbPaginationModule, NgbCollapseModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 // Swiper Slider
 import { SlickCarouselModule } from 'ngx-slick-carousel';
@@ -68,7 +69,10 @@ import { TermsConditionComponent } from './terms-condition/terms-condition.compo
     ExtraPagesRoutingModule,
     SharedModule,
     FeatherModule.pick(allIcons),
-    NgPipesModule
+    NgPipesModule,
+    NgbCarouselModule,
+    NgbCollapseModule,
+    ScrollToModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

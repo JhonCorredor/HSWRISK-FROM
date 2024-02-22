@@ -8,6 +8,8 @@ import { HelperService, Messages, MessageType } from 'src/app/admin/helper.servi
 import { GeneralParameterService } from '../../../../../generic/general.service';
 import { DataSelectDto } from 'src/app/generic/dataSelectDto';
 import * as XLSX from 'xlsx';
+import { DatatableParameter } from 'src/app/admin/datatable.parameters';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -25,6 +27,9 @@ export class ClientesImportComponent implements OnInit {
     listEmpresas = signal<DataSelectDto[]>([]);
     listArl = signal<DataSelectDto[]>([]);
     listCiudades = signal<DataSelectDto[]>([]);
+    listCursosDetalles = signal<DataSelectDto[]>([]);
+    listCursos = signal<DataSelectDto[]>([]);
+    curso = false;
     excelStartDate = new Date('1899-12-30');
 
     constructor(
@@ -34,16 +39,23 @@ export class ClientesImportComponent implements OnInit {
         private modalActive: NgbActiveModal,
     ) {
         this.frmImportCliente = new FormGroup({
+            CursoId: new FormControl(null, [Validators.required]),
             EmpresaId: new FormControl(null, Validators.required),
-            ArlId: new FormControl(null, Validators.required),
             CiudadId: new FormControl(null, Validators.required),
+            ArlId: new FormControl(null, Validators.required),
+            CursoDetalleId: new FormControl(null, [Validators.required]),
+            UsuarioRegistro: new FormControl("", [Validators.required]),
         });
     }
 
     ngOnInit(): void {
+        this.helperService.showLoading();
         this.cargarArl();
         this.cargarEmpresas();
         this.cargarCiudades();
+        this.cargarCursos();
+        this.cargarUsuario();
+        this.validarEmpleado();
     }
 
     cargarArl() {
@@ -179,6 +191,8 @@ export class ClientesImportComponent implements OnInit {
                     ArlId: this.frmImportCliente.controls["ArlId"].value,
                     EmpresaId: this.frmImportCliente.controls["EmpresaId"].value,
                     CiudadId: this.frmImportCliente.controls["CiudadId"].value,
+                    UsuarioRegistro: this.frmImportCliente.controls["UsuarioRegistro"].value,
+                    CursoDetalleId: this.frmImportCliente.controls["CursoDetalleId"].value,
                     PersonaId: 0,
                 }
                 this.clientes.push(cliente);
@@ -221,6 +235,91 @@ export class ClientesImportComponent implements OnInit {
         link.href = "/assets/excel/plantilla_clientes.xlsx";
         link.click();
         link.remove();
+    }
+
+    validarEmpleado() {
+        var personaId = localStorage.getItem("persona_Id");
+        if (personaId != null) {
+            var data = new DatatableParameter(); data.pageNumber = ""; data.pageSize = ""; data.filter = ""; data.columnOrder = ""; data.directionOrder = ""; data.foreignKey = personaId; data.nameForeignKey = "PersonaId";
+            this.service.datatableKey("Empleado", data).subscribe((empleado) => {
+                if (empleado.data.length == 1) {
+                    this.service.getById("Empresa", empleado.data[0].empresaId).subscribe((empresa: any) => {
+                        if (empresa.status) {
+                            this.frmImportCliente.controls["EmpresaId"].setValue(empresa.data.id);
+                            this.frmImportCliente.controls["CiudadId"].setValue(empresa.data.ciudadId);
+                        }
+                        setTimeout(() => {
+                            this.helperService.hideLoading();
+                        }, 200);
+                    });
+                } else {
+                    Swal.fire({
+                        title: '¡No existe un empleado con este usuario!',
+                        icon: 'warning',
+                    }).then(() => {
+                        this.helperService.redirectApp("/dashboard");
+                    });
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
+                }
+            })
+        }
+    }
+
+    cargarUsuario() {
+        var personaId = localStorage.getItem("persona_Id");
+        this.service.getById("Persona", personaId).subscribe(
+            (res: any) => {
+                if (res.status) {
+                    this.frmImportCliente.controls["UsuarioRegistro"].setValue(`${res.data.primerNombre} ${res.data.primerApellido}`);
+                }
+            }
+        )
+    }
+
+    cargarCursos() {
+        this.service.getAll('Curso').subscribe((res) => {
+            res.data.forEach((item: any) => {
+                this.listCursos.update((listCursos) => {
+                    const DataSelectDto: DataSelectDto = {
+                        id: item.id,
+                        textoMostrar: `${item.codigo} - ${item.nombre}`,
+                        activo: item.activo,
+                    };
+
+                    return [...listCursos, DataSelectDto];
+                });
+            });
+        });
+    }
+
+    cargarCursoDetalle(cursoId: number) {
+        var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = cursoId; data.nameForeignKey = "CursoId";
+
+        this.service.datatableKey('CursoDetalle', data).subscribe((res) => {
+            res.data.forEach((item: any) => {
+                this.listCursosDetalles.update((listCursosDetalles) => {
+                    const DataSelectDto: DataSelectDto = {
+                        id: item.id,
+                        textoMostrar: `${item.curso} - ${item.salon} - ${item.nivel} - ${item.jornada}`,
+                        activo: item.activo,
+                    };
+
+                    return [...listCursosDetalles, DataSelectDto];
+                });
+            });
+        });
+    }
+
+    onChangeCurso(event: any) {
+        if (typeof event != "undefined") {
+            this.curso = true;
+            this.cargarCursoDetalle(event.id);
+        } else {
+            this.curso = false;
+            this.listCursosDetalles = signal<DataSelectDto[]>([]);
+        }
     }
 }
 

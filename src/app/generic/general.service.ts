@@ -16,12 +16,16 @@ export class GeneralParameterService {
     this.header.set("Content-Type", "application/json");
   }
 
+  public dataTableLastCourseDetails(ruta: String, data: DatatableParameter): Observable<any> {
+    return this.http.get<any>(`${this.url}${ruta}/dataTableLastCourseDetails?PageNumber=${data.pageNumber}&PageSize=${data.pageSize}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}`, { headers: this.header })
+  }
+
   public datatable(ruta: String, data: DatatableParameter): Observable<any> {
     return this.http.get<any>(`${this.url}${ruta}/datatable?PageNumber=${data.pageNumber}&PageSize=${data.pageSize}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}`, { headers: this.header })
   }
 
   public datatableKey(ruta: String, data: DatatableParameter): Observable<any> {
-    return this.http.get<any>(`${this.url}${ruta}/datatable?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}`, { headers: this.header });
+    return this.http.get<any>(`${this.url}${ruta}/datatable?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}&FechaInicio=${data.fechaInicio}&FechaFin=${data.fechaFin}`, { headers: this.header });
   }
 
   public getById(ruta: String, id: any): Observable<any> {
@@ -49,5 +53,9 @@ export class GeneralParameterService {
 
   public saveDetalles(ruta: String, data: any): Observable<any> {
     return this.http.post<any>(`${this.url}${ruta}/saveDetalles`, data, { headers: this.header });
+  }
+
+  public getByTablaId(ruta: String, id: any, nombre: String): Observable<any> {
+    return this.http.get<any>(`${this.url}${ruta}/getByTablaId/${id}/${nombre}`, { headers: this.header });
   }
 }
