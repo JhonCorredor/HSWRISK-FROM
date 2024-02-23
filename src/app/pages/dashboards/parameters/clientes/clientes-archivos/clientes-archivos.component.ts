@@ -206,21 +206,23 @@ export class ClientesArchivosComponent implements OnInit {
                             setTimeout(() => {
                                 this.helperService.hideLoading();
                             }, 200);
-                            const nombreArchivo = event.target.files[0].name;
-                            const documentoValue = per.data.documento;
 
+                            const file: File = event.target.files[0];
+                            this.convertToBase64(file).then((base64Content: string) => {
+                                this.contentDocumento = base64Content;
+                            }).catch((error: any) => {
+                                this.helperService.showMessage(MessageType.ERROR, error);
+                            });
+
+                            // const nombreArchivo = event.target.files[0].name;
+                            // const documentoValue = per.data.documento;
                             // Verificar si el nombre del archivo cumple con el formato esperado
-                            if (!(nombreArchivo.startsWith("CC") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
-                                this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
-                                this.frmArchivosClientes.controls["DocumentoIdentidad"].setValue(null);
-                            } else {
-                                const file: File = event.target.files[0];
-                                this.convertToBase64(file).then((base64Content: string) => {
-                                    this.contentDocumento = base64Content;
-                                }).catch((error: any) => {
-                                    this.helperService.showMessage(MessageType.ERROR, error);
-                                });
-                            }
+                            // if (!(nombreArchivo.startsWith("CC") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
+                            //     this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
+                            //     this.frmArchivosClientes.controls["DocumentoIdentidad"].setValue(null);
+                            // } else {
+
+                            // }
                         }
                     });
                 }
@@ -239,21 +241,22 @@ export class ClientesArchivosComponent implements OnInit {
                                 this.helperService.hideLoading();
                             }, 200);
 
-                            const nombreArchivo = event.target.files[0].name;
-                            const documentoValue = per.data.documento;
+                            const file: File = event.target.files[0];
+                            this.convertToBase64(file).then((base64Content: string) => {
+                                this.contentEps = base64Content;
+                            }).catch((error: any) => {
+                                this.helperService.showMessage(MessageType.ERROR, error);
+                            });
 
+                            // const nombreArchivo = event.target.files[0].name;
+                            // const documentoValue = per.data.documento;
                             // Verificar si el nombre del archivo cumple con el formato esperado
-                            if (!(nombreArchivo.startsWith("EPS") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
-                                this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
-                                this.frmArchivosClientes.controls["Eps"].setValue(null);
-                            } else {
-                                const file: File = event.target.files[0];
-                                this.convertToBase64(file).then((base64Content: string) => {
-                                    this.contentEps = base64Content;
-                                }).catch((error: any) => {
-                                    this.helperService.showMessage(MessageType.ERROR, error);
-                                });
-                            }
+                            // if (!(nombreArchivo.startsWith("EPS") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
+                            //     this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
+                            //     this.frmArchivosClientes.controls["Eps"].setValue(null);
+                            // } else {
+
+                            // }
                         }
                     });
                 }

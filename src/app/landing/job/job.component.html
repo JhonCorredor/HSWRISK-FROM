@@ -34,9 +34,19 @@
 								[ngxScrollTo]="'#features'">Nosotros</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="javascript:void(0);"
+							<a class="nav-link" href="academia"
 								[ngClass]="{ active: currentSection === 'academy' }"
 								[ngxScrollTo]="'#academy'">Academia</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="inscripcion"
+								[ngClass]="{ active: currentSection === 'inscripcion' }"
+								[ngxScrollTo]="'#inscripcion'">Inscríbete</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="certificados"
+								[ngClass]="{ active: currentSection === 'certificados' }"
+								[ngxScrollTo]="'#certificados'">Certificados</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="javascript:void(0);"
@@ -45,7 +55,7 @@
 						</li>
 					</ul>
 					<div class="">
-						<a routerLink="/auth/signin/cover" target="_blank" class="btn btn-soft-primary"><i
+						<a routerLink="auth/signin/cover" target="_blank" class="btn btn-soft-primary"><i
 								class="ri-user-3-line align-bottom me-1"></i> Iniciar sesión</a>
 					</div>
 				</div>

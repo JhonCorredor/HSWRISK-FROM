@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { getFirebaseBackend } from '../../authUtils';
 import { User } from 'src/app/store/Authentication/auth.models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -12,8 +11,8 @@ const AUTH_API = GlobalComponent.AUTH_API;
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  
+};
+
 
 @Injectable({ providedIn: 'root' })
 
@@ -31,14 +30,14 @@ export class AuthenticationService {
     constructor(private http: HttpClient, private store: Store) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')!));
         // this.currentUser = this.currentUserSubject.asObservable();
-     }
+    }
 
     /**
      * Performs the register
      * @param email email
      * @param password password
      */
-    register(email: string, first_name: string, password: string) {        
+    register(email: string, first_name: string, password: string) {
         // return getFirebaseBackend()!.registerUser(email, password).then((response: any) => {
         //     const user = response;
         //     return user;
@@ -49,7 +48,7 @@ export class AuthenticationService {
             email,
             first_name,
             password,
-          }, httpOptions).pipe(
+        }, httpOptions).pipe(
             map((response: any) => {
                 const user = response;
                 return user;
@@ -76,8 +75,8 @@ export class AuthenticationService {
         return this.http.post(AUTH_API + 'signin', {
             email,
             password
-          }, httpOptions).pipe(
-              map((response: any) => {
+        }, httpOptions).pipe(
+            map((response: any) => {
                 const user = response;
                 return user;
             }),
@@ -86,13 +85,6 @@ export class AuthenticationService {
                 return throwError(errorMessage);
             })
         );
-    }
-
-    /**
-     * Returns the current user
-     */
-    public currentUser(): any {
-        return getFirebaseBackend()!.getAuthenticatedUser();
     }
 
     /**
@@ -107,21 +99,9 @@ export class AuthenticationService {
         this.currentUserSubject.next(null!);
 
         return of(undefined).pipe(
-        
+
         );
 
     }
-
-    /**
-     * Reset password
-     * @param email email
-     */
-    resetPassword(email: string) {
-        return getFirebaseBackend()!.forgetPassword(email).then((response: any) => {
-            const message = response.data;
-            return message;
-        });
-    }
-
 }
 

@@ -21,7 +21,7 @@ import { DatatableParameter } from '../admin/datatable.parameters';
 export class InscripcionesComponent implements OnInit {
     currentSection = 'home';
     isCollapsed = true;
-
+    year: number = new Date().getFullYear();
     frmInscripcion: FormGroup;
     statusForm: boolean = true
     key: string = "Ciudad";
@@ -198,6 +198,7 @@ export class InscripcionesComponent implements OnInit {
     }
 
     cargarCursoDetalle(cursoId: number) {
+        this.listCursosDetalles = signal<DataSelectDto[]>([]);
         var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = cursoId; data.nameForeignKey = "CursoId";
 
         this.service.datatableKey('CursoDetalle', data).subscribe((res) => {
@@ -395,41 +396,43 @@ export class InscripcionesComponent implements OnInit {
     //Events Input
     onChangeDocumento(event: any) {
         if (typeof event != "undefined") {
-            const nombreArchivo = event.target.files[0].name;
-            const documentoValue = this.frmInscripcion.controls["Documento"].value;
+            const file: File = event.target.files[0];
+            this.convertToBase64(file).then((base64Content: string) => {
+                this.contentDocumento = base64Content;
+            }).catch((error: any) => {
+                this.helperService.showMessage(MessageType.ERROR, error);
+            });
 
+            // const nombreArchivo = event.target.files[0].name;
+            // const documentoValue = this.frmInscripcion.controls["Documento"].value;
             // Verificar si el nombre del archivo cumple con el formato esperado
-            if (!(nombreArchivo.startsWith("CC") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
-                this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
-                this.frmInscripcion.controls["DocumentoIdentidad"].setValue(null);
-            } else {
-                const file: File = event.target.files[0];
-                this.convertToBase64(file).then((base64Content: string) => {
-                    this.contentDocumento = base64Content;
-                }).catch((error: any) => {
-                    this.helperService.showMessage(MessageType.ERROR, error);
-                });
-            }
+            // if (!(nombreArchivo.startsWith("CC") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
+            //     this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
+            //     this.frmInscripcion.controls["DocumentoIdentidad"].setValue(null);
+            // } else {
+
+            // }
         }
     }
 
     onChangeEps(event: any) {
         if (typeof event != "undefined") {
-            const nombreArchivo = event.target.files[0].name;
-            const documentoValue = this.frmInscripcion.controls["Documento"].value;
+            const file: File = event.target.files[0];
+            this.convertToBase64(file).then((base64Content: string) => {
+                this.contentEps = base64Content;
+            }).catch((error: any) => {
+                this.helperService.showMessage(MessageType.ERROR, error);
+            });
 
-            // Verificar si el nombre del archivo cumple con el formato esperado
-            if (!(nombreArchivo.startsWith("EPS") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
-                this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
-                this.frmInscripcion.controls["Eps"].setValue(null);
-            } else {
-                const file: File = event.target.files[0];
-                this.convertToBase64(file).then((base64Content: string) => {
-                    this.contentEps = base64Content;
-                }).catch((error: any) => {
-                    this.helperService.showMessage(MessageType.ERROR, error);
-                });
-            }
+            // const nombreArchivo = event.target.files[0].name;
+            // const documentoValue = this.frmInscripcion.controls["Documento"].value;
+            // // Verificar si el nombre del archivo cumple con el formato esperado
+            // if (!(nombreArchivo.startsWith("EPS") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
+            //     this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
+            //     this.frmInscripcion.controls["Eps"].setValue(null);
+            // } else {
+
+            // }
         }
     }
 

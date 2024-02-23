@@ -31,7 +31,8 @@ export class CursosFormComponent implements OnInit {
             Codigo: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
             Nombre: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
             Norma: new FormControl(null, [Validators.required]),
-            Descripcion: new FormControl(null, [Validators.required]),
+            Descripcion: new FormControl(null, [Validators.required, Validators.maxLength(370)]),
+            Url: new FormControl(null, [Validators.required]),
             Activo: new FormControl(true, Validators.required),
         });
         this.routerActive.params.subscribe((l) => (this.id = l['id']));
@@ -46,6 +47,7 @@ export class CursosFormComponent implements OnInit {
                 this.frmCursos.controls['Nombre'].setValue(l.data.nombre);
                 this.frmCursos.controls['Norma'].setValue(l.data.norma);
                 this.frmCursos.controls['Descripcion'].setValue(l.data.descripcion);
+                this.frmCursos.controls['Url'].setValue(l.data.url);
                 this.frmCursos.controls['Activo'].setValue(l.data.activo);
             })
         } else {

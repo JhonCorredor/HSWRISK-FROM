@@ -16,7 +16,7 @@ export class AuthenticationEffects {
       exhaustMap(({ email, first_name, password }) =>
         this.AuthenticationService.register(email, first_name, password).pipe(
           map((user) => {
-            this.router.navigate(['/auth/login']);
+            this.router.navigate(['/auth/signin/cover']);
             return loginSuccess({ user });
           }),
           catchError((error) => of(loginFailure({ error })))

@@ -29,8 +29,17 @@
                             [ngxScrollTo]="'#features'">Nosotros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'academy' }"
+                        <a class="nav-link" href="academia" [ngClass]="{ active: currentSection === 'academy' }"
                             [ngxScrollTo]="'#academy'">Academia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inscripcion" [ngClass]="{ active: currentSection === 'inscripcion' }"
+                            [ngxScrollTo]="'#inscripcion'">Inscríbete</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="certificados"
+                            [ngClass]="{ active: currentSection === 'certificados' }"
+                            [ngxScrollTo]="'#certificados'">Certificados</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'contact' }"
@@ -44,15 +53,14 @@
             </div>
         </div>
     </nav>
-
     <section class="section job-hero-section bg-light pb-0" id="academy">
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-lg-6">
                     <div>
-                        <h1 class="display-6 fw-semibold text-capitalize mb-3 lh-base">Mejora tus habilidades</h1>
-                        <p class="lead text-muted lh-base mb-4">Nuestra experiencia nos respalda como un gran aliado
-                            estratégico en el proceso de formación continuada de la comunidad SG-SST.</p>
+                        <h1 class="display-6 fw-semibold text-capitalize mb-3 lh-base">Amplía tu Destreza</h1>
+                        <p class="lead text-muted lh-base mb-4">Fortalece tus habilidades con nuestro respaldo como
+                            aliado estratégico principal en el desarrollo continuo de la comunidad SG-SST.</p>
                         <a href="/inscripcion" target="_blank" class="btn btn-primary"><i
                                 class="ri-arrow-right-line align-bottom"></i> Inscribete Ahora</a>
                     </div>
@@ -60,7 +68,7 @@
                 <!--end col-->
                 <div class="col-lg-4">
                     <div class="position-relative home-img text-center mt-5 mt-lg-0">
-                        <img src="assets/images/job-profile2.png" alt="" class="user-img" />
+                        <img src="assets/images/job-profile3.png" alt="" class="user-img" />
 
                         <div class="circle-effect">
                             <div class="circle"></div>
@@ -85,35 +93,176 @@
                             restricciones geográficas, de forma innovadora, confiable y con contenido de alto nivel.</p>
                     </div>
                 </div>
-                <!-- end col -->
             </div>
-            <!-- end row -->
-
-            <div class="row g-3">
-                @for (data of Cursos; track $index) {
-                <div class="col-lg-4">
-                    <div class="d-flex p-3">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="avatar-sm icon-effect">
-                                <div class="avatar-title bg-transparent text-primary rounded-circle">
-                                    <i class="{{data.icon}} fs-36"></i>
+            <br>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="row" *ngFor="let data of listCursos(); let i = index">
+                    <div class="col">
+                        <div class="card" style="max-width: 522px; height: 570px;">
+                            <!-- [src]="sanitizeAndConvertUrl(data.url)" -->
+                            <iframe width="522" height="300" src="data.url" title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ data.nombre }}</h5>
+                                <p class="card-text text-muted fs-5" align="justify">{{ data.descripcion }}</p>
+                                <div class="text-end">
+                                    <a href="/inscripcion" target="_blank" class="btn btn-outline-primary"><i
+                                            class="ri-arrow-right-line align-bottom"></i> Inscríbete Ahora</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex-grow-1">
-                            <h5 class="fs-18">{{data.title}}</h5>
-                            <p class="text-muted my-3 ff-secondary">{{data.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <img src="assets/images/educacion-virtual.jpg" alt="" class="user-img rounded shadow-lg" width="100%"/>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 p-5">
+                <h1 class="mb-1 ff-secondary fw-semibold lh-base">Educación virtual</h1>
+                <h5 class="text-primary">Certificate desde casa</h5>
+                <p class="text-muted fs-5" align="justify">Los programas superan obstáculos relacionados con la
+                    dispersión de los
+                    participantes en diversas
+                    ubicaciones, reduciendo así los gastos asociados con la capacitación presencial. Al ser una
+                    plataforma de formación en línea, proporciona informes detallados, análisis, evaluaciones y
+                    certificaciones valiosas para la gestión efectiva de procesos en áreas como SST y Gestión Humana,
+                    entre otros aspectos clave.</p>
+                <div class="text-end">
+                    <a href="/inscripcion" target="_blank" class="btn btn-outline-primary"><i
+                            class="ri-arrow-right-line align-bottom"></i> Inscríbete Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+<!-- Start footer -->
+<footer class="custom-footer bg-light py-5 position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mt-4">
+                <div>
+                    <div>
+                        <img src="assets/images/logo-dark.png" alt="logo dark" height="70" />
+                    </div>
+                    <div class="mt-4 fs-13">
+                        <p>Nos especializamos en consultoría integral en gestión de riesgos laborales, derecho laboral y
+                            seguridad y salud en el trabajo. Nos comprometemos con la excelencia, la responsabilidad con
+                            el cliente y el trabajo en equipo.</p>
+                        <ul class="list-inline mb-0 footer-social-link">
+                            <li class="list-inline-item">
+                                <a href="https://www.facebook.com/profile.php?id=100064022221282" target="_blank"
+                                    class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript: void(0);" class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript: void(0);" class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-twitter"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/hsw-risk-consultants-sas-011a091a8/"
+                                    target="_blank" class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-linkedin-in"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://wa.me/573054455400" target="_blank" class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 ms-lg-auto">
+                <div class="row">
+                    <div class="col-sm-4 mt-4">
+                        <h5 class="text-primary mb-0"><i class="fa-duotone fa-user-tie-hair"></i> Empresa</h5>
+                        <div class="text-muted mt-3">
+                            <ul class="list-unstyled ff-secondary footer-list">
+                                <li>
+                                    <a href="">Nosotros</a>
+                                </li>
+                                <li>
+                                    <a href="">Servicios</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mt-4">
+                        <h5 class="text-primary mb-0"><i class="fa-duotone fa-screen-users"></i> Academia</h5>
+                        <div class="text-muted mt-3">
+                            <ul class="list-unstyled ff-secondary footer-list">
+                                <li><a href="academia">Cursos</a></li>
+                                <li><a href="academia">Talleres</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mt-4">
+                        <h5 class="text-primary mb-0"><i class="fa-duotone fa-messages-question"></i> Apoyo</h5>
+                        <div class="text-muted mt-3">
+                            <ul class="list-unstyled ff-secondary footer-list">
+                                <li>
+                                    <a href="">Contacto</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                }
-                <!-- end col -->
             </div>
-            <!-- end row -->
+
         </div>
-        <!-- end container -->
-    </section>
-</div>
+
+        <div class="row text-center text-sm-start align-items-center mt-5">
+            <div class="col-sm-6">
+                <div>
+                    <p class="copy-rights mb-0">
+                        {{year}} © SAFETY, HEALTH AND WORK RISK CONSULTANTS S.A.S.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-sm-end mt-3 mt-sm-0">
+                    <ul class="list-inline mb-0 footer-list gap-4 fs-13">
+                        <li class="list-inline-item">
+                            <a href="/pages/privacy-policy">política de privacidad</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="/pages/terms-condition">Términos y condiciones</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end footer -->
 
 <!--start back-to-top-->
 <button (click)="topFunction()" class="btn btn-primary btn-icon landing-back-top" id="back-to-top">

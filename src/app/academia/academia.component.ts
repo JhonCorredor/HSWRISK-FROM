@@ -1,11 +1,14 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralModule } from '../general/general.module';
 import { NgbCarouselModule, NgbTooltipModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { HelperService, Messages, MessageType } from '../admin/helper.service';
-import { CursosModel } from './cursos.module';
-import { Cursos } from './data';
+import { GeneralParameterService } from '../generic/general.service';
+import { DatatableParameter } from '../admin/datatable.parameters';
+import { Curso } from '../pages/dashboards/operational/cursos/cursos.module';
+import { LANGUAGE_DATATABLE } from 'src/app/admin/datatable.language';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-academia',
@@ -19,26 +22,82 @@ import { Cursos } from './data';
 export class AcademiaComponent implements OnInit {
     currentSection = 'academy';
     isCollapsed = true;
-    Cursos!: CursosModel[];
+    listCursos = signal<Curso[]>([]);
+    year: number = new Date().getFullYear();
 
 
     constructor(
+        private service: GeneralParameterService,
         private helperService: HelperService,
+        private sanitizer: DomSanitizer
     ) {
     }
 
     ngOnInit(): void {
-        /**
-        * fetches data
-        */
-        this._fetchData();
+        this.cargarLista();
     }
 
-    /**
-    * User grid data fetches
-    */
-    private _fetchData() {
-        this.Cursos = Cursos;
+    cargarLista() {
+        this.getData().then((datos) => {
+            datos.data.forEach((item: any) => {
+                this.listCursos.update(listCursos => {
+                    const Curso: Curso = {
+                        id: item.id,
+                        activo: item.activo,
+                        codigo: item.codigo,
+                        nombre: item.nombre,
+                        norma: item.norma,
+                        descripcion: item.descripcion,
+                        url: item.url,
+                    };
+
+                    return [...listCursos, Curso];
+                });
+            });
+
+            setTimeout(() => {
+                $("#datatable").DataTable({
+                    dom: 'Blfrtip',
+                    destroy: true,
+                    language: LANGUAGE_DATATABLE,
+                    processing: true
+                });
+            }, 200);
+        })
+            .catch((error) => {
+                console.error('Error al obtener los datos:', error);
+            });
+    }
+
+    getData(): Promise<any> {
+        var data = new DatatableParameter(); data.pageNumber = ""; data.pageSize = ""; data.filter = ""; data.columnOrder = ""; data.directionOrder = "";
+        return new Promise((resolve, reject) => {
+            this.service.datatable("Curso", data).subscribe(
+                (datos) => {
+                    resolve(datos);
+                },
+                (error) => {
+                    reject(error);
+                }
+            )
+        });
+    }
+
+    sanitizeAndConvertUrl(url: string): SafeResourceUrl {
+        let videoId: string;
+
+        // Si la URL tiene el formato "https://youtu.be/SL_C1NVHflU?si=FqVaFJsAFhHTehF2"
+        if (url.includes("youtu.be")) {
+            const parts = url.split('/');
+            videoId = parts[parts.length - 1].split('?')[0];
+        } else {
+            // Si la URL tiene el formato "https://www.youtube.com/embed/SL_C1NVHflU?si=5_I9WDi2TfapHqir"
+            const urlParams = new URLSearchParams(new URL(url).search);
+            videoId = urlParams.get('v')!;
+        }
+
+        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
     }
 
     //PAGE

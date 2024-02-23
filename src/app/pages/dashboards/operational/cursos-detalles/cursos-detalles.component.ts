@@ -26,7 +26,7 @@ export class CursosDetallesComponent implements OnInit {
     listCursoDetalles = signal<CursoDetalle[]>([]);
 
     constructor(
-        private helperService: HelperService,
+        public helperService: HelperService,
         private service: GeneralParameterService
     ) {
         this.frmCursoDetalles = new FormGroup({

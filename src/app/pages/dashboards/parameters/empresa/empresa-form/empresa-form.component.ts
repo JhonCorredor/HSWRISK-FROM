@@ -86,14 +86,7 @@ export class EmpresaFormComponent implements OnInit {
         this.frmEmpresas.controls['CiudadId'].setValue(l.data.ciudadId);
         this.frmEmpresas.controls['Activo'].setValue(l.data.activo);
         //Consulto el archivo
-        var data = new DatatableParameter();
-        data.pageNumber = '';
-        data.pageSize = '';
-        data.filter = '';
-        data.columnOrder = '';
-        data.directionOrder = '';
-        data.foreignKey = this.id;
-        data.nameForeignKey = 'TablaId';
+        var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = this.id; data.nameForeignKey = 'TablaId';
         this.service.datatableKey('Archivo', data).subscribe((response) => {
           if (response.data.length > 0) {
             response.data.forEach((item: any) => {

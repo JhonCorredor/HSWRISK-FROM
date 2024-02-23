@@ -22,6 +22,12 @@
                         [statusForm]=statusForm></app-forms-messages>
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Url Youtube</label>
+                    <input type="text" class="form-control" formControlName="Url">
+                    <app-forms-messages [error]="frmCursos.get('Url')" [statusForm]=statusForm
+                        [statusForm]=statusForm></app-forms-messages>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
                     <label>Activo</label><br>
                     <ui-switch formControlName="Activo"></ui-switch>
                 </div>

@@ -44,6 +44,7 @@ export class CursosIndexComponent implements OnInit {
                         nombre: item.nombre,
                         norma: item.norma,
                         descripcion: item.descripcion,
+                        url: item.url,
                     };
 
                     return [...listCursos, Curso];

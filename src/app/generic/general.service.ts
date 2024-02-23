@@ -20,6 +20,9 @@ export class GeneralParameterService {
     return this.http.get<any>(`${this.url}${ruta}/dataTableLastCourseDetails?PageNumber=${data.pageNumber}&PageSize=${data.pageSize}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}`, { headers: this.header })
   }
 
+  public getCertificado(ruta: String, data: DatatableParameter): Observable<any> {
+    return this.http.get<any>(`${this.url}${ruta}/getDataTableCompleto?PageNumber=${data.pageNumber}&PageSize=${data.pageSize}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ColumnFilter=${data.columnFilter}`, { headers: this.header })
+  }
   public datatable(ruta: String, data: DatatableParameter): Observable<any> {
     return this.http.get<any>(`${this.url}${ruta}/datatable?PageNumber=${data.pageNumber}&PageSize=${data.pageSize}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}`, { headers: this.header })
   }

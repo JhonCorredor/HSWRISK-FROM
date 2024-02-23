@@ -100,7 +100,7 @@
                             <td>{{ item.fechaFin | date:'yyyy-MM-dd' }}</td>
                             <td>{{ item.empleado }}</td>
                             <td>{{ item.duracion }}</td>
-                            <td>{{ item.precio }}</td>
+                            <td>$ {{ helperService.formaterNumber(item.precio) }}</td>
                             <td *ngIf="item.virtual; else elseBlock"><label class='text-center text-success'>Si</label>
                             </td>
                             <ng-template #elseBlock>

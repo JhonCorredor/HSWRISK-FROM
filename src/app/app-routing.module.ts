@@ -3,12 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LayoutComponent } from './layouts/layout.component';
 
-// Auth
-import { AuthGuard } from './core/guards/auth.guard';
-
 //Inscripcion
 import { InscripcionesComponent } from './inscripciones/inscripciones.component';
+//Certificado
+import { CertificadosComponent } from './certificados/certificados.component';
+//Academia
 import { AcademiaComponent } from './academia/academia.component';
+
+// Auth
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
 	{
@@ -23,8 +26,11 @@ const routes: Routes = [
 		loadChildren: () => import('./extraspages/extraspages.module').then((m) => m.ExtraspagesModule),
 		canActivate: [AuthGuard],
 	},
+
 	{ path: '', loadChildren: () => import('./landing/landing.module').then((m) => m.LandingModule) },
+
 	{ path: 'inscripcion', component: InscripcionesComponent },
+	{ path: 'certificados', component: CertificadosComponent },
 	{ path: 'academia', component: AcademiaComponent },
 
 ];

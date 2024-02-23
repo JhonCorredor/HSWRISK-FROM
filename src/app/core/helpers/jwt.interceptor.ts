@@ -26,14 +26,14 @@ export class JwtInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         if (environment.production) {
             // add authorization header with jwt token if available
-            let currentUser = this.authenticationService.currentUser();
-            if (currentUser && currentUser.token) {
-                request = request.clone({
-                    setHeaders: {
-                        Authorization: `Bearer ${currentUser.token}`,
-                    },
-                });
-            }
+            // let currentUser = this.authenticationService.currentUser();
+            // if (currentUser && currentUser.token) {
+            //     request = request.clone({
+            //         setHeaders: {
+            //             Authorization: `Bearer ${currentUser.token}`,
+            //         },
+            //     });
+            // }
         } else {
             // add authorization header with jwt token if available
             const currentUser = this.authfackservice.currentUserValue;
@@ -48,7 +48,7 @@ export class JwtInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error) => {
               if (error.status === 401) {
-                this.router.navigate(['/auth/login']);
+                this.router.navigate(['/auth/signin/cover']);
               }
               return throwError(error);
             })
