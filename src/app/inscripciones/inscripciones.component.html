@@ -263,7 +263,7 @@
                         </div>
                         <div class="col-sm-3 col-md-3 col-lg-3" *ngIf="cursoDetalle">
                             <label>Precio</label>
-                            <input type="text" class="form-control bg-white" readonly>
+                            <input type="text" class="form-control bg-white border-0" value="$ {{ precio }}" readonly>
                         </div>
                     </div>
                     <br>
@@ -282,7 +282,8 @@
                                 (change)="onChangeSoporte($event)">
                             <app-forms-messages [error]="frmInscripcion.get('Pago')"
                                 [statusForm]=statusForm></app-forms-messages>
-                            <a class="text-success text-decoration-underline" href="javascript: void(0);" (click)="CertificadoBancario()">Ver certificado bancario</a>
+                            <a class="text-success text-decoration-underline" href="javascript: void(0);"
+                                (click)="CertificadoBancario()">Ver certificado bancario</a>
                         </div>
                     </div>
                     <br>

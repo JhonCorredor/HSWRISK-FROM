@@ -48,6 +48,7 @@ export class InscripcionesComponent implements OnInit {
     listCursosDetalles = signal<DataSelectDto[]>([]);
     curso = false;
     cursoDetalle = false;
+    precio = "0";
     contentDocumento: string = "";
     contentEps: string = "";
 
@@ -202,10 +203,11 @@ export class InscripcionesComponent implements OnInit {
     onChangeCursoDetalle(event: any) {
         if (typeof event != "undefined") {
             this.cursoDetalle = true;
-            
+            this.service.getById("CursoDetalle", event.id).subscribe((res:any)=>{
+                this.precio = this.helperService.formaterNumber(res.data.precio).toString();
+            });
         } else {
             this.cursoDetalle = false;
-            
         }
     }
 
