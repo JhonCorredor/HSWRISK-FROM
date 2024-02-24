@@ -58,11 +58,18 @@
             <div class="row justify-content-between align-items-center">
                 <div class="col-lg-6">
                     <div>
-                        <h1 class="display-6 fw-semibold text-capitalize mb-3 lh-base">Amplía tu Destreza</h1>
-                        <p class="lead text-muted lh-base mb-4">Fortalece tus habilidades con nuestro respaldo como
-                            aliado estratégico principal en el desarrollo continuo de la comunidad SG-SST.</p>
-                        <a href="/inscripcion" target="_blank" class="btn btn-primary"><i
-                                class="ri-arrow-right-line align-bottom"></i> Inscribete Ahora</a>
+                        <h1 class="display-6 fw-semibold mb-3 lh-base">Amplía tu destreza</h1>
+                        <p class="lead text-muted lh-base mb-4">Fortalece tus habilidades y destrezas con nuestro
+                            respaldo como tu principal aliado estrategico en el desarrollo continuo de la comunidad del
+                            sector de la prevencion de riesgos.</p>
+                        <a href="/inscripcion" target="_blank" class="btn btn-primary mb-4"><i
+                                class="ri-arrow-right-line align-bottom"></i> Inscríbete Ahora</a>
+
+                        <p class="text-muted" style="font-size: small;">*Educación informal - No conduce a título o
+                            certificado
+                            de aptitud
+                            ocupacional - Decreto 1075
+                            de 2015 (artículo 2.6.6.8)</p>
                     </div>
                 </div>
                 <!--end col-->
@@ -87,10 +94,11 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="text-center mb-5">
-                        <h1 class="mb-3 ff-secondary fw-semibold lh-base">Nuestros cursos</h1>
-                        <p class="text-muted">Ofrecemos una excelente posibilidad de capacitación en Seguridad y Salud
-                            en el Trabajo tanto para profesionales como para empresas a un precio accesible, sin
-                            restricciones geográficas, de forma innovadora, confiable y con contenido de alto nivel.</p>
+                        <h1 class="mb-3 ff-secondary fw-semibold lh-base">Oferta académica</h1>
+                        <p class="text-muted">Ofrecemos oportunidades de aprendizaje innovador y confiable, para
+                            complementar la formación en seguridad y salud en el trabajo, orientada a profesionales del
+                            área técnica de riesgos y empresarios que se adaptan a las necesidades del entorno laboral.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -100,7 +108,9 @@
                     <div class="col">
                         <div class="card" style="max-width: 522px; height: 570px;">
                             <!-- [src]="sanitizeAndConvertUrl(data.url)" -->
-                            <iframe width="522" height="300" src="data.url" title="YouTube video player" frameborder="0"
+                            <!-- src="data.url" -->
+                            <iframe width="522" height="300" [src]="sanitizeAndConvertUrl(data.url)"
+                                title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen></iframe>
                             <div class="card-body">
@@ -117,31 +127,32 @@
             </div>
         </div>
     </section>
-
-    <br>
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <img src="assets/images/educacion-virtual.jpg" alt="" class="user-img rounded shadow-lg" width="100%"/>
+            <div class="col-sm-6 col-md-6 col-lg-6 px-5">
+                <img src="assets/images/educacion-virtual.jpg" alt="" class="user-img rounded shadow-lg" width="100%" />
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6 p-5">
+            <div class="col-sm-6 col-md-6 col-lg-6 px-5">
                 <h1 class="mb-1 ff-secondary fw-semibold lh-base">Educación virtual</h1>
                 <h5 class="text-primary">Certificate desde casa</h5>
-                <p class="text-muted fs-5" align="justify">Los programas superan obstáculos relacionados con la
-                    dispersión de los
-                    participantes en diversas
-                    ubicaciones, reduciendo así los gastos asociados con la capacitación presencial. Al ser una
-                    plataforma de formación en línea, proporciona informes detallados, análisis, evaluaciones y
-                    certificaciones valiosas para la gestión efectiva de procesos en áreas como SST y Gestión Humana,
-                    entre otros aspectos clave.</p>
-                <div class="text-end">
-                    <a href="/inscripcion" target="_blank" class="btn btn-outline-primary"><i
+                <p class="text-muted fs-5" align="justify">Los programas online eliminan la barrera de la dispersión
+                    geográfica de los participantes, reduciendo costos asociados con la capacitación presencial. Ofrecen
+                    informes detallados, análisis, evaluaciones y certificaciones esenciales para la gestión eficiente
+                    de procesos en áreas como SST y Gestión Humana, entre otros.</p>
+
+                <p class="text-muted" style="font-size: small;" align="justify">*Educación informal - No conduce a
+                    título o certificado
+                    de aptitud
+                    ocupacional - Decreto 1075
+                    de 2015 (artículo 2.6.6.8)</p>
+                <div>
+                    <a href="/inscripcion" target="_blank" class="btn btn-sm btn-outline-primary"><i
                             class="ri-arrow-right-line align-bottom"></i> Inscríbete Ahora</a>
                 </div>
             </div>
         </div>
+        <br><br><br><br>
     </div>
-    <br>
 </div>
 
 <!-- Start footer -->
@@ -239,7 +250,24 @@
 
         </div>
 
-        <div class="row text-center text-sm-start align-items-center mt-5">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-end">
+                <div>
+                    <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
+                    <p class="text-primary text-center" style="font-size: 7pt;">SC-CER326415</p>
+                </div>
+                <div>
+                    <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
+                    <p class="text-primary text-center" style="font-size: 7pt;">SC-CER561398</p>
+                </div>
+                <div>
+                    <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
+                    <p class="text-primary text-center" style="font-size: 7pt;">SC-CER867919</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center text-sm-start align-items-center mt-3">
             <div class="col-sm-6">
                 <div>
                     <p class="copy-rights mb-0">

@@ -8,6 +8,7 @@ import { NgbCarouselModule, NgbTooltipModule, NgbCollapseModule } from '@ng-boot
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { HelperService, Messages, MessageType } from '../admin/helper.service';
 import { DatatableParameter } from '../admin/datatable.parameters';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-inscripciones',
@@ -46,6 +47,7 @@ export class InscripcionesComponent implements OnInit {
     listCursos = signal<DataSelectDto[]>([]);
     listCursosDetalles = signal<DataSelectDto[]>([]);
     curso = false;
+    cursoDetalle = false;
     contentDocumento: string = "";
     contentEps: string = "";
 
@@ -85,7 +87,7 @@ export class InscripcionesComponent implements OnInit {
             CursoId: new FormControl(null, [Validators.required]),
             CursoDetalleId: new FormControl(null, [Validators.required]),
             DocumentoIdentidad: new FormControl(null, [Validators.required]),
-            Eps: new FormControl(null, [Validators.required]),
+            Pago: new FormControl(null, [Validators.required]),
         });
     }
 
@@ -194,6 +196,16 @@ export class InscripcionesComponent implements OnInit {
         } else {
             this.curso = false;
             this.listCursosDetalles = signal<DataSelectDto[]>([]);
+        }
+    }
+
+    onChangeCursoDetalle(event: any) {
+        if (typeof event != "undefined") {
+            this.cursoDetalle = true;
+            
+        } else {
+            this.cursoDetalle = false;
+            
         }
     }
 
@@ -368,13 +380,13 @@ export class InscripcionesComponent implements OnInit {
         });
 
         //Guardo el documento de la eps
-        data.Nombre = "Eps";
+        data.Nombre = "Soporte de Pago";
         data.Content = this.contentEps;
         this.service.save("Archivo", 0, data).subscribe((res: any) => {
             if (res.status) {
-                console.log("Documento de la Eps guardado correctamente.");
+                console.log("Soporte de pago guardado correctamente");
             } else {
-                console.log("Error al guardar el documento de la Eps.");
+                console.log("Error al guardar el soporte de pago");
             }
         });
     }
@@ -415,7 +427,7 @@ export class InscripcionesComponent implements OnInit {
         }
     }
 
-    onChangeEps(event: any) {
+    onChangeSoporte(event: any) {
         if (typeof event != "undefined") {
             const file: File = event.target.files[0];
             this.convertToBase64(file).then((base64Content: string) => {
@@ -423,17 +435,16 @@ export class InscripcionesComponent implements OnInit {
             }).catch((error: any) => {
                 this.helperService.showMessage(MessageType.ERROR, error);
             });
-
-            // const nombreArchivo = event.target.files[0].name;
-            // const documentoValue = this.frmInscripcion.controls["Documento"].value;
-            // // Verificar si el nombre del archivo cumple con el formato esperado
-            // if (!(nombreArchivo.startsWith("EPS") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
-            //     this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
-            //     this.frmInscripcion.controls["Eps"].setValue(null);
-            // } else {
-
-            // }
         }
+    }
+
+    CertificadoBancario() {
+        Swal.fire(`<h2>Certificado Bancario</h2>
+                    <h5>SAFETY, HEALTH AND WORK RISK CONSULTANTS</h5>
+                    <h5>NIT: 901202775</h5>
+                    <h5>BANCOLOMBIA</h5>
+                    <h5>CUENTA DE AHORROS</h5>
+                    <h5>No. Producto: 74100008650</h5>`);
     }
 
     //PAGE

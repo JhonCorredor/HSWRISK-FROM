@@ -256,10 +256,14 @@
                         <div class="col-sm-5 col-md-5 col-lg-5" *ngIf="curso">
                             <label>Detalle del Curso *</label>
                             <ng-select [items]="listCursosDetalles()" bindLabel="textoMostrar" bindValue="id"
-                                formControlName="CursoDetalleId">
+                                formControlName="CursoDetalleId" (change)="onChangeCursoDetalle($event)">
                             </ng-select>
                             <app-forms-messages [error]="frmInscripcion.get('CursoDetalleId')"
                                 [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3" *ngIf="cursoDetalle">
+                            <label>Precio</label>
+                            <input type="text" class="form-control bg-white" readonly>
                         </div>
                     </div>
                     <br>
@@ -273,11 +277,12 @@
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4">
-                            <label>Eps *</label>&nbsp;<span class="badge bg-danger">.Pdf</span>
-                            <input type="file" class="form-control mt-2" accept=".pdf" formControlName="Eps"
-                                (change)="onChangeEps($event)">
-                            <app-forms-messages [error]="frmInscripcion.get('Eps')"
+                            <label>Soporte de pago *</label>
+                            <input type="file" class="form-control my-2" accept=".pdf" formControlName="Pago"
+                                (change)="onChangeSoporte($event)">
+                            <app-forms-messages [error]="frmInscripcion.get('Pago')"
                                 [statusForm]=statusForm></app-forms-messages>
+                            <a class="text-success text-decoration-underline" href="javascript: void(0);" (click)="CertificadoBancario()">Ver certificado bancario</a>
                         </div>
                     </div>
                     <br>
@@ -388,7 +393,24 @@
 
             </div>
 
-            <div class="row text-center text-sm-start align-items-center mt-5">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-end">
+                    <div>
+                        <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
+                        <p class="text-primary text-center" style="font-size: 7pt;">SC-CER326415</p>
+                    </div>
+                    <div>
+                        <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
+                        <p class="text-primary text-center" style="font-size: 7pt;">SC-CER561398</p>
+                    </div>
+                    <div>
+                        <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
+                        <p class="text-primary text-center" style="font-size: 7pt;">SC-CER867919</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center text-sm-start align-items-center mt-3">
                 <div class="col-sm-6">
                     <div>
                         <p class="copy-rights mb-0">

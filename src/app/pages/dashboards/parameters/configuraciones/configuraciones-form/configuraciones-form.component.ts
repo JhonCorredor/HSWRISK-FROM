@@ -16,6 +16,7 @@ import { DatatableParameter } from '../../../../../admin/datatable.parameters';
 })
 export class ConfiguracionesFormComponent implements OnInit {
   img = '../../../../../../assets/no-photo.jpg';
+  imgRepresentante = '../../../../../../assets/no-photo.jpg';
   dataArchivo: any = undefined;
   frmConfiguracion: FormGroup;
   statusForm: boolean = true;
@@ -39,6 +40,7 @@ export class ConfiguracionesFormComponent implements OnInit {
       ClaveSupervisor: new FormControl(null, [Validators.required]),
       Activo: new FormControl(true, Validators.required),
       ContentBackground: new FormControl(""),
+      ContentFirmaRepresentante: new FormControl(""),
     });
     this.routerActive.params.subscribe((l) => (this.id = l['id']));
   }
@@ -60,6 +62,16 @@ export class ConfiguracionesFormComponent implements OnInit {
             response.data.forEach((item: any) => {
               if (item.nombre == 'BackgroundImageCertificate') {
                 this.img = item.content;
+              }
+            });
+          }
+        });
+
+        this.service.getByTablaId('Archivo', this.id, "Configuraciones").subscribe((response) => {
+          if (response.data.length > 0) {
+            response.data.forEach((item: any) => {
+              if (item.nombre == 'FirmaRepresentante') {
+                this.imgRepresentante = item.content;
               }
             });
           }
@@ -105,6 +117,22 @@ export class ConfiguracionesFormComponent implements OnInit {
         this.frmConfiguracion.controls["ContentBackground"].setValue(archivo);
         this.img = archivo;
       };
+    }
+  }
+
+  fileEventRepresentante(event: any) {
+    let archivo: any;
+    let type = event.target.files[0].type.split('/')[1];
+    if (type == 'png') {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = async (e: any) => {
+        archivo = await e.target.result; //imagen en base 64
+        this.frmConfiguracion.controls["ContentFirmaRepresentante"].setValue(archivo);
+        this.imgRepresentante = archivo;
+      };
+    } else {
+      this.helperService.showMessage(MessageType.WARNING, "La firma no esta en formato png");
     }
   }
 }

@@ -17,6 +17,7 @@ import { EmpresaFormComponent } from '../../empresa/empresa-form/empresa-form.co
   styleUrl: './empleados-form.component.css'
 })
 export class EmpleadosFormComponent implements OnInit {
+  img = '../../../../../../assets/no-photo.jpg';
   frmEmpleados: FormGroup;
   statusForm: boolean = true;
   id!: number;
@@ -39,7 +40,8 @@ export class EmpleadosFormComponent implements OnInit {
       PersonaId: new FormControl(null, [Validators.required]),
       EmpresaId: new FormControl(null, [Validators.required]),
       CargoId: new FormControl(null, [Validators.required]),
-      Activo: new FormControl(true, Validators.required)
+      Activo: new FormControl(true, Validators.required),
+      ContentFirma: new FormControl(""),
     });
     this.routerActive.params.subscribe((l) => (this.id = l['id']));
   }
@@ -57,6 +59,17 @@ export class EmpleadosFormComponent implements OnInit {
         this.frmEmpleados.controls['EmpresaId'].setValue(l.data.empresaId);
         this.frmEmpleados.controls['CargoId'].setValue(l.data.cargoId);
         this.frmEmpleados.controls['Activo'].setValue(l.data.activo);
+
+        //Consulto el archivo
+        this.service.getByTablaId('Archivo', this.id, "Empleados").subscribe((response) => {
+          if (response.data.length > 0) {
+            response.data.forEach((item: any) => {
+              if (item.nombre == 'FirmaEmpleado') {
+                this.img = item.content;
+              }
+            });
+          }
+        });
       });
     }
 
@@ -174,6 +187,20 @@ export class EmpleadosFormComponent implements OnInit {
         this.cargarEmpresas(true);
       }, 200);
     });
+  }
+
+  fileEvent(event: any) {
+    let archivo: any;
+    let type = event.target.files[0].type.split('/')[1];
+    if (type == 'png' || type == 'jpeg' || type == 'jpg') {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = async (e: any) => {
+        archivo = await e.target.result; //imagen en base 64
+        this.frmEmpleados.controls["ContentFirma"].setValue(archivo);
+        this.img = archivo;
+      };
+    }
   }
 }
 @NgModule({
