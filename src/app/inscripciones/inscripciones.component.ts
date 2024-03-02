@@ -50,7 +50,7 @@ export class InscripcionesComponent implements OnInit {
     cursoDetalle = false;
     precio = "0";
     contentDocumento: string = "";
-    contentEps: string = "";
+    contentSoporte: string = "";
 
     constructor(
         private service: GeneralParameterService,
@@ -203,7 +203,7 @@ export class InscripcionesComponent implements OnInit {
     onChangeCursoDetalle(event: any) {
         if (typeof event != "undefined") {
             this.cursoDetalle = true;
-            this.service.getById("CursoDetalle", event.id).subscribe((res:any)=>{
+            this.service.getById("CursoDetalle", event.id).subscribe((res: any) => {
                 this.precio = this.helperService.formaterNumber(res.data.precio).toString();
             });
         } else {
@@ -318,7 +318,6 @@ export class InscripcionesComponent implements OnInit {
 
                     setTimeout(() => {
                         this.SaveInscripcion(inscripcion);
-                        this.SaveArchivo(response.data.id);
                     }, 200);
                 } else {
                     setTimeout(() => {
@@ -339,6 +338,7 @@ export class InscripcionesComponent implements OnInit {
         this.service.save('Inscripcion', 0, data).subscribe(
             (response) => {
                 if (response.status) {
+                    this.SaveArchivo(data.ClienteId);
                     this.helperService.showMessage(
                         MessageType.SUCCESS,
                         Messages.SAVESUCCESS
@@ -383,7 +383,8 @@ export class InscripcionesComponent implements OnInit {
 
         //Guardo el documento de la eps
         data.Nombre = "Soporte de Pago";
-        data.Content = this.contentEps;
+        data.Content = this.contentSoporte;
+        data.Extension = "jpg";
         this.service.save("Archivo", 0, data).subscribe((res: any) => {
             if (res.status) {
                 console.log("Soporte de pago guardado correctamente");
@@ -416,16 +417,6 @@ export class InscripcionesComponent implements OnInit {
             }).catch((error: any) => {
                 this.helperService.showMessage(MessageType.ERROR, error);
             });
-
-            // const nombreArchivo = event.target.files[0].name;
-            // const documentoValue = this.frmInscripcion.controls["Documento"].value;
-            // Verificar si el nombre del archivo cumple con el formato esperado
-            // if (!(nombreArchivo.startsWith("CC") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
-            //     this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
-            //     this.frmInscripcion.controls["DocumentoIdentidad"].setValue(null);
-            // } else {
-
-            // }
         }
     }
 
@@ -433,7 +424,7 @@ export class InscripcionesComponent implements OnInit {
         if (typeof event != "undefined") {
             const file: File = event.target.files[0];
             this.convertToBase64(file).then((base64Content: string) => {
-                this.contentEps = base64Content;
+                this.contentSoporte = base64Content;
             }).catch((error: any) => {
                 this.helperService.showMessage(MessageType.ERROR, error);
             });
@@ -441,7 +432,7 @@ export class InscripcionesComponent implements OnInit {
     }
 
     CertificadoBancario() {
-        Swal.fire(`<h2>Certificado Bancario</h2>
+        Swal.fire(`<h2>Datos Bancarios</h2>
                     <h5>SAFETY, HEALTH AND WORK RISK CONSULTANTS</h5>
                     <h5>NIT: 901202775</h5>
                     <h5>BANCOLOMBIA</h5>

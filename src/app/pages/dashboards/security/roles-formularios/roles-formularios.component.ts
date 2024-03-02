@@ -112,10 +112,14 @@ export class RolesFormulariosComponent implements OnInit {
       this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
       return;
     }
+    this.helperService.showLoading();
     let data = this.frmRolesFormularios.value;
     this.service.save("FormularioRol", this.frmRolesFormularios.controls['Id'].value, data).subscribe(
       (response) => {
         if (response.status) {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
           this.refrescarTabla();
           this.frmRolesFormularios.reset();
           this.frmRolesFormularios.controls['Id'].setValue(0);
@@ -123,9 +127,16 @@ export class RolesFormulariosComponent implements OnInit {
             MessageType.SUCCESS,
             Messages.SAVESUCCESS
           );
+        } else {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
         }
       },
       (error) => {
+        setTimeout(() => {
+          this.helperService.hideLoading();
+        }, 200);
         this.helperService.showMessage(
           MessageType.WARNING,
           error

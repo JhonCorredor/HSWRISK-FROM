@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LANGUAGE_DATATABLE } from 'src/app/admin/datatable.language';
 import { HelperService, Messages, MessageType } from 'src/app/admin/helper.service';
@@ -27,7 +28,8 @@ export class CursosDetallesComponent implements OnInit {
 
     constructor(
         public helperService: HelperService,
-        private service: GeneralParameterService
+        private service: GeneralParameterService,
+        private datePipe: DatePipe
     ) {
         this.frmCursoDetalles = new FormGroup({
             Id: new FormControl(0, Validators.required),
@@ -36,7 +38,7 @@ export class CursosDetallesComponent implements OnInit {
             Duracion: new FormControl(null, Validators.required),
             FechaInicio: new FormControl(null, Validators.required),
             FechaFin: new FormControl(null, Validators.required),
-            Virtual: new FormControl(null, Validators.required),
+            Virtual: new FormControl(false, Validators.required),
             EmpleadoId: new FormControl(null, Validators.required),
             EstadoId: new FormControl(null, Validators.required),
             SalonId: new FormControl(null, Validators.required),
@@ -128,15 +130,18 @@ export class CursosDetallesComponent implements OnInit {
     cargarEstados() {
         this.service.getAll('Estado').subscribe((res) => {
             res.data.forEach((item: any) => {
-                this.listEstados.update(listEstados => {
-                    const DataSelectDto: DataSelectDto = {
-                        id: item.id,
-                        textoMostrar: `${item.codigo} - ${item.nombre}`,
-                        activo: item.activo
-                    };
+                if (item.codigo == "ABIERTO") {
+                    this.listEstados.update(listEstados => {
+                        const DataSelectDto: DataSelectDto = {
+                            id: item.id,
+                            textoMostrar: `${item.codigo} - ${item.nombre}`,
+                            activo: item.activo
+                        };
 
-                    return [...listEstados, DataSelectDto];
-                });
+                        return [...listEstados, DataSelectDto];
+                    });
+                    this.frmCursoDetalles.controls["EstadoId"].setValue(item.id);
+                }
             });
         });
     }
@@ -212,10 +217,14 @@ export class CursosDetallesComponent implements OnInit {
             this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
             return;
         }
+        this.helperService.showLoading();
         let data = this.frmCursoDetalles.value;
         this.service.save("CursoDetalle", this.frmCursoDetalles.controls['Id'].value, data).subscribe(
             (response) => {
                 if (response.status) {
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
                     this.refrescarTabla();
                     this.frmCursoDetalles.reset();
                     this.frmCursoDetalles.controls['Id'].setValue(0);
@@ -223,9 +232,16 @@ export class CursosDetallesComponent implements OnInit {
                         MessageType.SUCCESS,
                         Messages.SAVESUCCESS
                     );
+                } else {
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
                 }
             },
             (error) => {
+                setTimeout(() => {
+                    this.helperService.hideLoading();
+                }, 200);
                 this.helperService.showMessage(
                     MessageType.WARNING,
                     error
@@ -239,8 +255,6 @@ export class CursosDetallesComponent implements OnInit {
         this.frmCursoDetalles.controls['CursoId'].setValue(item.cursoId);
         this.frmCursoDetalles.controls['Precio'].setValue(item.precio);
         this.frmCursoDetalles.controls['Duracion'].setValue(item.duracion);
-        this.frmCursoDetalles.controls['FechaInicio'].setValue(item.fechaInicio);
-        this.frmCursoDetalles.controls['FechaFin'].setValue(item.fechaFin);
         this.frmCursoDetalles.controls['Virtual'].setValue(item.virtual);
         this.frmCursoDetalles.controls['EmpleadoId'].setValue(item.empleadoId);
         this.frmCursoDetalles.controls['EstadoId'].setValue(item.estadoId);
@@ -248,6 +262,20 @@ export class CursosDetallesComponent implements OnInit {
         this.frmCursoDetalles.controls['NivelId'].setValue(item.nivelId);
         this.frmCursoDetalles.controls['JornadaId'].setValue(item.jornadaId);
         this.frmCursoDetalles.controls['Activo'].setValue(item.activo);
+
+        const formattedFechaInicio = this.datePipe.transform(
+            item.fechaInicio,
+            'yyyy-MM-dd',
+            'America/Bogota'
+        );
+        const formattedFechaFin = this.datePipe.transform(
+            item.fechaFin,
+            'yyyy-MM-dd',
+            'America/Bogota'
+        );
+
+        this.frmCursoDetalles.controls['FechaInicio'].setValue(formattedFechaInicio);
+        this.frmCursoDetalles.controls['FechaFin'].setValue(formattedFechaFin);
     }
 
     deleteGeneric(id: any) {

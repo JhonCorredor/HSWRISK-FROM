@@ -106,6 +106,7 @@ export class FormulariosFormComponent implements OnInit {
       { textoMostrar: "fa-duotone fa-triangle-exclamation", name: "contingencia" },
       { textoMostrar: "fa-duotone fa-person-chalkboard", name: "curso" },
       { textoMostrar: "fa-duotone fa-clipboard-check", name: "inscripcion" },
+      { textoMostrar: "fa-duotone fa-handshake", name: "convenio" },
     ]
   }
 
@@ -121,6 +122,7 @@ export class FormulariosFormComponent implements OnInit {
       this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
       return;
     }
+    this.helperService.showLoading();
     let data = {
       id: this.id ?? 0,
       [this.key + 'Id']: this.frmFormularios.controls['Key_Id'].value,
@@ -129,11 +131,21 @@ export class FormulariosFormComponent implements OnInit {
     this.service.save(this.serviceName, this.id, data).subscribe(
       (response) => {
         if (response.status) {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
           this.modalActive.close(true);
           this.helperService.showMessage(MessageType.SUCCESS, Messages.SAVESUCCESS);
+        } else {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
         }
       },
       (error) => {
+        setTimeout(() => {
+          this.helperService.hideLoading();
+        }, 200);
         this.modalActive.close();
         this.helperService.showMessage(MessageType.ERROR, error);
       }

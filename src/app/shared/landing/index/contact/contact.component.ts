@@ -15,10 +15,10 @@ export class ContactComponent implements OnInit {
   statusForm: boolean = true;
   frmContact: FormGroup;
   sender_name: string = "HSW RISK";
-  sender_email: string = "josepoza125@gmail.com";
-  to_name: string = "HSW RISK";
-  to_email: string = "josepoza126@gmail.com";
-  api_key: string = "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";
+  sender_email: string = "info@hswrisk.com";
+  to_name: string = "Inscripciones";
+  to_email: string = "inscripciones@hswrisk.com";
+  api_key: string = "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";
   templateId: number = 1;
 
   constructor(
@@ -60,24 +60,23 @@ export class ContactComponent implements OnInit {
         sender: { name: this.sender_name, email: this.sender_email },
         headers: {
           'sender.ip': '1.2.3.4',
-          'X-Mailin-custom': 'some_custom_header',
-          idempotencyKey: 'abc-123'
+          'X-Mailin-custom': 'some_custom_header'
         },
         to: [{ email: this.to_email, name: this.to_name }],
         templateId: this.templateId,
-        params: { name: data.Name, correo: data.Email, asunto: data.Subjet, mensaje: data.Message },
+        params: { NOMBREC: data.Name, CORREO: data.Email, ASUNTO: data.Subjet, MENSAJE: data.Message },
         subject: "CONTACTO",
-        batchId: '5c6cfa04-eed9-42c2-8b5c-6d470d978e9d'
       })
     };
 
     fetch('https://api.brevo.com/v3/smtp/email', options)
       .then(response => response.json())
-      .then(response => this.helperService.showMessage(MessageType.PROGRESS, response.message))
-      .catch(err => console.error(err));
+      .then(response => this.helperService.showMessage(MessageType.SUCCESS, "Mensaje enviado correctamente!"))
+      .catch(err => this.helperService.showMessage(MessageType.WARNING, err));
 
     setTimeout(() => {
       this.helperService.hideLoading();
-    }, 200);
+      this.frmContact.reset();
+    }, 500);
   }
 }

@@ -25,6 +25,8 @@ import { ContingenciasIndexComponent } from './operational/contingencias/conting
 import { InscripcionesIndexComponent } from './operational/inscripciones/inscripciones-index/inscripciones-index.component';
 import { IncripcionesFormComponent } from './operational/inscripciones/inscripciones-form/inscripciones-form.component';
 import { ConfiguracionesFormComponent } from './parameters/configuraciones/configuraciones-form/configuraciones-form.component';
+import { PerfilFormComponent } from './parameters/perfil/perfil-form.component';
+import { ConveniosIndexComponent } from './parameters/convenios/convenios-index/convenios-index.component';
 
 const routes: Routes = [
   {
@@ -83,9 +85,14 @@ const routes: Routes = [
   { path: 'operativo/inscripciones/crear', component: IncripcionesFormComponent },
   { path: 'operativo/inscripciones/editar/:id', component: IncripcionesFormComponent },
 
+  //Convenios
+  { path: 'parametros/convenios', component: ConveniosIndexComponent },
+
   //Configuraciones
   { path: 'parametros/configuraciones/editar/:id', component: ConfiguracionesFormComponent },
 
+  //Perfil
+  { path: 'parametros/perfil/editar/:id', component: PerfilFormComponent },
 
   //General
   {

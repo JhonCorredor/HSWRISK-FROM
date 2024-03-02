@@ -122,9 +122,13 @@ export class ClientesFormComponent implements OnInit {
       id: this.id ?? 0,
       ...this.frmClientes.value,
     };
+    this.helperService.showLoading();
     this.service.save('Cliente', this.id, data).subscribe(
       (response) => {
         if (response.status) {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
           this.helperService.showMessage(
             MessageType.SUCCESS,
             Messages.SAVESUCCESS
@@ -138,9 +142,16 @@ export class ClientesFormComponent implements OnInit {
           } else {
             this.helperService.redirectApp('dashboard/parametros/clientes');
           }
+        } else {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
         }
       },
       (error) => {
+        setTimeout(() => {
+          this.helperService.hideLoading();
+        }, 200);
         this.helperService.showMessage(MessageType.WARNING, error);
       }
     );

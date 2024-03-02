@@ -2,23 +2,62 @@ import { Component, Input, OnInit, signal } from '@angular/core';
 import { LANGUAGE_DATATABLE } from 'src/app/admin/datatable.language';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService, Messages, MessageType } from 'src/app/admin/helper.service';
-import { GeneralParameterService } from '../../../../../generic/general.service';
-import { Archivo } from './archivos.module';
+import { GeneralParameterService } from '../../../../generic/general.service';
+import { Archivo } from '../clientes/clientes-archivos/archivos.module';
+import { DatatableParameter } from 'src/app/admin/datatable.parameters';
 import Swal from 'sweetalert2';
 
 @Component({
-    selector: 'app-clientes-archivos',
+    selector: 'app-perfil-archivos',
     standalone: false,
-    templateUrl: './clientes-archivos.component.html',
-    styleUrl: './clientes-archivos.component.css'
+    templateUrl: './perfil-archivos.component.html',
+    styleUrl: './perfil-archivos.component.css'
 })
-export class ClientesArchivosComponent implements OnInit {
-    @Input() ClienteId: any = null;
+export class PerfilArchivosComponent implements OnInit {
+    @Input() PersonaId: any = null;
+    ClienteId: any = null;
     frmArchivosClientes: FormGroup;
     statusForm: boolean = true;
     listClientesArchivos = signal<Archivo[]>([]);
-    contentDocumento: string = "";
-    contentEps: string = "";
+    list: any = [
+        {
+            "value": "Copia de la cedula (150%) o del permiso por protección temporal y permanencia (PPT)",
+            "textoMostrar": "Copia de la cedula (150%) o del permiso por protección temporal y permanencia (PPT)",
+        },
+        {
+            "value": "Examen médico y concepto de aptitud ocupacional de alturas vigente",
+            "textoMostrar": "Examen médico y concepto de aptitud ocupacional de alturas vigente (máximo 6 meses)",
+        },
+        {
+            "value": "Copia de planilla de aportes a la seguridad social vigente o certificado de afiliación a la EPS",
+            "textoMostrar": "Copia de planilla de aportes a la seguridad social vigente o certificado de afiliación a la EPS",
+        },
+        {
+            "value": "ARL",
+            "textoMostrar": "ARL (si esta recién contratado)",
+        },
+        {
+            "value": "Copia del certificado de alturas avanzado - autorizado",
+            "textoMostrar": "Copia del certificado de alturas avanzado - autorizado (sólo para hacer Reentrenamiento)",
+        },
+        {
+            "value": "Carta u oficio del empleador de experiencia mínima de un año",
+            "textoMostrar": "Carta u oficio del empleador de experiencia mínima de un año (sólo para hacer Coordinador)",
+        },
+        {
+            "value": "Copia certificado Coordinador",
+            "textoMostrar": "Copia certificado Coordinador (sólo aplica para hacer Actualización de Coordinador)",
+        },
+        {
+            "value": "Copia completa del (RUT) de la empresa",
+            "textoMostrar": "Copia completa del (RUT) de la empresa donde se evidencie la información del representante legal",
+        },
+        {
+            "value": "Soporte de Pago",
+            "textoMostrar": "Soporte de Pago",
+        },
+    ];
+    content = "";
     botones = ['btn-guardar'];
 
     constructor(
@@ -26,8 +65,8 @@ export class ClientesArchivosComponent implements OnInit {
         private service: GeneralParameterService
     ) {
         this.frmArchivosClientes = new FormGroup({
-            DocumentoIdentidad: new FormControl(null),
-            Pago: new FormControl(null),
+            Nombre: new FormControl(null, [Validators.required]),
+            Content: new FormControl(null, [Validators.required]),
         });
     }
 
@@ -69,15 +108,19 @@ export class ClientesArchivosComponent implements OnInit {
     }
 
     getData(): Promise<any> {
+        var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = Number(this.PersonaId); data.nameForeignKey = "PersonaId";
         return new Promise((resolve, reject) => {
-            this.service.getByTablaId("Archivo", this.ClienteId, "Clientes").subscribe(
-                (datos) => {
-                    resolve(datos);
-                },
-                (error) => {
-                    reject(error);
-                }
-            )
+            this.service.datatableKey("Cliente", data).subscribe((l: any) => {
+                this.ClienteId = l.data[0].id;
+                this.service.getByTablaId("Archivo", l.data[0].id, "Clientes").subscribe(
+                    (datos) => {
+                        resolve(datos);
+                    },
+                    (error) => {
+                        reject(error);
+                    }
+                );
+            });
         });
     }
 
@@ -97,15 +140,7 @@ export class ClientesArchivosComponent implements OnInit {
                             this.helperService.hideLoading();
                         }, 200);
 
-                        var fileName = "";
-                        switch (name) {
-                            case "Documento de Identidad":
-                                fileName = `CC_${per.data.documento}.${extension}`;
-                                break;
-                            case "Soporte de Pago":
-                                fileName = `SOPORTE_PAGO_${per.data.documento}.${extension}`;
-                                break;
-                        }
+                        var fileName = `${name}_${per.data.documento}.${extension}`;
 
                         // Decodificar el contenido base64
                         const binaryString = window.atob(base64String);
@@ -211,128 +246,40 @@ export class ClientesArchivosComponent implements OnInit {
         });
     }
 
-    CertificadoBancario() {
-        Swal.fire(`<h2>Datos Bancarios</h2>
-                    <h5>SAFETY, HEALTH AND WORK RISK CONSULTANTS</h5>
-                    <h5>NIT: 901202775</h5>
-                    <h5>BANCOLOMBIA</h5>
-                    <h5>CUENTA DE AHORROS</h5>
-                    <h5>No. Producto: 74100008650</h5>`);
-    }
-
     //Events Input
-    onChangeDocumento(event: any) {
-        this.helperService.showLoading();
-        if (typeof event != "undefined") {
-            this.service.getById("Cliente", this.ClienteId).subscribe((res) => {
-                if (res.status) {
-                    this.service.getById("Persona", res.data.personaId).subscribe((per: any) => {
-                        if (per.status) {
-                            setTimeout(() => {
-                                this.helperService.hideLoading();
-                            }, 200);
-
-                            const file: File = event.target.files[0];
-                            this.convertToBase64(file).then((base64Content: string) => {
-                                this.contentDocumento = base64Content;
-                            }).catch((error: any) => {
-                                this.helperService.showMessage(MessageType.ERROR, error);
-                            });
-
-                            // const nombreArchivo = event.target.files[0].name;
-                            // const documentoValue = per.data.documento;
-                            // Verificar si el nombre del archivo cumple con el formato esperado
-                            // if (!(nombreArchivo.startsWith("CC") && nombreArchivo.includes(`${documentoValue}.pdf`))) {
-                            //     this.helperService.showMessage(MessageType.WARNING, "El nombre del documento no es el correcto!");
-                            //     this.frmArchivosClientes.controls["DocumentoIdentidad"].setValue(null);
-                            // } else {
-
-                            // }
-                        }
-                    });
-                }
-            });
-        }
-    }
-
-    onChangeSoporte(event: any) {
-        this.helperService.showLoading();
-        if (typeof event != "undefined") {
-            this.service.getById("Cliente", this.ClienteId).subscribe((res) => {
-                if (res.status) {
-                    this.service.getById("Persona", res.data.personaId).subscribe((per: any) => {
-                        if (per.status) {
-                            setTimeout(() => {
-                                this.helperService.hideLoading();
-                            }, 200);
-
-                            const file: File = event.target.files[0];
-                            this.convertToBase64(file).then((base64Content: string) => {
-                                this.contentEps = base64Content;
-                            }).catch((error: any) => {
-                                this.helperService.showMessage(MessageType.ERROR, error);
-                            });
-                        }
-                    });
-                }
-            });
-        }
+    onChangeFile(event: any) {
+        const file: File = event.target.files[0];
+        this.convertToBase64(file).then((base64Content: string) => {
+            this.content = base64Content;
+        }).catch((error: any) => {
+            this.helperService.showMessage(MessageType.ERROR, error);
+        });
     }
 
     save() {
+        if (this.frmArchivosClientes.invalid) {
+            this.statusForm = false;
+            this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
+            return;
+        }
+        this.helperService.showLoading();
         let data = {
-            Nombre: "",
+            Nombre: this.frmArchivosClientes.controls["Nombre"].value,
             TablaId: this.ClienteId,
             Tabla: 'Clientes',
             Extension: "pdf",
-            Content: "",
+            Content: this.content,
             Activo: true,
         };
-        this.helperService.showLoading();
-        //Guardo el documento de identidad
-        if (this.contentDocumento != "") {
-            data.Nombre = "Documento de Identidad";
-            data.Content = this.contentDocumento;
-            this.service.save("Archivo", 0, data).subscribe(
-                (response) => {
-                    if (response.status) {
-                        setTimeout(() => {
-                            this.helperService.hideLoading();
-                        }, 200);
-                        this.helperService.showMessage(MessageType.SUCCESS, "Documento de identidad guardado correctamente.");
-                        this.frmArchivosClientes.reset();
-                        this.refrescarTabla();
-                    } else {
-                        setTimeout(() => {
-                            this.helperService.hideLoading();
-                        }, 200);
-                    }
-                },
-                (error) => {
-                    setTimeout(() => {
-                        this.helperService.hideLoading();
-                    }, 200);
-                    this.frmArchivosClientes.reset();
-                    this.helperService.showMessage(MessageType.WARNING, error);
-                }
-            );
-        }
 
-        if (this.contentEps != "") {
-            //Guardo el documento de la eps
-            data.Nombre = "Soporte de Pago";
-            data.Content = this.contentEps;
-            data.Extension = "jpg";
+        if (this.content != "") {
             this.service.save("Archivo", 0, data).subscribe(
                 (response) => {
                     if (response.status) {
-                        setTimeout(() => {
-                            this.helperService.hideLoading();
-                        }, 200);
-                        this.helperService.showMessage(MessageType.SUCCESS, "Soporte de Pago guardado correctamente.");
+                        this.helperService.showMessage(MessageType.SUCCESS, "Archivo guardado correctamente.");
                         this.frmArchivosClientes.reset();
                         this.refrescarTabla();
-                    } else {
+
                         setTimeout(() => {
                             this.helperService.hideLoading();
                         }, 200);
@@ -346,6 +293,11 @@ export class ClientesArchivosComponent implements OnInit {
                     this.helperService.showMessage(MessageType.WARNING, error);
                 }
             );
+        } else {
+            setTimeout(() => {
+                this.helperService.hideLoading();
+            }, 200);
+            this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
         }
     }
 }

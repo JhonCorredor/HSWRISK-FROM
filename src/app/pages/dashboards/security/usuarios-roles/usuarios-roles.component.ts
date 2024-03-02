@@ -56,34 +56,34 @@ export class UsuariosRolesComponent implements OnInit {
 
   cargarLista() {
     this.getData()
-    .then((datos) => {
-      datos.data.forEach((item: any) => {
-        this.listUsuariosRoles.update(listUsuariosRoles => {
-          const UsuarioRol: UsuarioRol = {
-            id: item.id,
-            activo: item.activo,
-            usuarioId: item.usuarioId,
-            usuario: item.usuario,
-            rolId: item.rolId,
-            rol: item.rol,
-          };
+      .then((datos) => {
+        datos.data.forEach((item: any) => {
+          this.listUsuariosRoles.update(listUsuariosRoles => {
+            const UsuarioRol: UsuarioRol = {
+              id: item.id,
+              activo: item.activo,
+              usuarioId: item.usuarioId,
+              usuario: item.usuario,
+              rolId: item.rolId,
+              rol: item.rol,
+            };
 
-          return [...listUsuariosRoles, UsuarioRol];
+            return [...listUsuariosRoles, UsuarioRol];
+          });
         });
+
+        setTimeout(() => {
+          $("#datatable").DataTable({
+            dom: 'Blfrtip',
+            destroy: true,
+            language: LANGUAGE_DATATABLE,
+            processing: true
+          });
+        }, 200);
+      })
+      .catch((error) => {
+        console.error('Error al obtener los datos:', error);
       });
-
-      setTimeout(() => {
-        $("#datatable").DataTable({
-          dom: 'Blfrtip',
-          destroy: true,
-          language: LANGUAGE_DATATABLE,
-          processing: true
-        });
-      }, 200);
-    })
-    .catch((error) => {
-      console.error('Error al obtener los datos:', error);
-    });
   }
 
   getData(): Promise<any> {
@@ -113,10 +113,14 @@ export class UsuariosRolesComponent implements OnInit {
       this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
       return;
     }
+    this.helperService.showLoading();
     let data = this.frmUsuariosRol.value;
     this.service.save("UsuarioRol", this.frmUsuariosRol.controls['Id'].value, data).subscribe(
       (response) => {
         if (response.status) {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
           this.refrescarTabla();
           this.frmUsuariosRol.reset();
           this.frmUsuariosRol.controls['Id'].setValue(0);
@@ -124,9 +128,16 @@ export class UsuariosRolesComponent implements OnInit {
             MessageType.SUCCESS,
             Messages.SAVESUCCESS
           );
+        } else {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
         }
       },
       (error) => {
+        setTimeout(() => {
+          this.helperService.hideLoading();
+        }, 200);
         this.helperService.showMessage(
           MessageType.WARNING,
           error

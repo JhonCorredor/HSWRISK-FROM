@@ -64,6 +64,12 @@
           <app-forms-messages [error]="frmEmpresas.get('Web')" [statusForm]="statusForm"
             [statusForm]="statusForm"></app-forms-messages>
         </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Convenio</label>
+          <ng-select [items]="listConvenios()" bindLabel="textoMostrar" bindValue="id" formControlName="ConvenioId">
+          </ng-select>
+          <app-forms-messages [error]="frmEmpresas.get('ConvenioId')" [statusForm]="statusForm"></app-forms-messages>
+        </div>
         <div class="col-sm-1 col-md-1 col-lg-1">
           <label>Activo</label><br />
           <ui-switch formControlName="Activo"></ui-switch>

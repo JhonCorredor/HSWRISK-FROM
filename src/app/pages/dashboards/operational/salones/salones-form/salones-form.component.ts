@@ -123,6 +123,7 @@ export class SalonesFormComponent implements OnInit {
             this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
             return;
         }
+        this.helperService.showLoading();
         let data = {
             id: this.id ?? 0,
             ...this.frmSalones.value,
@@ -130,11 +131,21 @@ export class SalonesFormComponent implements OnInit {
         this.service.save(this.serviceName, this.id, data).subscribe(
             (response) => {
                 if (response.status) {
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
                     this.modalActive.close(true);
                     this.helperService.showMessage(MessageType.SUCCESS, Messages.SAVESUCCESS);
+                } else {
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
                 }
             },
             (error) => {
+                setTimeout(() => {
+                    this.helperService.hideLoading();
+                }, 200);
                 this.modalActive.close();
                 this.helperService.showMessage(MessageType.ERROR, error);
             }

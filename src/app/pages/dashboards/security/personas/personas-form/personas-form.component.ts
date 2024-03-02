@@ -101,6 +101,7 @@ export class PersonasFormComponent implements OnInit {
       this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
       return;
     }
+    this.helperService.showLoading();
     let data = {
       id: this.id ?? 0,
       [this.key + 'Id']: this.frmPersonas.controls['Key_Id'].value,
@@ -109,11 +110,21 @@ export class PersonasFormComponent implements OnInit {
     this.service.save(this.serviceName, this.id, data).subscribe(
       (response) => {
         if (response.status) {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
           this.modalActive.close(true);
           this.helperService.showMessage(MessageType.SUCCESS, Messages.SAVESUCCESS);
+        } else {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
         }
       },
       (error) => {
+        setTimeout(() => {
+          this.helperService.hideLoading();
+        }, 200);
         this.helperService.showMessage(MessageType.WARNING, error);
       }
     )

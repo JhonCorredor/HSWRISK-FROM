@@ -3,8 +3,9 @@
         (window:scroll)="windowScroll()">
         <div class="container-fluid custom-container">
             <a class="navbar-brand" href="">
-                <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="70" />
-                <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light"
+                <img src="assets/images/logo-abc-dark.png" class="card-logo card-logo-dark" alt="logo dark"
+                    height="70" />
+                <img src="assets/images/logo-abc-light.png" class="card-logo card-logo-light" alt="logo light"
                     height="70" />
             </a>
             <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
@@ -65,10 +66,10 @@
                         <a href="/inscripcion" target="_blank" class="btn btn-primary mb-4"><i
                                 class="ri-arrow-right-line align-bottom"></i> Inscríbete Ahora</a>
 
-                        <p class="text-muted" style="font-size: small;">*Educación informal - No conduce a título o
+                        <p class="text-muted" style="font-size: small;">Educación informal - No conduce a título o
                             certificado
                             de aptitud
-                            ocupacional - Decreto 1075
+                            ocupacional Decreto 1075
                             de 2015 (artículo 2.6.6.8)</p>
                     </div>
                 </div>
@@ -162,12 +163,12 @@
             <div class="col-lg-4 mt-4">
                 <div>
                     <div>
-                        <img src="assets/images/logo-dark.png" alt="logo dark" height="70" />
+                        <img src="assets/images/logo-abc-dark.png" alt="logo dark" height="70" />
                     </div>
                     <div class="mt-4 fs-13">
-                        <p>Nos especializamos en consultoría integral en gestión de riesgos laborales, derecho laboral y
-                            seguridad y salud en el trabajo. Nos comprometemos con la excelencia, la responsabilidad con
-                            el cliente y el trabajo en equipo.</p>
+                        <p align="justify">Nos especializamos en la consultoría integral en gestión de riesgos laborales; derecho
+                            laboral y de la seguridad social, salud y seguridad en el trabajo. Alto compromiso con la
+                            excelencia en el servicio, la responsabilidad con el cliente y el trabajo en equipo.</p>
                         <ul class="list-inline mb-0 footer-social-link">
                             <li class="list-inline-item">
                                 <a href="https://www.facebook.com/profile.php?id=100064022221282" target="_blank"
@@ -178,7 +179,8 @@
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="javascript: void(0);" class="avatar-xs d-block">
+                                <a href="https://www.instagram.com/abcrisktraining/" target="_blank"
+                                    class="avatar-xs d-block">
                                     <div class="avatar-title rounded-circle">
                                         <i class="fa-brands fa-instagram"></i>
                                     </div>
@@ -213,20 +215,22 @@
 
             <div class="col-lg-7 ms-lg-auto">
                 <div class="row">
-                    <div class="col-sm-4 mt-4">
+                    <div class="col-sm-3 mt-4">
                         <h5 class="text-primary mb-0"><i class="fa-duotone fa-user-tie-hair"></i> Empresa</h5>
                         <div class="text-muted mt-3">
                             <ul class="list-unstyled ff-secondary footer-list">
                                 <li>
-                                    <a href="">Nosotros</a>
+                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'features' }"
+                                        [ngxScrollTo]="'#features'">Nosotros</a>
                                 </li>
                                 <li>
-                                    <a href="">Servicios</a>
+                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'services' }"
+                                        [ngxScrollTo]="'#services'">Servicios</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-4 mt-4">
+                    <div class="col-sm-3 mt-4">
                         <h5 class="text-primary mb-0"><i class="fa-duotone fa-screen-users"></i> Academia</h5>
                         <div class="text-muted mt-3">
                             <ul class="list-unstyled ff-secondary footer-list">
@@ -235,34 +239,22 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-4 mt-4">
+                    <div class="col-sm-3 mt-4">
                         <h5 class="text-primary mb-0"><i class="fa-duotone fa-messages-question"></i> Apoyo</h5>
                         <div class="text-muted mt-3">
                             <ul class="list-unstyled ff-secondary footer-list">
                                 <li>
-                                    <a href="">Contacto</a>
+                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'contact' }"
+                                        [ngxScrollTo]="'#contact'">Contacto</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-end">
-                <div>
-                    <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
-                    <p class="text-primary text-center" style="font-size: 7pt;">SC-CER326415</p>
-                </div>
-                <div>
-                    <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
-                    <p class="text-primary text-center" style="font-size: 7pt;">SC-CER561398</p>
-                </div>
-                <div>
-                    <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
-                    <p class="text-primary text-center" style="font-size: 7pt;">SC-CER867919</p>
+                    <div class="col-sm-3 mt-4 text-center">
+                        <h5 class="text-primary"><i class="fa-duotone fa-file-certificate"></i> Certificación</h5>
+                        <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
+                        <p class="text-primary text-center" style="font-size: 7pt;">CS-CER1036549</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -279,7 +271,7 @@
                 <div class="text-sm-end mt-3 mt-sm-0">
                     <ul class="list-inline mb-0 footer-list gap-4 fs-13">
                         <li class="list-inline-item">
-                            <a href="/pages/privacy-policy">política de privacidad</a>
+                            <a href="/pages/privacy-policy">Política de privacidad</a>
                         </li>
                         <li class="list-inline-item">
                             <a href="/pages/terms-condition">Términos y condiciones</a>

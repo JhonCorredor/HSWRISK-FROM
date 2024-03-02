@@ -17,7 +17,11 @@ export class GeneralParameterService {
   }
 
   public dataTableLastCourseDetails(ruta: String, data: DatatableParameter): Observable<any> {
-    return this.http.get<any>(`${this.url}${ruta}/dataTableLastCourseDetails?PageNumber=${data.pageNumber}&PageSize=${data.pageSize}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}`, { headers: this.header })
+    return this.http.get<any>(`${this.url}${ruta}/dataTableLastCourseDetails?PageNumber=${data.pageNumber}&PageSize=${data.pageSize}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}`, { headers: this.header })
+  }
+
+  public dataTableInstructor(ruta: String, data: DatatableParameter): Observable<any> {
+    return this.http.get<any>(`${this.url}${ruta}/dataTableInstructor?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}&FechaInicio=${data.fechaInicio}&FechaFin=${data.fechaFin}`, { headers: this.header });
   }
 
   public getCertificado(ruta: String, data: DatatableParameter): Observable<any> {

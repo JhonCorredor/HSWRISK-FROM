@@ -102,6 +102,11 @@ export class EmpresaIndexComponent implements OnInit {
           className: 'text-center',
         },
         {
+          title: 'CONVENIO',
+          data: 'convenio',
+          className: 'text-center',
+        },
+        {
           title: 'CIUDAD',
           data: 'ciudad',
           className: 'text-center',

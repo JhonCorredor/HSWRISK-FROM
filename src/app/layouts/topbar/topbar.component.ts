@@ -21,6 +21,7 @@ import { DatatableParameter } from 'src/app/admin/datatable.parameters';
 import { PersonasFormComponent } from '../../pages/dashboards/security/personas/personas-form/personas-form.component'
 import { UsuariosPaswordFormComponent } from '../../pages/dashboards/security/usuarios/usuarios-pasword-form/usuarios-pasword-form.component'
 
+import { HelperService, Messages, MessageType } from 'src/app/admin/helper.service';
 
 @Component({
   selector: 'app-topbar',
@@ -54,7 +55,8 @@ export class TopbarComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: any, private eventService: EventService, public languageService: LanguageService, private modalService: NgbModal,
     public _cookiesService: CookieService, public translate: TranslateService, private authService: AuthenticationService, private authFackservice: AuthfakeauthenticationService,
     private router: Router, private TokenStorageService: TokenStorageService,
-    private service: GeneralParameterService) { }
+    private service: GeneralParameterService,
+    private helperService: HelperService) { }
 
   ngOnInit(): void {
     this.userData = this.TokenStorageService.getUser();
@@ -375,20 +377,30 @@ export class TopbarComponent implements OnInit {
   Profile() {
     var personaId = localStorage.getItem("persona_Id");
 
-    let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: false });
+    var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = Number(personaId); data.nameForeignKey = "PersonaId";
 
-    modal.componentInstance.titleData = "Persona";
-    modal.componentInstance.serviceName = "Persona";
-    modal.componentInstance.id = personaId;
-    modal.componentInstance.key = "Ciudad";
+    this.service.datatableKey("Cliente", data).subscribe((res: any) => {
+      console.log();
+      if (res.data.length > 0) {
+        this.helperService.redirectApp(`dashboard/parametros/perfil/editar/${Number(personaId)}`);
 
-    modal.result.then(res => {
-      if (res) {
-        setTimeout(() => {
-          location.reload();
-        }, 200);
+      } else {
+        let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: false });
+
+        modal.componentInstance.titleData = "Persona";
+        modal.componentInstance.serviceName = "Persona";
+        modal.componentInstance.id = personaId;
+        modal.componentInstance.key = "Ciudad";
+
+        modal.result.then(res => {
+          if (res) {
+            setTimeout(() => {
+              location.reload();
+            }, 200);
+          }
+        });
       }
-    })
+    });
   }
 
   ChangePassword() {

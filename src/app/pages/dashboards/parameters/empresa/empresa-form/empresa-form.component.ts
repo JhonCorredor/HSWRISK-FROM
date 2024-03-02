@@ -25,6 +25,7 @@ export class EmpresaFormComponent implements OnInit {
   botones = ['btn-guardar', 'btn-cancelar'];
   title = 'Crear Empresa';
   listCiudades = signal<DataSelectDto[]>([]);
+  listConvenios = signal<DataSelectDto[]>([]);
   breadcrumb = [
     { name: `Inicio`, icon: `fa-duotone fa-house` },
     { name: 'Operativo', icon: 'fa-duotone fa-shop' },
@@ -62,12 +63,16 @@ export class EmpresaFormComponent implements OnInit {
         Validators.maxLength(100),
       ]),
       CiudadId: new FormControl(null, Validators.required),
+      ConvenioId: new FormControl(null),
       Activo: new FormControl(true, Validators.required),
     });
     this.routerActive.params.subscribe((l) => (this.id = l['id']));
   }
 
   ngOnInit(): void {
+    this.cargarCiudades();
+    this.cargarConvenios();
+
     if (this.id != undefined && this.id != null) {
       this.title = 'Editar Empresa';
       this.breadcrumb = [
@@ -84,6 +89,7 @@ export class EmpresaFormComponent implements OnInit {
         this.frmEmpresas.controls['Email'].setValue(l.data.email);
         this.frmEmpresas.controls['Web'].setValue(l.data.web);
         this.frmEmpresas.controls['CiudadId'].setValue(l.data.ciudadId);
+        this.frmEmpresas.controls['ConvenioId'].setValue(l.data.convenioId);
         this.frmEmpresas.controls['Activo'].setValue(l.data.activo);
         //Consulto el archivo
         var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = this.id; data.nameForeignKey = 'TablaId';
@@ -98,8 +104,6 @@ export class EmpresaFormComponent implements OnInit {
         });
       });
     }
-
-    this.cargarCiudades();
   }
 
   cargarCiudades() {
@@ -118,13 +122,29 @@ export class EmpresaFormComponent implements OnInit {
     });
   }
 
+  cargarConvenios() {
+    this.service.getAll('Convenio').subscribe((res) => {
+      res.data.forEach((item: any) => {
+        this.listConvenios.update((listConvenios) => {
+          const DataSelectDto: DataSelectDto = {
+            id: item.id,
+            textoMostrar: `${item.codigo} - ${item.nombre} - ${item.valor} %`,
+            activo: item.activo,
+          };
+
+          return [...listConvenios, DataSelectDto];
+        });
+      });
+    });
+  }
+
   save() {
     if (this.frmEmpresas.invalid) {
       this.statusForm = false;
       this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
       return;
     }
-
+    this.helperService.showLoading();
     if (this.id != undefined && this.id != null) {
       var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = this.id; data.nameForeignKey = 'TablaId';
 
@@ -164,6 +184,9 @@ export class EmpresaFormComponent implements OnInit {
     this.service.save('Empresa', this.id, data).subscribe(
       (response) => {
         if (response.status) {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
           this.helperService.showMessage(
             MessageType.SUCCESS,
             Messages.SAVESUCCESS
@@ -183,9 +206,16 @@ export class EmpresaFormComponent implements OnInit {
               this.helperService.redirectApp(`dashboard/operativo/empresa`);
             }
           }
+        } else {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
         }
       },
       (error) => {
+        setTimeout(() => {
+          this.helperService.hideLoading();
+        }, 200);
         this.helperService.showMessage(MessageType.ERROR, error);
       }
     );

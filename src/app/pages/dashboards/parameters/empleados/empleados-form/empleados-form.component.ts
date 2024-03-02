@@ -143,6 +143,7 @@ export class EmpleadosFormComponent implements OnInit {
       this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
       return;
     }
+    this.helperService.showLoading();
     let data = {
       id: this.id ?? 0,
       ...this.frmEmpleados.value,
@@ -150,11 +151,21 @@ export class EmpleadosFormComponent implements OnInit {
     this.service.save("Empleado", this.id, data).subscribe(
       (response) => {
         if (response.status) {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
           this.helperService.showMessage(MessageType.SUCCESS, Messages.SAVESUCCESS);
           this.helperService.redirectApp(`dashboard/parametros/empleados`);
+        } else {
+          setTimeout(() => {
+            this.helperService.hideLoading();
+          }, 200);
         }
       },
       (error) => {
+        setTimeout(() => {
+          this.helperService.hideLoading();
+        }, 200);
         this.helperService.showMessage(MessageType.WARNING, error);
       }
     );

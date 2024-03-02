@@ -1,127 +1,197 @@
-<!-- Start Breadcrumbs -->
-<app-breadcrumbs title="Term & Conditions" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
-<!-- End Breadcrumbs -->
-<div class="row justify-content-center">
-    <div class="col-lg-10">
-        <div class="card">
-            <div class="bg-warning-subtle position-relative">
-                <div class="card-body p-5">
-                    <div class="text-center">
-                        <h3>Term & Conditions</h3>
-                        <p class="mb-0 text-muted">Last update: 16 Sept, 2022</p>
-                    </div>
-                </div>
-                <div class="shape">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        xmlns:svgjs="http://svgjs.com/svgjs" width="1440" height="60" preserveAspectRatio="none"
-                        viewBox="0 0 1440 60">
-                        <g mask="url(&quot;#SvgjsMask1001&quot;)" fill="none">
-                            <path d="M 0,4 C 144,13 432,48 720,49 C 1008,50 1296,17 1440,9L1440 60L0 60z"
-                                style="fill: var(--vz-secondary-bg);"></path>
-                        </g>
-                        <defs>
-                            <mask id="SvgjsMask1001">
-                                <rect width="1440" height="60" fill="#ffffff"></rect>
-                            </mask>
-                        </defs>
-                    </svg>
+<div class="layout-wrapper landing">
+    <nav class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar" id="navbar"
+        (window:scroll)="windowScroll()">
+        <div class="container-fluid custom-container">
+            <a class="navbar-brand" href="">
+                <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="70" />
+                <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light"
+                    height="70" />
+            </a>
+            <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation" (click)="collapse.toggle()">
+                <i class="mdi mdi-menu"></i>
+            </button>
+
+            <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse"
+                id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="" [ngClass]="{ active: currentSection === 'hero' }"
+                            [ngxScrollTo]="'#hero'">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'services' }"
+                            [ngxScrollTo]="'#services'">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'features' }"
+                            [ngxScrollTo]="'#features'">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="academia" [ngClass]="{ active: currentSection === 'academy' }"
+                            [ngxScrollTo]="'#academy'">Academia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inscripcion" [ngClass]="{ active: currentSection === 'inscripcion' }"
+                            [ngxScrollTo]="'#inscripcion'">Inscríbete</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="certificados"
+                            [ngClass]="{ active: currentSection === 'certificados' }"
+                            [ngxScrollTo]="'#certificados'">Certificados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'contact' }"
+                            [ngxScrollTo]="'#contact'">Contacto</a>
+                    </li>
+                </ul>
+                <div class="">
+                    <a href="/auth/signin/cover" target="_blank" class="btn btn-soft-primary"><i
+                            class="ri-user-3-line align-bottom me-1"></i> Iniciar sesión</a>
                 </div>
             </div>
-            <div class="card-body p-4">
-                <div>
-                    <h5>Welcome to Velzon!</h5>
-                    <p class="text-muted">These terms and conditions outline the rules and regulations for the use of
-                        Company Name's Website, located at Website.com.</p>
-                    <p class="text-muted">By accessing this website we assume you accept these terms and conditions. Do
-                        not continue to use Website Name if you do not agree to take all of the terms and conditions
-                        stated on this page.</p>
-                    <p class="text-muted">Most interactive websites use cookies to let us retrieve the user's details
-                        for each visit. Cookies are used by our website to enable the functionality of certain areas to
-                        make it easier for people visiting our website. Some of our affiliate/advertising partners may
-                        also use cookies.</p>
-                </div>
+        </div>
+    </nav>
+    <br>
+    <section class="section" id="ptivacy-policy">
+        <div class="d-flex justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-12 p-5">
+                <h2 class="mb-5 fw-semibold text-center">Términos y condiciones</h2>
+            </div>
+        </div>
+    </section>
+</div>
 
+<!-- Start footer -->
+<footer class="custom-footer bg-light py-5 position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mt-4">
                 <div>
-                    <h5>License</h5>
-                    <p class="text-muted">Unless otherwise stated, Company Name and/or its licensors own the
-                        intellectual property rights for all material on Website Name. All intellectual property rights
-                        are reserved. You may access this from Website Name for your own personal use subjected to
-                        restrictions set in these terms and conditions.</p>
-                    <p class="text-muted">You must not:</p>
-                    <ul class="text-muted vstack gap-2 ul-padd">
-                        <li>
-                            Republish material from Website Name
+                    <div>
+                        <img src="assets/images/logo-dark.png" alt="logo dark" height="70" />
+                    </div>
+                    <div class="mt-4 fs-13">
+                        <p align="justify">Nos especializamos en la consultoría integral en gestión de riesgos laborales; derecho
+                            laboral y de la seguridad social, salud y seguridad en el trabajo. Alto compromiso con la
+                            excelencia en el servicio, la responsabilidad con el cliente y el trabajo en equipo.</p>
+                        <ul class="list-inline mb-0 footer-social-link">
+                            <li class="list-inline-item">
+                                <a href="https://www.facebook.com/profile.php?id=100064022221282" target="_blank"
+                                    class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.instagram.com/abcrisktraining/" target="_blank"
+                                    class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript: void(0);" class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-twitter"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/hsw-risk-consultants-sas-011a091a8/"
+                                    target="_blank" class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-linkedin-in"></i>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://wa.me/573054455400" target="_blank" class="avatar-xs d-block">
+                                    <div class="avatar-title rounded-circle">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 ms-lg-auto">
+                <div class="row">
+                    <div class="col-sm-3 mt-4">
+                        <h5 class="text-primary mb-0"><i class="fa-duotone fa-user-tie-hair"></i> Empresa</h5>
+                        <div class="text-muted mt-3">
+                            <ul class="list-unstyled ff-secondary footer-list">
+                                <li>
+                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'features' }"
+                                        [ngxScrollTo]="'#features'">Nosotros</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'services' }"
+                                        [ngxScrollTo]="'#services'">Servicios</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mt-4">
+                        <h5 class="text-primary mb-0"><i class="fa-duotone fa-screen-users"></i> Academia</h5>
+                        <div class="text-muted mt-3">
+                            <ul class="list-unstyled ff-secondary footer-list">
+                                <li><a href="academia">Cursos</a></li>
+                                <li><a href="academia">Talleres</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mt-4">
+                        <h5 class="text-primary mb-0"><i class="fa-duotone fa-messages-question"></i> Apoyo</h5>
+                        <div class="text-muted mt-3">
+                            <ul class="list-unstyled ff-secondary footer-list">
+                                <li>
+                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'contact' }"
+                                        [ngxScrollTo]="'#contact'">Contacto</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mt-4 text-center">
+                        <h5 class="text-primary"><i class="fa-duotone fa-file-certificate"></i> Certificación</h5>
+                        <img src="assets/images/certificacion-incontec.png" width="95px" class="p-2">
+                        <p class="text-primary text-center" style="font-size: 7pt;">CS-CER1036549</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center text-sm-start align-items-center mt-3">
+            <div class="col-sm-6">
+                <div>
+                    <p class="copy-rights mb-0">
+                        {{year}} © SAFETY, HEALTH AND WORK RISK CONSULTANTS S.A.S.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-sm-end mt-3 mt-sm-0">
+                    <ul class="list-inline mb-0 footer-list gap-4 fs-13">
+                        <li class="list-inline-item">
+                            <a href="/pages/privacy-policy">Política de privacidad</a>
                         </li>
-                        <li>
-                            Sell, rent or sub-license material from Website Name
-                        </li>
-                        <li>
-                            Reproduce, duplicate or copy material from Website Name
-                        </li>
-                        <li>
-                            Redistribute content from Website Name
+                        <li class="list-inline-item">
+                            <a href="/pages/terms-condition">Términos y condiciones</a>
                         </li>
                     </ul>
-                    <p class="text-muted">This Agreement shall begin on the date hereof.</p>
-                    <p class="text-muted">Parts of this website offer an opportunity for users to post and exchange
-                        opinions and information in certain areas of the website. Company Name does not filter, edit,
-                        publish or review Comments prior to their presence on the website. Comments do not reflect the
-                        views and opinions of Company Name,its agents and/or affiliates.</p>
-                </div>
-
-                <div>
-                    <p class="text-muted">Company Name reserves the right to monitor all Comments and to remove any
-                        Comments which can be considered inappropriate, offensive or causes breach of these Terms and
-                        Conditions.</p>
-                    <p class="text-muted">You warrant and represent that:</p>
-                    <ul class="text-muted vstack gap-2 ul-padd">
-                        <li>
-                            You are entitled to post the Comments on our website and have all necessary licenses and
-                            consents to do so;
-                        </li>
-                        <li>
-                            The Comments do not invade any intellectual property right, including without limitation
-                            copyright, patent or trademark of any third party;
-                        </li>
-                        <li>
-                            The Comments do not contain any defamatory, libelous, offensive, indecent or otherwise
-                            unlawful material which is an invasion of privacy
-                        </li>
-                        <li>
-                            The Comments will not be used to solicit or promote business or custom or present commercial
-                            activities or unlawful activity.
-                        </li>
-                    </ul>
-                    <p class="text-muted">You hereby grant Company Name a non-exclusive license to use, reproduce, edit
-                        and authorize others to use, reproduce and edit any of your Comments in any and all forms,
-                        formats or media.</p>
-                    <p class="text-muted">Approved organizations may hyperlink to our Website as follows:</p>
-                    <ul class="text-muted vstack gap-2 ul-padd">
-                        <li>
-                            By use of our corporate name; or
-                        </li>
-                        <li>
-                            By use of the uniform resource locator being linked to; or
-                        </li>
-                        <li>
-                            By use of any other description of our Website being linked to that makes sense within the
-                            context and format of content on the linking party's site.
-                        </li>
-                    </ul>
-                    <p class="text-muted fw-semibold">No use of Company Name's logo or other artwork will be allowed for
-                        linking absent a trademark license agreement.</p>
-                </div>
-
-
-                <div class="text-end hstack gap-2 justify-content-end">
-                    <a href="javascript:void(0);" class="btn btn-success">Accept</a>
-                    <a href="javascript:void(0);" class="btn btn-outline-danger"><i
-                            class="ri-close-line align-bottom me-1"></i>
-                        Decline</a>
                 </div>
             </div>
         </div>
     </div>
-    <!--end col-->
-</div>
-<!--end row-->
+</footer>
+<!-- end footer -->
+
+<!--start back-to-top-->
+<button (click)="topFunction()" class="btn btn-primary btn-icon landing-back-top" id="back-to-top">
+    <i class="ri-arrow-up-line"></i>
+</button>

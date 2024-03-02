@@ -73,6 +73,7 @@ export class IncripcionesFormComponent implements OnInit {
             this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
             return;
         }
+        this.helperService.showLoading();
         let data = {
             id: this.id ?? 0,
             ...this.frmInscripciones.value,
@@ -80,6 +81,9 @@ export class IncripcionesFormComponent implements OnInit {
         this.service.save('Inscripcion', this.id, data).subscribe(
             (response) => {
                 if (response.status) {
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
                     this.helperService.showMessage(
                         MessageType.SUCCESS,
                         Messages.SAVESUCCESS
@@ -93,9 +97,16 @@ export class IncripcionesFormComponent implements OnInit {
                     } else {
                         this.helperService.redirectApp('dashboard/operativo/inscripciones');
                     }
+                } else {
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
                 }
             },
             (error) => {
+                setTimeout(() => {
+                    this.helperService.hideLoading();
+                }, 200);
                 this.helperService.showMessage(MessageType.WARNING, error);
             }
         );

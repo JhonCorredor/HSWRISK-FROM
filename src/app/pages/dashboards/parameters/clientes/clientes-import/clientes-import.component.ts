@@ -257,6 +257,7 @@ export class ClientesImportComponent implements OnInit {
                         title: '¡No existe un empleado con este usuario!',
                         icon: 'warning',
                     }).then(() => {
+                        this.modalActive.close();
                         this.helperService.redirectApp("/dashboard");
                     });
                     setTimeout(() => {

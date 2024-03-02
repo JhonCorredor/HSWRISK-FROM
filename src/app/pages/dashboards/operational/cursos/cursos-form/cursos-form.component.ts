@@ -61,6 +61,7 @@ export class CursosFormComponent implements OnInit {
             this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
             return;
         }
+        this.helperService.showLoading();
         let data = {
             id: this.id ?? 0,
             ...this.frmCursos.value,
@@ -68,11 +69,21 @@ export class CursosFormComponent implements OnInit {
         this.service.save("Curso", this.id, data).subscribe(
             (response) => {
                 if (response.status) {
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
                     this.helperService.showMessage(MessageType.SUCCESS, Messages.SAVESUCCESS);
                     this.helperService.redirectApp(`dashboard/operativo/cursos/editar/${response.data.id}`);
+                } else {
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
                 }
             },
             (error) => {
+                setTimeout(() => {
+                    this.helperService.hideLoading();
+                }, 200);
                 this.helperService.showMessage(MessageType.ERROR, error);
             }
         )
