@@ -27,12 +27,17 @@ export class GeneralParameterService {
   public getCertificado(ruta: String, data: DatatableParameter): Observable<any> {
     return this.http.get<any>(`${this.url}${ruta}/getDataTableCompleto?PageNumber=${data.pageNumber}&PageSize=${data.pageSize}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ColumnFilter=${data.columnFilter}`, { headers: this.header })
   }
+
   public datatable(ruta: String, data: DatatableParameter): Observable<any> {
     return this.http.get<any>(`${this.url}${ruta}/datatable?PageNumber=${data.pageNumber}&PageSize=${data.pageSize}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}`, { headers: this.header })
   }
 
   public datatableKey(ruta: String, data: DatatableParameter): Observable<any> {
     return this.http.get<any>(`${this.url}${ruta}/datatable?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}&FechaInicio=${data.fechaInicio}&FechaFin=${data.fechaFin}`, { headers: this.header });
+  }
+
+  public dataTableAbierto(ruta: String, data: DatatableParameter): Observable<any> {
+    return this.http.get<any>(`${this.url}${ruta}/dataTableAbierto?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}&FechaInicio=${data.fechaInicio}&FechaFin=${data.fechaFin}`, { headers: this.header });
   }
 
   public getById(ruta: String, id: any): Observable<any> {
@@ -64,5 +69,9 @@ export class GeneralParameterService {
 
   public getByTablaId(ruta: String, id: any, nombre: String): Observable<any> {
     return this.http.get<any>(`${this.url}${ruta}/getByTablaId/${id}/${nombre}`, { headers: this.header });
+  }
+
+  public generarCertificado(ruta: String, id: any): Observable<any> {
+    return this.http.post<any>(`${this.url}${ruta}/generarCertificado/${id}`, { headers: this.header });
   }
 }

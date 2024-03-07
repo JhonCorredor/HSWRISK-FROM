@@ -86,7 +86,7 @@ export class MonthGridComponent {
             return { date: evt.start, title: evt.title, className: evt.className, location: evt.location, description: evt.description }
           })
       });
-    this.calendarEvents = calendarEvents;
+    this.calendarEvents = calendarEvents();
   }
 
 

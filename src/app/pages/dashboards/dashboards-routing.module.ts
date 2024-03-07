@@ -27,12 +27,16 @@ import { IncripcionesFormComponent } from './operational/inscripciones/inscripci
 import { ConfiguracionesFormComponent } from './parameters/configuraciones/configuraciones-form/configuraciones-form.component';
 import { PerfilFormComponent } from './parameters/perfil/perfil-form.component';
 import { ConveniosIndexComponent } from './parameters/convenios/convenios-index/convenios-index.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   {
     path: "",
     component: DashboardComponent
   },
+
+  //Calendar
+  { path: 'calendar', component: CalendarComponent },
 
   //Modulos
   { path: 'seguridad/modulos', component: ModulosIndexComponent },

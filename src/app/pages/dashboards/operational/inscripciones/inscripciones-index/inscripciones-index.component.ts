@@ -408,96 +408,94 @@ export class InscripcionesIndexComponent implements OnInit {
     }
 
     download(data: DatatableParameter) {
-        // this.helperService.showLoading();
+        this.helperService.showLoading();
         this.service.datatableKey("Certificado", data).subscribe((res: any) => {
             if (res.status) {
-                var certificado = res.data[0];
+                this.service.generarCertificado("Certificado", res.data[0].id).subscribe((certificado: any) => {
+                    var fileName = `${res.data[0].codigo}.${certificado.data.extension}`;
+                    //Decodificar el contenido base64
+                    var base64String = certificado.data.content;
+                    const binaryString = window.atob(base64String);
+                    const binaryLen = binaryString.length;
+                    const bytes = new Uint8Array(binaryLen);
+                    for (let i = 0; i < binaryLen; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                    }
+
+                    // Crear el blob
+                    const blob = new Blob([bytes], { type: `application/${certificado.data.extension}` });
+
+                    // Crear la URL del objeto
+                    const url = window.URL.createObjectURL(blob);
+
+                    // Crear un enlace <a> en el DOM
+                    const a = document.createElement('a');
+                    document.body.appendChild(a);
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = fileName;
+
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
+                    // Disparar un evento de clic en el enlace
+                    a.click();
+
+                    // Liberar recursos
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                });
             }
         });
-
-
-        // this.service.getById("Cliente", this.ClienteId).subscribe((res) => {
-        //     if (res.status) {
-        //         this.service.getById("Persona", res.data.personaId).subscribe((per: any) => {
-        //             if (per.status) {
-        //                 setTimeout(() => {
-        //                     this.helperService.hideLoading();
-        //                 }, 200);
-
-        //                 var fileName = `${name}_${per.data.documento}.${extension}`;
-
-        //                 // Decodificar el contenido base64
-        //                 const binaryString = window.atob(base64String);
-        //                 const binaryLen = binaryString.length;
-        //                 const bytes = new Uint8Array(binaryLen);
-        //                 for (let i = 0; i < binaryLen; i++) {
-        //                     bytes[i] = binaryString.charCodeAt(i);
-        //                 }
-
-        //                 // Crear el blob
-        //                 const blob = new Blob([bytes], { type: `application/${extension}` });
-
-        //                 // Crear la URL del objeto
-        //                 const url = window.URL.createObjectURL(blob);
-
-        //                 // Crear un enlace <a> en el DOM
-        //                 const a = document.createElement('a');
-        //                 document.body.appendChild(a);
-        //                 a.style.display = 'none';
-        //                 a.href = url;
-        //                 a.download = fileName;
-
-        //                 // Disparar un evento de clic en el enlace
-        //                 a.click();
-
-        //                 // Liberar recursos
-        //                 window.URL.revokeObjectURL(url);
-        //                 document.body.removeChild(a);
-        //             }
-        //         });
-        //     }
-        // });
     }
 
     openInNewTab(data: DatatableParameter) {
-        // this.helperService.showLoading();
-        // Decodificar el contenido base64
-        // const binaryString = window.atob(base64String);
-        // const binaryLen = binaryString.length;
-        // const bytes = new Uint8Array(binaryLen);
-        // for (let i = 0; i < binaryLen; i++) {
-        //     bytes[i] = binaryString.charCodeAt(i);
-        // }
+        this.helperService.showLoading();
+        this.service.datatableKey("Certificado", data).subscribe((res: any) => {
+            if (res.status) {
+                this.service.generarCertificado("Certificado", res.data[0].id).subscribe((certificado: any) => {
+                    // Decodificar el contenido base64
+                    var base64String = certificado.data.content;
+                    const binaryString = window.atob(base64String);
+                    const binaryLen = binaryString.length;
+                    const bytes = new Uint8Array(binaryLen);
+                    for (let i = 0; i < binaryLen; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                    }
 
-        // Establecer el tipo MIME basado en la extensión
-        // let mimeType = '';
-        // switch (extension.toLowerCase()) {
-        //     case 'pdf':
-        //         mimeType = 'application/pdf';
-        //         break;
-        //     case 'jpg':
-        //     case 'jpeg':
-        //         mimeType = 'image/jpeg';
-        //         break;
-        //     default:
-        //         console.error('Extension de archivo no compatible');
-        //         return;
-        // }
+                    // Establecer el tipo MIME basado en la extensión
+                    let mimeType = '';
+                    
+                    switch (certificado.data.extension.toLowerCase()) {
+                        case 'pdf':
+                            mimeType = 'application/pdf';
+                            break;
+                        case 'jpg':
+                        case 'jpeg':
+                            mimeType = 'image/jpeg';
+                            break;
+                        default:
+                            console.error('Extension de archivo no compatible');
+                            return;
+                    }
 
-        // Crear el blob
-        // const blob = new Blob([bytes], { type: mimeType });
+                    // Crear el blob
+                    const blob = new Blob([bytes], { type: mimeType });
 
-        // Crear la URL del objeto
-        // const url = window.URL.createObjectURL(blob);
+                    // Crear la URL del objeto
+                    const url = window.URL.createObjectURL(blob);
 
-        // setTimeout(() => {
-        //     this.helperService.hideLoading();
-        // }, 200);
-        // Abrir el archivo en una nueva pestaña
-        // window.open(url, '_blank');
+                    setTimeout(() => {
+                        this.helperService.hideLoading();
+                    }, 200);
+                    // Abrir el archivo en una nueva pestaña
+                    window.open(url, '_blank');
 
-        // Liberar recursos
-        // window.URL.revokeObjectURL(url);
+                    // Liberar recursos
+                    window.URL.revokeObjectURL(url);
+                });
+            }
+        });
     }
 
     refrescarTabla() {

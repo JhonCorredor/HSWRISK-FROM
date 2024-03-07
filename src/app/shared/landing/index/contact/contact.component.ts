@@ -18,7 +18,7 @@ export class ContactComponent implements OnInit {
   sender_email: string = "info@hswrisk.com";
   to_name: string = "Inscripciones";
   to_email: string = "inscripciones@hswrisk.com";
-  api_key: string = "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";
+  api_key: string = "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";
   templateId: number = 1;
 
   constructor(

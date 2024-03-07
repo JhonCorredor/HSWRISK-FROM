@@ -1,0 +1,187 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<div class="card card-height-100">
+    <div class="card-header align-items-center d-flex">
+        <h3 class="card-title mb-0 flex-grow-1">{{ title }}</h3>
+    </div>
+    <div class="card-body" style="padding: 40px;">
+        <full-calendar [options]="calendarOptions"></full-calendar>
+
+        <div style='clear:both'></div>
+
+        <!-- Add New Event MODAL -->
+        <ng-template #modalShow let-modal>
+            <div id="event-modal">
+                <div class="modal-content border-0">
+                    <div class="modal-header p-3 bg-info-subtle">
+                        <h5 class="modal-title" id="modal-title">Crear Evento</h5>
+                        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <form [formGroup]="formData" (ngSubmit)="saveEvent()" class="needs-validation" name="event-form"
+                            id="form-event" novalidate>
+                            @if(isEditMode){
+                            <div class="text-end">
+                                <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" id="edit-event-btn"
+                                    data-id="edit-event" (click)="showeditEvent()" role="button">Editar</a>
+                            </div>
+                            }
+                            @if(editEvent){
+                            <div class="event-details">
+                                <div class="d-flex mb-2">
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="flex-shrink-0 me-3">
+                                            <i class="ri-calendar-event-line text-muted fs-lg"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="d-block fw-semibold mb-0" id="event-start-date-tag">
+                                                {{editEvent.start | date: 'dd/MM/yyyy'}} - {{editEvent.end | date:
+                                                'dd/MM/yyyy'}}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="flex-shrink-0 me-3">
+                                        <i class="ri-time-line text-muted fs-lg"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="d-block fw-semibold mb-0">
+                                            <span id="event-timepicker1-tag"></span> {{editEvent.start | date: 'h:mm
+                                            a'}} - {{editEvent.end | date:'h:mm a'}} <span
+                                                id="event-timepicker2-tag"></span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="flex-shrink-0 me-3">
+                                        <i class="ri-map-pin-line text-muted fs-lg"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        @if(editEvent.extendedProps){
+                                        <h6 class="d-block fw-semibold mb-0"> <span
+                                                id="event-location-tag">{{editEvent.extendedProps['location']}}</span>
+                                        </h6>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    <div class="flex-shrink-0 me-3">
+                                        <i class="ri-discuss-line text-muted fs-lg"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <p class="d-block text-muted mb-0" id="event-description-tag">
+                                            {{editEvent.extendedProps['description']}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                            <div class="row event-form">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nombre del evento</label>
+                                        <input class="form-control" placeholder="Introduzca el nombre del evento"
+                                            type="text" formControlName="title" name="title" id="event-title" required
+                                            value="">
+                                        <div class="invalid-feedback">Por favor proporcione un nombre de evento válido
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Fecha de inicio</label>
+                                        <div class="input-group">
+                                            <input type="text" id="event-start-date"
+                                                class="form-control flatpickr flatpickr-input" mwlFlatpickr
+                                                [altInput]="true" [enableTime]="true" altFormat="Y-m-d H:i"
+                                                dateFormat="Y-m-dTH:i" formControlName="start"
+                                                placeholder="Seleccione fecha" readonly required>
+                                            <span class="input-group-text">
+                                                <a class="input-button" title="Abrir Calendario" data-toggle>
+                                                    <i class="fa-duotone fa-calendar-days"></i>
+                                                </a>
+                                            </span>
+                                            <span class="input-group-text">
+                                                <a class="input-button" title="Limpiar" data-clear>
+                                                    <i class="fa-duotone fa-xmark"></i>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-12" id="event-time">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Fecha de finalización</label>
+                                                <div class="input-group">
+                                                    <input type="text" id="event-end-date"
+                                                        class="form-control flatpickr flatpickr-input" mwlFlatpickr
+                                                        [altInput]="true" [enableTime]="true" altFormat="Y-m-d H:i"
+                                                        dateFormat="Y-m-dTH:i" formControlName="end"
+                                                        placeholder="Seleccione fecha" readonly required>
+                                                    <span class="input-group-text">
+                                                        <a class="input-button" title="Abrir Calendario" data-toggle>
+                                                            <i class="fa-duotone fa-calendar-days"></i>
+                                                        </a>
+                                                    </span>
+                                                    <span class="input-group-text">
+                                                        <a class="input-button" title="Limpiar" data-clear>
+                                                            <i class="fa-duotone fa-xmark"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!--end col-->
+                                    </div><!--end row-->
+                                </div>
+                                <!--end col-->
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label for="event-location" class="form-label">Ubicación</label>
+                                        <div>
+                                            <input type="text" class="form-control" formControlName="location"
+                                                name="event-location" id="event-location"
+                                                placeholder="Lugar del evento">
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <input type="hidden" id="eventid" name="eventid" value="">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Descripción</label>
+                                        <textarea class="form-control" id="event-description"
+                                            placeholder="Introduce una descripción" rows="3"
+                                            formControlName="description" spellcheck="false"></textarea>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tipo</label>
+                                        <ng-select [items]="listCategorias()" bindLabel="name" bindValue="className"
+                                            formControlName="category" name="category" id="event-category" required>
+                                        </ng-select>
+                                        <div class="invalid-feedback">Por favor seleccione una categoría de evento
+                                            válida</div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            <div class="hstack gap-2 justify-content-end">
+                                <button type="button" *ngIf="isDeleteEvent" class="btn btn-soft-danger"
+                                    id="btn-delete-event" (click)="confirm()"><i class="ri-close-line align-bottom"></i>
+                                    Eliminar</button>
+                                <button type="submit" class="btn btn-success" id="btn-save-event">Crear Evento</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </ng-template>
+        <!-- end modal-->
+    </div>
+</div>
