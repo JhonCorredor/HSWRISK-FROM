@@ -1,11 +1,7 @@
-import { Component, OnInit, NgModule, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { GeneralModule } from '../general/general.module';
 import { GeneralParameterService } from '../generic/general.service';
 import { DataSelectDto } from '../generic/dataSelectDto';
-import { NgbCarouselModule, NgbTooltipModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { HelperService, Messages, MessageType } from '../admin/helper.service';
 import { DatatableParameter } from '../admin/datatable.parameters';
 import Swal from 'sweetalert2';
@@ -20,7 +16,7 @@ import Swal from 'sweetalert2';
  * Inscripciones Component
  */
 export class InscripcionesComponent implements OnInit {
-    currentSection = 'home';
+    currentSection = 'inscripcion';
     isCollapsed = true;
     year: number = new Date().getFullYear();
     frmInscripcion: FormGroup;
@@ -215,7 +211,7 @@ export class InscripcionesComponent implements OnInit {
         this.listCursosDetalles = signal<DataSelectDto[]>([]);
         var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = cursoId; data.nameForeignKey = "CursoId";
 
-        this.service.datatableKey('CursoDetalle', data).subscribe((res) => {
+        this.service.dataTableAbierto('CursoDetalle', data).subscribe((res) => {
             res.data.forEach((item: any) => {
                 this.listCursosDetalles.update((listCursosDetalles) => {
                     const DataSelectDto: DataSelectDto = {
@@ -476,17 +472,3 @@ export class InscripcionesComponent implements OnInit {
         document.documentElement.scrollTop = 0;
     }
 }
-@NgModule({
-    declarations: [
-        InscripcionesComponent,
-    ],
-    imports: [
-        CommonModule,
-        GeneralModule,
-        NgbCarouselModule,
-        NgbTooltipModule,
-        NgbCollapseModule,
-        ScrollToModule.forRoot(),
-    ]
-})
-export class InscripcionesModule { }

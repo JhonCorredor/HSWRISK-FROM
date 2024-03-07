@@ -1,10 +1,6 @@
-import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { GeneralModule } from '../general/general.module';
 import { GeneralParameterService } from '../generic/general.service';
-import { NgbCarouselModule, NgbTooltipModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { HelperService, Messages, MessageType } from '../admin/helper.service';
 import { DatatableParameter } from '../admin/datatable.parameters';
 import { Subject } from 'rxjs';
@@ -26,7 +22,7 @@ export class CertificadosComponent implements OnInit {
     frmCertificados: FormGroup;
     statusForm: boolean = true;
     isCollapsed = true;
-    currentSection = 'home';
+    currentSection = 'certificados';
     lista: any[] = [
         {
             "id": "Codigo",
@@ -212,17 +208,3 @@ export class CertificadosComponent implements OnInit {
         document.documentElement.scrollTop = 0;
     }
 }
-@NgModule({
-    declarations: [
-        CertificadosComponent,
-    ],
-    imports: [
-        CommonModule,
-        GeneralModule,
-        NgbCarouselModule,
-        NgbTooltipModule,
-        NgbCollapseModule,
-        ScrollToModule.forRoot(),
-    ]
-})
-export class CertificadosModule { }

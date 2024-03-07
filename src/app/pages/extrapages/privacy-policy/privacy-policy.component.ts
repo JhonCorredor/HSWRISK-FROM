@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrivacyPolicyComponent implements OnInit {
   year: number = new Date().getFullYear();
-  currentSection = 'home';
+  currentSection = 'hero';
   isCollapsed = true;
   constructor() { }
 

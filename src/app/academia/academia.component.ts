@@ -1,9 +1,5 @@
-import { Component, OnInit, NgModule, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { GeneralModule } from '../general/general.module';
-import { NgbCarouselModule, NgbTooltipModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { HelperService, Messages, MessageType } from '../admin/helper.service';
+import { Component, OnInit, signal } from '@angular/core';
+import { HelperService } from '../admin/helper.service';
 import { GeneralParameterService } from '../generic/general.service';
 import { DatatableParameter } from '../admin/datatable.parameters';
 import { Curso } from '../pages/dashboards/operational/cursos/cursos.module';
@@ -20,10 +16,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
  * Academia Component
  */
 export class AcademiaComponent implements OnInit {
+    year: number = new Date().getFullYear();
     currentSection = 'academy';
     isCollapsed = true;
     listCursos = signal<Curso[]>([]);
-    year: number = new Date().getFullYear();
 
 
     constructor(
@@ -136,17 +132,3 @@ export class AcademiaComponent implements OnInit {
         document.documentElement.scrollTop = 0;
     }
 }
-@NgModule({
-    declarations: [
-        AcademiaComponent,
-    ],
-    imports: [
-        CommonModule,
-        GeneralModule,
-        NgbCarouselModule,
-        NgbTooltipModule,
-        NgbCollapseModule,
-        ScrollToModule.forRoot(),
-    ]
-})
-export class AcademiaModule { }

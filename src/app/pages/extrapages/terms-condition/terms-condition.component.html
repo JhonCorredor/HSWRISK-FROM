@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar" id="navbar"
         (window:scroll)="windowScroll()">
         <div class="container-fluid custom-container">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" routerLink="">
                 <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="70" />
                 <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light"
                     height="70" />
@@ -17,15 +17,15 @@
                 id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
                     <li class="nav-item">
-                        <a class="nav-link active" href="" [ngClass]="{ active: currentSection === 'hero' }"
+                        <a class="nav-link active" routerLink="" [ngClass]="{ active: currentSection === 'hero' }"
                             [ngxScrollTo]="'#hero'">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'services' }"
+                        <a class="nav-link" routerLink="" [ngClass]="{ active: currentSection === 'services' }"
                             [ngxScrollTo]="'#services'">Servicios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'features' }"
+                        <a class="nav-link" routerLink="" [ngClass]="{ active: currentSection === 'features' }"
                             [ngxScrollTo]="'#features'">Nosotros</a>
                     </li>
                     <li class="nav-item">
@@ -42,7 +42,7 @@
                             [ngxScrollTo]="'#certificados'">Certificados</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'contact' }"
+                        <a class="nav-link" routerLink="" [ngClass]="{ active: currentSection === 'contact' }"
                             [ngxScrollTo]="'#contact'">Contacto</a>
                     </li>
                 </ul>
@@ -54,10 +54,70 @@
         </div>
     </nav>
     <br>
-    <section class="section" id="ptivacy-policy">
+    <section class="section" id="terms-condition">
         <div class="d-flex justify-content-center">
             <div class="col-sm-12 col-md-12 col-lg-12 p-5">
-                <h2 class="mb-5 fw-semibold text-center">Términos y condiciones</h2>
+                <h2 class="fw-semibold text-center">Términos y condiciones</h2>
+                <p align="justify" class="text-muted text-center">Última actualización: 07 de marzo de 2024</p>
+                <br>
+                <p align="justify">Estos términos y condiciones describen las reglas y regulaciones para el uso del
+                    SAFETY, HEALTH AND WORK RISK CONSULTANTS S.A.S., ubicado en hswrisk.com.</p>
+                <p align="justify">Al acceder a este sitio web asumimos que acepta estos términos y condiciones. No
+                    continúe utilizando el nombre del sitio web si no acepta todos los términos y condiciones
+                    establecidos en esta página.</p>
+                <p align="justify">La mayoría de los sitios web interactivos utilizan cookies para permitirnos recuperar
+                    los detalles del usuario en cada visita. Nuestro sitio web utiliza cookies para habilitar la
+                    funcionalidad de ciertas áreas para que sea más fácil para las personas que visitan nuestro sitio
+                    web. Algunos de nuestros socios afiliados/publicitarios también pueden utilizar cookies.</p>
+                <h4>Licencia</h4>
+                <p align="justify">A menos que se indique lo contrario, SAFETY, HEALTH AND WORK RISK CONSULTANTS S.A.S. y/o sus licenciantes poseen
+                    los derechos de propiedad intelectual de todo el material en el Nombre del sitio web. Todos los
+                    derechos de propiedad intelectual están reservados. Puede acceder a esto desde Nombre del sitio web
+                    para su uso personal sujeto a las restricciones establecidas en estos términos y condiciones.</p>
+                <h5 class="mb-3">No debes:</h5>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Publicar material desde el
+                    nombre del sitio web.</p>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Vender, alquilar o
+                    sublicenciar material del nombre del sitio web.</p>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Reproducir, duplicar o copiar
+                    material del nombre del sitio web.</p>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Redistribuir contenido desde
+                    el nombre del sitio web.</p>
+                <p align="justify">Este acuerdo comenzará en la fecha del presente.</p>
+                <p align="justify">Partes de este sitio web ofrecen una oportunidad para que los usuarios publiquen e
+                    intercambien opiniones e información en ciertas áreas del sitio web. SAFETY, HEALTH AND WORK RISK CONSULTANTS S.A.S. no filtra,
+                    edita, publica ni revisa los Comentarios antes de su presencia en el sitio web. Los comentarios no
+                    reflejan los puntos de vista y opiniones del SAFETY, HEALTH AND WORK RISK CONSULTANTS S.A.S., sus agentes y/o afiliados.</p>
+                <p align="justify">SAFETY, HEALTH AND WORK RISK CONSULTANTS S.A.S. se reserva el derecho de monitorear todos los Comentarios y
+                    eliminar cualquier Comentario que pueda considerarse inapropiado, ofensivo o que incumpla estos
+                    Términos y Condiciones.</p>
+                <h5 class="mb-3">Usted garantiza y declara que:</h5>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Tiene derecho a publicar
+                    Comentarios en nuestro sitio web y tiene todas las licencias y consentimientos necesarios para
+                    hacerlo.</p>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Los Comentarios no invaden
+                    ningún derecho de propiedad intelectual, incluidos, entre otros, derechos de autor, patentes o
+                    marcas comerciales de terceros.</p>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Los comentarios no contienen
+                    ningún material difamatorio, calumnioso, ofensivo, indecente o ilegal que sea una invasión de la
+                    privacidad.</p>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Los Comentarios no se
+                    utilizarán para solicitar o promover negocios o costumbres o presentar actividades comerciales o
+                    actividades ilegales.</p>
+                <p align="justify">Por la presente otorga a SAFETY, HEALTH AND WORK RISK CONSULTANTS S.A.S. una licencia no exclusiva para usar,
+                    reproducir, editar y autorizar a otros a usar, reproducir y editar cualquiera de sus Comentarios en
+                    cualquiera y todas las formas, formatos o medios.</p>
+                <h5 class="mb-3">Las organizaciones aprobadas pueden hacer hipervínculos a nuestro sitio web de la
+                    siguiente manera:</h5>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Por el uso de nuestro nombre
+                    corporativo.</p>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Mediante el uso del
+                    localizador uniforme de recursos al que se vincula.</p>
+                <p align="justify" class="ms-3"><i class="fa-duotone fa-circle-small"></i> Mediante el uso de cualquier
+                    otra descripción de nuestro sitio web al que se vincula que tenga sentido dentro del contexto y
+                    formato del contenido del sitio de la parte vinculadora.</p>
+                <p align="justify">No se permitirá el uso del logotipo del nombre de la empresa ni de otras
+                    ilustraciones para vincular sin un acuerdo de licencia de marca registrada.</p>
             </div>
         </div>
     </section>
@@ -73,8 +133,10 @@
                         <img src="assets/images/logo-dark.png" alt="logo dark" height="70" />
                     </div>
                     <div class="mt-4 fs-13">
-                        <p align="justify">Nos especializamos en la consultoría integral en gestión de riesgos laborales; derecho
-                            laboral y de la seguridad social, salud y seguridad en el trabajo. Alto compromiso con la
+                        <p align="justify">Nos especializamos en la consultoría integral en gestión de riesgos
+                            laborales; derecho
+                            laboral y de la seguridad social, salud y seguridad en el trabajo. Alto compromiso con
+                            la
                             excelencia en el servicio, la responsabilidad con el cliente y el trabajo en equipo.</p>
                         <ul class="list-inline mb-0 footer-social-link">
                             <li class="list-inline-item">
@@ -127,11 +189,11 @@
                         <div class="text-muted mt-3">
                             <ul class="list-unstyled ff-secondary footer-list">
                                 <li>
-                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'features' }"
+                                    <a routerLink="" [ngClass]="{ active: currentSection === 'features' }"
                                         [ngxScrollTo]="'#features'">Nosotros</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'services' }"
+                                    <a routerLink="" [ngClass]="{ active: currentSection === 'services' }"
                                         [ngxScrollTo]="'#services'">Servicios</a>
                                 </li>
                             </ul>
@@ -141,8 +203,14 @@
                         <h5 class="text-primary mb-0"><i class="fa-duotone fa-screen-users"></i> Academia</h5>
                         <div class="text-muted mt-3">
                             <ul class="list-unstyled ff-secondary footer-list">
-                                <li><a href="academia">Cursos</a></li>
-                                <li><a href="academia">Talleres</a></li>
+                                <li>
+                                    <a href="inscripcion" [ngClass]="{ active: currentSection === 'inscripcion' }"
+                                        [ngxScrollTo]="'#inscripcion'">Inscríbete</a>
+                                </li>
+                                <li>
+                                    <a href="inscripcion" [ngClass]="{ active: currentSection === 'inscripcion' }"
+                                        [ngxScrollTo]="'#inscripcion'">Certificados</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -151,7 +219,7 @@
                         <div class="text-muted mt-3">
                             <ul class="list-unstyled ff-secondary footer-list">
                                 <li>
-                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'contact' }"
+                                    <a routerLink="" [ngClass]="{ active: currentSection === 'contact' }"
                                         [ngxScrollTo]="'#contact'">Contacto</a>
                                 </li>
                             </ul>
@@ -190,6 +258,7 @@
     </div>
 </footer>
 <!-- end footer -->
+
 
 <!--start back-to-top-->
 <button (click)="topFunction()" class="btn btn-primary btn-icon landing-back-top" id="back-to-top">

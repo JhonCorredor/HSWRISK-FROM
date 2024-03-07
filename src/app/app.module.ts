@@ -1,5 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { GeneralModule } from './general/general.module';
+import { NgbCarouselModule, NgbTooltipModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 // search module
 import { NgPipesModule } from 'ngx-pipes';
@@ -44,7 +48,9 @@ import { AuthenticationEffects } from './store/Authentication/authentication.eff
 
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { AcademiaComponent } from './academia/academia.component';
+import { InscripcionesComponent } from './inscripciones/inscripciones.component';
+import { CertificadosComponent } from './certificados/certificados.component';
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -52,9 +58,18 @@ export function createTranslateLoader(http: HttpClient): any {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AcademiaComponent,
+    InscripcionesComponent,
+    CertificadosComponent
   ],
   imports: [
+    CommonModule,
+    GeneralModule,
+    NgbCarouselModule,
+    NgbTooltipModule,
+    NgbCollapseModule,
+    ScrollToModule.forRoot(),
     NgxSpinnerModule,
     UiSwitchModule.forRoot({
       size: 'small',
@@ -76,7 +91,7 @@ export function createTranslateLoader(http: HttpClient): any {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
-      }, 
+      },
     }),
     BrowserAnimationsModule,
     HttpClientModule,

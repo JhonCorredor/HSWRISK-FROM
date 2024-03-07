@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar" id="navbar"
         (window:scroll)="windowScroll()">
         <div class="container-fluid custom-container">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" routerLink="">
                 <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="70" />
                 <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light"
                     height="70" />
@@ -17,15 +17,15 @@
                 id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
                     <li class="nav-item">
-                        <a class="nav-link active" href="" [ngClass]="{ active: currentSection === 'hero' }"
+                        <a class="nav-link active" routerLink="" [ngClass]="{ active: currentSection === 'hero' }"
                             [ngxScrollTo]="'#hero'">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'services' }"
+                        <a class="nav-link" routerLink="" [ngClass]="{ active: currentSection === 'services' }"
                             [ngxScrollTo]="'#services'">Servicios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'features' }"
+                        <a class="nav-link" routerLink="" [ngClass]="{ active: currentSection === 'features' }"
                             [ngxScrollTo]="'#features'">Nosotros</a>
                     </li>
                     <li class="nav-item">
@@ -42,7 +42,7 @@
                             [ngxScrollTo]="'#certificados'">Certificados</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" [ngClass]="{ active: currentSection === 'contact' }"
+                        <a class="nav-link" routerLink="" [ngClass]="{ active: currentSection === 'contact' }"
                             [ngxScrollTo]="'#contact'">Contacto</a>
                     </li>
                 </ul>
@@ -467,8 +467,10 @@
                         <img src="assets/images/logo-dark.png" alt="logo dark" height="70" />
                     </div>
                     <div class="mt-4 fs-13">
-                        <p align="justify">Nos especializamos en la consultoría integral en gestión de riesgos laborales; derecho
-                            laboral y de la seguridad social, salud y seguridad en el trabajo. Alto compromiso con la
+                        <p align="justify">Nos especializamos en la consultoría integral en gestión de riesgos
+                            laborales; derecho
+                            laboral y de la seguridad social, salud y seguridad en el trabajo. Alto compromiso con
+                            la
                             excelencia en el servicio, la responsabilidad con el cliente y el trabajo en equipo.</p>
                         <ul class="list-inline mb-0 footer-social-link">
                             <li class="list-inline-item">
@@ -521,11 +523,11 @@
                         <div class="text-muted mt-3">
                             <ul class="list-unstyled ff-secondary footer-list">
                                 <li>
-                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'features' }"
+                                    <a routerLink="" [ngClass]="{ active: currentSection === 'features' }"
                                         [ngxScrollTo]="'#features'">Nosotros</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'services' }"
+                                    <a routerLink="" [ngClass]="{ active: currentSection === 'services' }"
                                         [ngxScrollTo]="'#services'">Servicios</a>
                                 </li>
                             </ul>
@@ -535,8 +537,14 @@
                         <h5 class="text-primary mb-0"><i class="fa-duotone fa-screen-users"></i> Academia</h5>
                         <div class="text-muted mt-3">
                             <ul class="list-unstyled ff-secondary footer-list">
-                                <li><a href="academia">Cursos</a></li>
-                                <li><a href="academia">Talleres</a></li>
+                                <li>
+                                    <a href="inscripcion" [ngClass]="{ active: currentSection === 'inscripcion' }"
+                                        [ngxScrollTo]="'#inscripcion'">Inscríbete</a>
+                                </li>
+                                <li>
+                                    <a href="inscripcion" [ngClass]="{ active: currentSection === 'inscripcion' }"
+                                        [ngxScrollTo]="'#inscripcion'">Certificados</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -545,7 +553,7 @@
                         <div class="text-muted mt-3">
                             <ul class="list-unstyled ff-secondary footer-list">
                                 <li>
-                                    <a href="javascript:void(0);" [ngClass]="{ active: currentSection === 'contact' }"
+                                    <a routerLink="" [ngClass]="{ active: currentSection === 'contact' }"
                                         [ngxScrollTo]="'#contact'">Contacto</a>
                                 </li>
                             </ul>
