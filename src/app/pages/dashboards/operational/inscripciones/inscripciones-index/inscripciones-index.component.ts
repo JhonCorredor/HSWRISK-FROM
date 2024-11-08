@@ -537,7 +537,7 @@ export class InscripcionesIndexComponent implements OnInit {
     }
 
     importarDatos() {
-        let modal = this.modalService.open(ClientesImportComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+        let modal = this.modalService.open(ClientesImportComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
         modal.result.then(res => {
             if (res) {
                 this.refrescarTabla();

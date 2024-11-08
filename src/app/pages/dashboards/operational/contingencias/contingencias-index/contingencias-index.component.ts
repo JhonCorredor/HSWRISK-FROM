@@ -86,7 +86,7 @@ export class ContingenciasIndexComponent implements OnInit {
   }
 
   nuevo() {
-    let modal = this.modalService.open(ContingenciasFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(ContingenciasFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = "Contingencia";
     modal.componentInstance.serviceName = "Contingencia";
@@ -99,7 +99,7 @@ export class ContingenciasIndexComponent implements OnInit {
   }
 
   updateGeneric(id: any) {
-    let modal = this.modalService.open(ContingenciasFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(ContingenciasFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = "Contingencia";
     modal.componentInstance.serviceName = "Contingencia";

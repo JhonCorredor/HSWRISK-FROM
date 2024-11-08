@@ -176,7 +176,7 @@ export class EmpleadosFormComponent implements OnInit {
   }
 
   nuevaPersona() {
-    let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
     modal.componentInstance.titleData = "Persona";
     modal.componentInstance.serviceName = "Persona";
     modal.componentInstance.key = "Ciudad";
@@ -190,7 +190,7 @@ export class EmpleadosFormComponent implements OnInit {
   }
 
   nuevaEmpresa() {
-    let modal = this.modalService.open(EmpresaFormComponent, { size: 'xl', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(EmpresaFormComponent, { size: 'xl', keyboard: false, backdrop: true, centered: true });
     modal.result.finally(() => {
       this.listEmpresas = signal<DataSelectDto[]>([]);
 

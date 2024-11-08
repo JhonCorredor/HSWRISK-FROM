@@ -104,14 +104,14 @@ export class UsuariosIndexComponent implements OnInit {
           }
         },
         (error) => {
-          this.helperService.showMessage(MessageType.ERROR, error.error.message);
+          this.helperService.showMessage(MessageType.ERROR, error);
         }
       )
     });
   }
 
   changePassword(id: any) {
-    let modal = this.modalService.open(UsuariosPaswordFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(UsuariosPaswordFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = "Usuario";
     modal.componentInstance.serviceName = "Usuario";

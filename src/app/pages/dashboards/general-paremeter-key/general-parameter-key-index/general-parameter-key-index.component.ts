@@ -104,7 +104,7 @@ export class GeneralParameterKeyIndexComponent implements OnInit {
   }
 
   nuevo() {
-    let modal = this.modalService.open(GeneralParameterKeyFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(GeneralParameterKeyFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = this.titleData;
     modal.componentInstance.serviceName = this.serviceName;
@@ -117,7 +117,7 @@ export class GeneralParameterKeyIndexComponent implements OnInit {
   }
 
   updateGeneric(id: any) {
-    let modal = this.modalService.open(GeneralParameterKeyFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(GeneralParameterKeyFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.serviceName = this.serviceName;
     modal.componentInstance.titleData = this.titleData;
@@ -140,7 +140,7 @@ export class GeneralParameterKeyIndexComponent implements OnInit {
           }
         },
         (error) => {
-          this.helperService.showMessage(MessageType.WARNING, error.error.message);
+          this.helperService.showMessage(MessageType.WARNING, error);
         }
       )
     });

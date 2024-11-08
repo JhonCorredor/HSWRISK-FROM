@@ -91,7 +91,7 @@ export class SalonesIndexComponent implements OnInit {
   }
 
   nuevo() {
-    let modal = this.modalService.open(SalonesFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(SalonesFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = "Salon";
     modal.componentInstance.serviceName = "Salon";
@@ -104,7 +104,7 @@ export class SalonesIndexComponent implements OnInit {
   }
 
   updateGeneric(id: any) {
-    let modal = this.modalService.open(SalonesFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(SalonesFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = "Salon";
     modal.componentInstance.serviceName = "Salon";

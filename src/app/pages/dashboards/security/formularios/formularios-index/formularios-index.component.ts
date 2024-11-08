@@ -88,7 +88,7 @@ export class FormulariosIndexComponent implements OnInit {
   }
 
   nuevo() {
-    let modal = this.modalService.open(FormulariosFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(FormulariosFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = "Formulario";
     modal.componentInstance.serviceName = "Formulario";
@@ -102,7 +102,7 @@ export class FormulariosIndexComponent implements OnInit {
   }
 
   updateGeneric(id: any) {
-    let modal = this.modalService.open(FormulariosFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(FormulariosFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = "Formulario";
     modal.componentInstance.serviceName = "Formulario";
@@ -126,7 +126,7 @@ export class FormulariosIndexComponent implements OnInit {
           }
         },
         (error) => {
-          this.helperService.showMessage(MessageType.ERROR, error.error.message);
+          this.helperService.showMessage(MessageType.ERROR, error);
         }
       )
     });

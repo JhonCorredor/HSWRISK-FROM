@@ -35,7 +35,7 @@ export class ConveniosIndexComponent implements OnInit {
   }
 
   public nuevo() {
-    let modal = this.modalService.open(ConveniosFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(ConveniosFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = "Convenio";
     modal.componentInstance.serviceName = "Convenio";
@@ -99,7 +99,7 @@ export class ConveniosIndexComponent implements OnInit {
   }
 
   updateGeneric(id: any) {
-    let modal = this.modalService.open(ConveniosFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(ConveniosFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.serviceName = "Convenio";
     modal.componentInstance.titleData = "Convenio";
@@ -121,7 +121,7 @@ export class ConveniosIndexComponent implements OnInit {
           }
         },
         (error) => {
-          this.helperService.showMessage(MessageType.WARNING, error.error.message);
+          this.helperService.showMessage(MessageType.WARNING, error);
         }
       )
     });

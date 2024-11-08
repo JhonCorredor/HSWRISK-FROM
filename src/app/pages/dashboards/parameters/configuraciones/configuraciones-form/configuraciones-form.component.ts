@@ -155,7 +155,7 @@ export class ConfiguracionesFormComponent implements OnInit {
         setTimeout(() => {
           this.helperService.hideLoading();
         }, 200);
-        this.helperService.showMessage(MessageType.ERROR, error.error.message);
+        this.helperService.showMessage(MessageType.ERROR, error);
       }
     );
   }

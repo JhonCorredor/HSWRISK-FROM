@@ -103,7 +103,7 @@ export class EmpleadosIndexComponent implements OnInit {
           }
         },
         (error) => {
-          this.helperService.showMessage(MessageType.WARNING, error.error.message);
+          this.helperService.showMessage(MessageType.WARNING, error);
         }
       )
     });

@@ -34,7 +34,7 @@ export class ModulosIndexComponent implements OnInit {
   }
 
   nuevo() {
-    let modal = this.modalService.open(ModulosFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered: true });
+    let modal = this.modalService.open(ModulosFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
 
     modal.componentInstance.titleData = "Modulo";
     modal.componentInstance.serviceName = "Modulo";
@@ -97,7 +97,7 @@ export class ModulosIndexComponent implements OnInit {
   }
 
   updateGeneric(id: any) {
-    let modal = this.modalService.open(ModulosFormComponent, { size: 'lg', keyboard: false, backdrop: false, centered:true });
+    let modal = this.modalService.open(ModulosFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered:true });
 
     modal.componentInstance.titleData = "Modulo";
     modal.componentInstance.serviceName = "Modulo";
@@ -120,7 +120,7 @@ export class ModulosIndexComponent implements OnInit {
           }
         },
         (error) => {
-          this.helperService.showMessage(MessageType.ERROR, error.error.message);
+          this.helperService.showMessage(MessageType.ERROR, error);
         }
       )
     });

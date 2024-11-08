@@ -191,7 +191,7 @@ export class PerfilFormComponent implements OnInit {
     }
 
     nuevaArl() {
-        let modal = this.modalService.open(GeneralParameterFormComponent, { size: 'md', keyboard: false, backdrop: false, centered: true });
+        let modal = this.modalService.open(GeneralParameterFormComponent, { size: 'md', keyboard: false, backdrop: true, centered: true });
 
         modal.componentInstance.titleData = "Arl";
         modal.componentInstance.serviceName = "Arl";
@@ -206,7 +206,7 @@ export class PerfilFormComponent implements OnInit {
     }
 
     nuevaEmpresa() {
-        let modal = this.modalService.open(EmpresaFormComponent, { size: 'xl', keyboard: false, backdrop: false, centered: true });
+        let modal = this.modalService.open(EmpresaFormComponent, { size: 'xl', keyboard: false, backdrop: true, centered: true });
         modal.result.finally(() => {
             this.listEmpresas = signal<DataSelectDto[]>([]);
 

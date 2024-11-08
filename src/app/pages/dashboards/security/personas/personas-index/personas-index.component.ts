@@ -95,7 +95,7 @@ export class PersonasIndexComponent implements OnInit {
   }
 
   nuevo() {
-    let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: false });
+    let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: true });
 
     modal.componentInstance.titleData = "Persona";
     modal.componentInstance.serviceName = "Persona";
@@ -109,7 +109,7 @@ export class PersonasIndexComponent implements OnInit {
   }
 
   updateGeneric(id: any) {
-    let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: false });
+    let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: true });
 
     modal.componentInstance.titleData = "Persona";
     modal.componentInstance.serviceName = "Persona";
@@ -133,7 +133,7 @@ export class PersonasIndexComponent implements OnInit {
           }
         },
         (error) => {
-          this.helperService.showMessage(MessageType.ERROR, error.error.message);
+          this.helperService.showMessage(MessageType.ERROR, error);
         }
       )
     });

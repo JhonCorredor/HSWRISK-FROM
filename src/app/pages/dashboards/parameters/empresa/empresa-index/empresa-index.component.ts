@@ -202,7 +202,7 @@ export class EmpresaIndexComponent implements OnInit {
         (error) => {
           this.helperService.showMessage(
             MessageType.ERROR,
-            error.error.message
+            error
           );
         }
       );
