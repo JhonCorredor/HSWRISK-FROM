@@ -76,49 +76,58 @@
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Primer Nombre *</label>
-                            <input type="text" class="form-control" formControlName="PrimerNombre">
+                            <input type="text" class="form-control" (input)="automaticToUperCase($event,'PrimerNombre')" formControlName="PrimerNombre">
                             <app-forms-messages [error]="frmInscripcion.get('PrimerNombre')" [statusForm]=statusForm
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Segundo Nombre</label>
-                            <input type="text" class="form-control" formControlName="SegundoNombre">
+                            <input type="text" class="form-control" (input)="automaticToUperCase($event,'SegundoNombre')" formControlName="SegundoNombre">
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Primer Apellido *</label>
-                            <input type="text" class="form-control" formControlName="PrimerApellido">
+                            <input type="text" class="form-control" formControlName="PrimerApellido" (input)="automaticToUperCase($event,'PrimerApellido')">
                             <app-forms-messages [error]="frmInscripcion.get('PrimerApellido')" [statusForm]=statusForm
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Segundo Apellido</label>
-                            <input type="text" class="form-control" formControlName="SegundoApellido">
+                            <input type="text" class="form-control" formControlName="SegundoApellido" (input)="automaticToUperCase($event,'SegundoApellido')">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Género *</label>
-                            <ng-select [items]="listGeneros" bindLabel="textoMostrar" bindValue="id"
+                            <ng-select [items]="listGeneros" bindLabel="nombre" bindValue="nombre"
                                 formControlName="Genero"></ng-select>
                             <app-forms-messages [error]="frmInscripcion.get('Genero')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
-                            <label>Rh *</label>
+                            <label>País de Nacimiento *</label>
+                            <ng-select [items]="ListCountry" bindLabel="nombre" bindValue="nombre"
+                                formControlName="CountryOfBirth"></ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('Genero')"
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                        
+
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Hemoclasificación  (Grupo sanguíneo-RH) *</label>
                             <ng-select [items]="listaRh" bindLabel="nombre" bindValue="nombre" formControlName="Rh">
                             </ng-select>
                             <app-forms-messages [error]="frmInscripcion.get('Rh')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
-                            <label>Correo *</label>
+                            <label>Correo Electrónico  del Estudiante *</label>
                             <input type="email" class="form-control" formControlName="Email">
                             <app-forms-messages [error]="frmInscripcion.get('Email')" [statusForm]=statusForm
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
-                            <label>Teléfono *</label>
+                            <label>Número de Teléfono y/o Celular Estudiante *</label>
                             <input type="number" class="form-control" formControlName="Telefono">
                             <app-forms-messages [error]="frmInscripcion.get('Telefono')" [statusForm]=statusForm
                                 [statusForm]=statusForm></app-forms-messages>
@@ -129,27 +138,11 @@
                             <app-forms-messages [error]="frmInscripcion.get('Direccion')" [statusForm]=statusForm
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
-                        <div class="col-sm-2 col-md-2 col-lg-2">
-                            <label>Ciudad *</label>
-                            <ng-select [items]="listCiudades()" bindLabel="textoMostrar" bindValue="id"
-                                formControlName="CiudadId">
-                            </ng-select>
-                            <app-forms-messages [error]="frmInscripcion.get('CiudadId')" [statusForm]=statusForm
-                                [statusForm]=statusForm></app-forms-messages>
-                        </div>
                     </div>
                     <br>
-                    <div class="row">
+                    <div class = "row">
                         <div class="col-sm-2 col-md-2 col-lg-2">
-                            <label>Nivel Educativo *</label>
-                            <ng-select [items]="listaNivelEducativo" bindLabel="nombre" bindValue="nombre"
-                                formControlName="NivelEducativo">
-                            </ng-select>
-                            <app-forms-messages [error]="frmInscripcion.get('NivelEducativo')" [statusForm]="statusForm"
-                                [statusForm]="statusForm"></app-forms-messages>
-                        </div>
-                        <div class="col-sm-2 col-md-2 col-lg-2">
-                            <label>Lecto Escritura *</label>
+                            <label>Nivel de Escritura *</label>
                             <ng-select [items]="listaLectoEscritura" bindLabel="nombre" bindValue="nombre"
                                 formControlName="LectoEscritura">
                             </ng-select>
@@ -157,7 +150,13 @@
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
-                            <label>Arl *</label>
+                            <label>Arl *
+                                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                                title="'ARL' registre la información de la Aseguradora de Riesgos Laborales del empleador."
+                                class="ms-2">
+                                <i class="fa-light fa-circle-question"></i>
+                              </span>
+                            </label>
                             <ng-select [items]="listArl()" bindLabel="textoMostrar" bindValue="id"
                                 formControlName="ArlId">
                             </ng-select>
@@ -177,49 +176,115 @@
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
-                            <label>Nombre Acudiente *</label>
-                            <input type="text" class="form-control" formControlName="Acudiente" />
-                            <app-forms-messages [error]="frmInscripcion.get('Acudiente')" [statusForm]="statusForm"
+                            <label>Razón Social *
+                                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                                title="'EMPLEADOR' registre la Razón Social de la empresa donde labora el trabajador, si es independiente el trabajador es el mismo empleador."
+                                class="ms-2">
+                                <i class="fa-light fa-circle-question"></i>
+                              </span>
+                            </label>
+                            <input type="text" class="form-control"  formControlName="CompanyName"  />
+                            <app-forms-messages [error]="frmInscripcion.get('CompanyName')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label>Nivel de Lectura *
+                            </label>
+                            <ng-select [items]="ListlevelReading"  bindLabel="nombre" bindValue="nombre"
+                            formControlName="LevelReading">
+                        </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('LevelReading')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
                     </div>
                     <br>
+
                     <div class="row">
+
                         <div class="col-sm-2 col-md-2 col-lg-2">
-                            <label>Teléfono Acudiente *</label>
+                            <label>Nivel Educativo *</label>
+                            <ng-select [items]="listNivelEducativo"  (change)="levelEducative($event)" bindLabel="nombre" bindValue="nombre"
+                                formControlName="NivelEducativo">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('NivelEducativo')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+
+                        <div class="col-sm-2 col-md-2 col-lg-2" *ngIf="isUsenOtherLevelEducative">
+                            <label>Otro *</label>
+                            <input type="text" class="form-control"  formControlName="OtherLevel"  />
+                            <app-forms-messages [error]="frmInscripcion.get('OtherLevel')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Sector Económico *</label>
+                            <ng-select [items]="ListSectorEducative"  bindLabel="nombre" bindValue="nombre"
+                                formControlName="SectorEducative">
+                            </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('SectorEducative')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>   
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="centered-hr">
+                            <span>Contacto</span>
+                            <hr>
+                          </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Nombres y Apellidos Completos de la Persona de Contacto *</label>
+                            <input type="text" class="form-control" formControlName="Acudiente" />
+                            <app-forms-messages [error]="frmInscripcion.get('Acudiente')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Teléfono/Celular de la Persona de Contacto *</label>
+                            <input type="number" class="form-control" formControlName="TelefonoAcudiente" />
+                            <app-forms-messages [error]="frmInscripcion.get('TelefonoAcudiente')"
+                                [statusForm]="statusForm" [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3">
+                            <label>Parentesco *</label>
                             <input type="number" class="form-control" formControlName="TelefonoAcudiente" />
                             <app-forms-messages [error]="frmInscripcion.get('TelefonoAcudiente')"
                                 [statusForm]="statusForm" [statusForm]="statusForm"></app-forms-messages>
                         </div>
                     </div>
                     <br>
+                    <br>
                     <p class="text-muted">Salud</p>
                     <div class="row">
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                            <label>Enfermedades *</label>
-                            <textarea formControlName="Enfermedades" class="form-control" rows="4"></textarea>
-                            <app-forms-messages [error]="frmInscripcion.get('Enfermedades')" [statusForm]="statusForm"
+                            <label>¿A que Medicamentos o Sustancias es Alérgico? *
+                            </label>
+                            <textarea formControlName="Alergias" class="form-control" rows="4"></textarea>
+                            <app-forms-messages [error]="frmInscripcion.get('Alergias')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                            <label>Alergias *</label>
-                            <textarea formControlName="Alergias" class="form-control" rows="4"></textarea>
-                            <app-forms-messages [error]="frmInscripcion.get('Alergias')" [statusForm]="statusForm"
+                            <label>¿Que Medicamentos Consume Actualmente? *
+                            </label>      
+                            <textarea formControlName="Medicamentos" class="form-control" rows="4"></textarea>
+                            <app-forms-messages [error]="frmInscripcion.get('Medicamentos')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                            <label>Medicamentos *</label>
-                            <textarea formControlName="Medicamentos" class="form-control" rows="4"></textarea>
-                            <app-forms-messages [error]="frmInscripcion.get('Medicamentos')" [statusForm]="statusForm"
+                            <label>¿Que Lesiones o Cirugías Recientes ha Tenido? *
+                            </label>
+                            <textarea formControlName="Lesiones" class="form-control" rows="4"></textarea>
+                            <app-forms-messages [error]="frmInscripcion.get('Lesiones')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                            <label>Lesiones *</label>
-                            <textarea formControlName="Lesiones" class="form-control" rows="4"></textarea>
-                            <app-forms-messages [error]="frmInscripcion.get('Lesiones')" [statusForm]="statusForm"
+                            <label>¿Que Enfermedades Padece Actualmente? *
+                            </label>
+                            <textarea formControlName="Enfermedades" class="form-control" rows="4"></textarea>
+                            <app-forms-messages [error]="frmInscripcion.get('Enfermedades')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
                     </div>
@@ -269,21 +334,70 @@
                     <br>
                     <p class="text-muted">Documentos</p>
                     <div class="row">
-                        <div class="col-sm-4 col-md-4 col-lg-4">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
                             <label>Documento de Identidad *</label>&nbsp;<span class="badge bg-danger">.Pdf</span>
                             <input type="file" class="form-control mt-2" accept=".pdf"
                                 formControlName="DocumentoIdentidad" (change)="onChangeDocumento($event)">
                             <app-forms-messages [error]="frmInscripcion.get('DocumentoIdentidad')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
-                        <div class="col-sm-4 col-md-4 col-lg-4">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
                             <label>Soporte de pago *</label>&nbsp;<span class="badge bg-info">.jpg</span>
                             <input type="file" class="form-control my-2" accept=".jpg" formControlName="Pago"
                                 (change)="onChangeSoporte($event)">
                             <app-forms-messages [error]="frmInscripcion.get('Pago')"
                                 [statusForm]=statusForm></app-forms-messages>
-                            <a class="text-success text-decoration-underline" href="javascript: void(0);"
-                                (click)="CertificadoBancario()">Ver datos bancarios</a>
+                            <!-- <a class="text-success text-decoration-underline" href="javascript: void(0);"
+                                (click)="CertificadoBancario()">Ver datos bancarios</a> -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class = "row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Copia del Certificado de Aptitud Médica *
+                                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                                title="Adjuntar Copia del Certificado de Aptitud Médica que certifique que el trabajador o aprendiz cumple con las condiciones de salud para desarrollar trabajo en alturas ."
+                                class="ms-2">
+                                <i class="fa-light fa-circle-question"></i>
+                              </span>
+
+                            </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+                            <input type="file" class="form-control mt-2" accept=".pdf"
+                                formControlName="DocumentoIdentidad" (change)="onChangeCertificadoAptitudMedica($event)">
+                            <app-forms-messages [error]="frmInscripcion.get('CertificadoAptitudMedica')"
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>  Copia del  Rut de la empresa y/o independiente *
+                                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                                title="Adjuntar Copia del  Rut de la empresa y/o independiente (completo donde se vea el nombre del representante legal)."
+                                class="ms-2">
+                                <i class="fa-light fa-circle-question"></i>
+                              </span>
+                            </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+                            <input type="file" class="form-control mt-2" accept=".pdf"
+                                formControlName="DocumentoIdentidad" (change)="onChangeCopiaRutEmpresa($event)">
+                            <app-forms-messages [error]="frmInscripcion.get('CopiaRutEmpresa')"
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
+                    </div>
+                    <br>
+
+                    /*reentrenameinto*/
+                    <div class = "row" *ngIf="manejoDeCertificadoEntrenamiento">
+                        <div class="col-sm-5 col-md-5 col-lg-5">
+                            <label>Copia del Certificado del Proceso de Capacitación Y Entrenamiento   *
+                                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                                title="Adjuntar Copia del Certificado del Proceso de Capacitación y Entrenamiento de Trabajador Autorizado (o Anterior Nivel Avanzado).  APLICA SOLO CUANDO ES CURSO DE REENTRENO SECTORIAL."
+                                class="ms-2">
+                                <i class="fa-light fa-circle-question"></i>
+                              </span>
+                            </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+                            <input type="file" class="form-control mt-2" accept=".pdf"
+                                formControlName="DocumentoIdentidad" (change)="onChangeCertificadoCapacitacionEntrenamiento($event)">
+                            <app-forms-messages [error]="frmInscripcion.get('CertificadoAptitudMedica')"
+                                [statusForm]=statusForm></app-forms-messages>
                         </div>
                     </div>
                     <br>

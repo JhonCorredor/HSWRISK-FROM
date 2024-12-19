@@ -5,6 +5,7 @@ import { DataSelectDto } from '../generic/dataSelectDto';
 import { HelperService, Messages, MessageType } from '../admin/helper.service';
 import { DatatableParameter } from '../admin/datatable.parameters';
 import Swal from 'sweetalert2';
+import { country } from './countryData';
 
 @Component({
     selector: 'app-inscripciones',
@@ -17,6 +18,7 @@ import Swal from 'sweetalert2';
  */
 export class InscripcionesComponent implements OnInit {
     currentSection = 'inscripcion';
+    isUsenOtherLevelEducative = false;
     isCollapsed = true;
     year: number = new Date().getFullYear();
     frmInscripcion: FormGroup;
@@ -24,29 +26,31 @@ export class InscripcionesComponent implements OnInit {
     key: string = "Ciudad";
     lista: any[] = [];
     listGeneros: any[] = [];
-    ListTipoIdentificacion: any[] = [];
     listArl = signal<DataSelectDto[]>([]);
     listEmpresas = signal<DataSelectDto[]>([]);
     listCiudades = signal<DataSelectDto[]>([]);
     listaRh: any[] = [{ nombre: 'A+' }, { nombre: 'A-' }, { nombre: 'B+' }, { nombre: 'B-' }, { nombre: 'AB+' }, { nombre: 'AB-' }, { nombre: 'O+' }, { nombre: 'O-' }];
-    listaLectoEscritura: any[] = [{ nombre: 'ALFABETA' }, { nombre: 'ANALFABETA' }];
+    listaLectoEscritura: any[] = [{ nombre: 'Bueno' }, { nombre: 'Regular' }, { nombre: 'No escribe' }];
+    ListlevelReading : any []=[ {nombre: 'Bueno' }, { nombre: 'Regular' }, { nombre: 'No lee' }];
     listaTipoCliente: any[] = [{ nombre: 'INDEPENDIENTE' }];
-    listaNivelEducativo: any[] = [
-        { nombre: 'PRIMARIA' },
-        { nombre: 'SECUNDARIA' },
-        { nombre: 'TECNICO' },
-        { nombre: 'TECNOLOGO' },
-        { nombre: 'UNIVERSITARIO' },
-        { nombre: 'OTRO' },
+    
+    ListTipoIdentificacion: any[] = [];
+    listNivelEducativo: any[] = [];
+    ListSectorEducative: any[] = [];
+    ListCountry: any[] = [];
+    LisGender: any[]=[];
 
-    ];
     listCursos = signal<DataSelectDto[]>([]);
     listCursosDetalles = signal<DataSelectDto[]>([]);
     curso = false;
     cursoDetalle = false;
+    manejoDeCertificadoEntrenamiento = false;
     precio = "0";
     contentDocumento: string = "";
     contentSoporte: string = "";
+    CopiaRutEmpresa:string = "";
+    contentCertificadoAptitudMedica: string = "";
+    CertificadoCapacitacionEntrenamiento:string = "";
 
     constructor(
         private service: GeneralParameterService,
@@ -59,7 +63,7 @@ export class InscripcionesComponent implements OnInit {
             SegundoNombre: new FormControl(""),
             PrimerApellido: new FormControl("", [Validators.required, Validators.maxLength(100)]),
             SegundoApellido: new FormControl(""),
-            Email: new FormControl("", [Validators.required, Validators.maxLength(50)]),
+            Email: new FormControl("", [Validators.required, Validators.email]),
             Direccion: new FormControl("", [Validators.required, Validators.maxLength(150)]),
             Telefono: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             Activo: new FormControl(true, Validators.required),
@@ -80,13 +84,19 @@ export class InscripcionesComponent implements OnInit {
             TelefonoAcudiente: new FormControl(null, [Validators.required]),
             PersonaId: new FormControl(0, [Validators.required]),
             ArlId: new FormControl(null, [Validators.required]),
+            OtherLevel: new FormControl(null, [Validators.required]),
             EmpresaId: new FormControl(null, [Validators.required]),
             CursoId: new FormControl(null, [Validators.required]),
             CursoDetalleId: new FormControl(null, [Validators.required]),
+            //add new atribute
+            SectorEducative:  new FormControl(null, [Validators.required]),
+            CountryOfBirth:  new FormControl(null, [Validators.required]),
+            CompanyName: new FormControl(null, [Validators.required]),
             DocumentoIdentidad: new FormControl(null, [Validators.required]),
             Pago: new FormControl(null, [Validators.required]),
         });
     }
+
 
     ngOnInit(): void {
         this.helperService.showLoading();
@@ -97,23 +107,83 @@ export class InscripcionesComponent implements OnInit {
 
         this.ListTipoIdentificacion = [
             { id: 'CC', textoMostrar: 'Cedula de Ciudadania' },
-            { id: 'PAS', textoMostrar: 'Pasaporte' },
-            { id: 'TI', textoMostrar: 'Tarjeta de Identidad' },
-            { id: 'CE', textoMostrar: 'Cedula de Extranjeria' },
-        ];
+            { id: 'CE', textoMostrar: 'Cedula Extranjeria' },
+            { id: 'PP', textoMostrar: 'Permiso Protección Temporal' },
+            { id: 'PE', textoMostrar: 'Permiso Especial Permanencia' },
+            
+         ];
 
-        this.listGeneros = [
-            { id: 1, textoMostrar: 'Masculino' },
-            { id: 2, textoMostrar: 'Femenino' },
-        ];
 
+        this.CargarEnum('ListCountry');
+        this.CargarEnum('listNivelEducativo');
+        this.CargarEnum('ListSectorEducative');
+        this.CargarEnum('LisGender');
         this.frmInscripcion.controls["TipoCliente"].setValue("INDEPENDIENTE");
     }
+
+
+    CargarEnum( parametro: string) {
+        this.helperService.getEnum(parametro, "description", "description").then((res) => {
+          if (parametro == 'ListCountry') {
+            this.ListCountry = res;
+          }else if (parametro == 'listNivelEducativo'){
+            this.listNivelEducativo = res;
+          }
+          else if (parametro == 'ListSectorEducative'){
+            this.ListSectorEducative = res;
+          }
+          else if (parametro == 'LisGender'){
+            this.listGeneros = res;
+          }
+          else if (parametro == 'ListTypeDocument'){
+            this.ListTipoIdentificacion = res;
+          }
+        });
+      
+    }
+
 
     cargarListaForeingKey() {
         this.service.getAll(this.key).subscribe((r) => {
             this.lista = r.data;
         });
+    }
+
+    //Function for converting lowercase to upperCase
+    automaticToUperCase(event: Event, formControl: string) {
+        // debugger;
+        const inputElement = event.target as HTMLInputElement;
+        const valueInUpperCase = inputElement.value.toUpperCase();
+        inputElement.value = valueInUpperCase;
+
+        switch (formControl) {
+            case 'PrimerNombre':
+                this.frmInscripcion.get('PrimerNombre')?.setValue(valueInUpperCase, { emitEvent: false });
+                break;
+            case 'SegundoNombre':
+                this.frmInscripcion.get('SegundoNombre')?.setValue(valueInUpperCase, { emitEvent: false });
+                break;
+            case 'PrimerApellido':
+                this.frmInscripcion.get('PrimerApellido')?.setValue(valueInUpperCase, { emitEvent: false });
+                break;
+            case 'SegundoApellido':
+                this.frmInscripcion.get('SegundoApellido')?.setValue(valueInUpperCase, { emitEvent: false });
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    //Function for the management of another educational level 
+    levelEducative(selectValue:any){
+      if(selectValue && selectValue.nombre){
+        if (selectValue.nombre == 'Otro') {
+            this.isUsenOtherLevelEducative = true;
+        }else{
+            this.isUsenOtherLevelEducative = false;
+        }
+      }
     }
 
     cargarArl() {
@@ -198,9 +268,21 @@ export class InscripcionesComponent implements OnInit {
 
     onChangeCursoDetalle(event: any) {
         if (typeof event != "undefined") {
+            debugger
             this.cursoDetalle = true;
             this.service.getById("CursoDetalle", event.id).subscribe((res: any) => {
                 this.precio = this.helperService.formaterNumber(res.data.precio).toString();
+
+                this.service.getById("Nivel", res.data.nivelId).subscribe((res: any) => {
+                    for (let item of res.data) {
+                        if (item.nombre === 'REENTRENAMIENTO SECTORIAL') {
+                            console.log('Found the item:', item);
+                            this.manejoDeCertificadoEntrenamiento = true;
+                            break; // Exit the loop once the item is found
+                        }
+                    }
+                });
+                
             });
         } else {
             this.cursoDetalle = false;
@@ -237,6 +319,13 @@ export class InscripcionesComponent implements OnInit {
         this.frmInscripcion.controls['Telefono'].setValue(String(this.frmInscripcion.controls['Telefono'].value));
         this.frmInscripcion.controls['TelefonoAcudiente'].setValue(this.frmInscripcion.controls['TelefonoAcudiente'].value.toString());
 
+        //variable for the managment the other value of educative
+        var valuLevelEducative = "";
+        if(this.isUsenOtherLevelEducative){
+            var valueOther = this.frmInscripcion.controls["OtherLevel"].value;
+            valuLevelEducative = valueOther;
+        }
+
         let persona = {
             Id: 0,
             TipoDocumento: this.frmInscripcion.controls["TipoDocumento"].value,
@@ -258,7 +347,7 @@ export class InscripcionesComponent implements OnInit {
             Activo: this.frmInscripcion.controls["Activo"].value,
             Codigo: this.frmInscripcion.controls["Codigo"].value,
             TipoCliente: this.frmInscripcion.controls["TipoCliente"].value,
-            NivelEducativo: this.frmInscripcion.controls["NivelEducativo"].value,
+            NivelEducativo: this.isUsenOtherLevelEducative? valuLevelEducative :this.frmInscripcion.controls["NivelEducativo"].value,
             CargoActual: this.frmInscripcion.controls["CargoActual"].value,
             AreaTrabajo: this.frmInscripcion.controls["AreaTrabajo"].value,
             LectoEscritura: this.frmInscripcion.controls["LectoEscritura"].value,
@@ -388,6 +477,42 @@ export class InscripcionesComponent implements OnInit {
                 console.log("Error al guardar el soporte de pago");
             }
         });
+
+        //Guardo la copia del certificado en la aptitud medica
+        data.Nombre = "Copia del certificado de Aptitud";
+        data.Content = this.contentCertificadoAptitudMedica;
+        data.Extension = "jpg";
+        this.service.save("Archivo", 0, data).subscribe((res: any) => {
+            if (res.status) {
+                console.log("Soporte de pago guardado correctamente");
+            } else {
+                console.log("Error al guardar el soporte de pago");
+            }
+        });
+
+         //Guardo la copia del runt
+         data.Nombre = "Soporte del Runt de la empresa ";
+         data.Content = this.CopiaRutEmpresa;
+         data.Extension = "jpg";
+         this.service.save("Archivo", 0, data).subscribe((res: any) => {
+             if (res.status) {
+                 console.log("Soporte de pago guardado correctamente");
+             } else {
+                 console.log("Error al guardar el soporte de pago");
+             }
+         });
+
+         //Guardo la copia del copia del certificado del proceso
+         data.Nombre = "Soporte certificado del proceso de capacitacion";
+         data.Content = this.CertificadoCapacitacionEntrenamiento;
+         data.Extension = "jpg";
+         this.service.save("Archivo", 0, data).subscribe((res: any) => {
+             if (res.status) {
+                 console.log("Soporte de pago guardado correctamente");
+             } else {
+                 console.log("Error al guardar el soporte de pago");
+             }
+         });
     }
 
     convertToBase64(file: File): Promise<string> {
@@ -421,6 +546,36 @@ export class InscripcionesComponent implements OnInit {
             const file: File = event.target.files[0];
             this.convertToBase64(file).then((base64Content: string) => {
                 this.contentSoporte = base64Content;
+            }).catch((error: any) => {
+                this.helperService.showMessage(MessageType.ERROR, error);
+            });
+        }
+    }
+    onChangeCertificadoAptitudMedica(event: any) {
+        if (typeof event != "undefined") {
+            const file: File = event.target.files[0];
+            this.convertToBase64(file).then((base64Content: string) => {
+                this.contentCertificadoAptitudMedica = base64Content;
+            }).catch((error: any) => {
+                this.helperService.showMessage(MessageType.ERROR, error);
+            });
+        }
+    }
+    onChangeCopiaRutEmpresa(event: any){
+        if (typeof event != "undefined") {
+            const file: File = event.target.files[0];
+            this.convertToBase64(file).then((base64Content: string) => {
+                this.CopiaRutEmpresa = base64Content;
+            }).catch((error: any) => {
+                this.helperService.showMessage(MessageType.ERROR, error);
+            });
+        }
+    }
+    onChangeCertificadoCapacitacionEntrenamiento(event: any){
+        if (typeof event != "undefined") {
+            const file: File = event.target.files[0];
+            this.convertToBase64(file).then((base64Content: string) => {
+                this.CertificadoCapacitacionEntrenamiento = base64Content;
             }).catch((error: any) => {
                 this.helperService.showMessage(MessageType.ERROR, error);
             });

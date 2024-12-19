@@ -252,6 +252,7 @@ export class EmpresaFormComponent implements OnInit {
   fileEvent(event: any) {
     let archivo: any;
     let type = event.target.files[0].type.split('/')[1];
+    
     let { name } = event.target.files[0];
     if (type == 'png' || type == 'jpeg' || type == 'jpg') {
       var reader = new FileReader();

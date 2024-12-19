@@ -70,8 +70,15 @@ export class GeneralParameterService {
   public getByTablaId(ruta: String, id: any, nombre: String): Observable<any> {
     return this.http.get<any>(`${this.url}${ruta}/getByTablaId/${id}/${nombre}`, { headers: this.header });
   }
+   //Controller Enum
+   public getEnum(parametro: String): Observable<any> {
+    return this.http.get<any>(`${this.url}Enums?endpoint=${parametro}`, { headers: this.header });
+  }
 
   public generarCertificado(ruta: String, id: any): Observable<any> {
     return this.http.post<any>(`${this.url}${ruta}/generarCertificado/${id}`, { headers: this.header });
   }
+  
+
+
 }

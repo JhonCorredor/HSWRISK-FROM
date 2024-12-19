@@ -1,3 +1,29 @@
 #inscripcion{
     font-size: 13px!important;
 }
+
+/* Aseguramos que el contenedor ocupe el 100% del viewport */
+.centered-hr {
+    display: flex;
+    justify-content: center; /* Alinea al centro horizontalmente */
+    align-items: center; /* Alinea al centro verticalmente */
+    height: 20vh; /* Ocupa toda la altura de la pantalla */
+    position: relative; /* Posición relativa para ajustar el span */
+  }
+  
+  /* Estilo para el texto */
+  .centered-hr span {
+    background-color: white; /* Fondo blanco para el texto */
+    padding: 0 10px;
+    font-weight: bold;
+    position: absolute; /* Posición absoluta para colocar el texto encima */
+  }
+  
+  /* Estilo para la línea */
+  .centered-hr hr {
+    width: 100%; /* Línea ocupa todo el ancho disponible */
+    border: none;
+    border-top: 2px solid #ccc; /* Grosor y color de la línea */
+    margin: 0; /* Sin márgenes */
+  }
+  

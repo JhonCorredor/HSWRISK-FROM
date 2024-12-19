@@ -5,6 +5,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import Swal from 'sweetalert2';
 import { createNumberMask } from "text-mask-addons";
+import { GeneralParameterService } from "../generic/general.service";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,7 @@ export class HelperService {
     constructor(
         private router: Router, public _location: Location,
         private _toast: ToastrService, private _spinner: NgxSpinnerService,
+        private service: GeneralParameterService,
         @Inject(LOCALE_ID) private locale: string
     ) { }
 
@@ -47,6 +49,34 @@ export class HelperService {
         return '';
     }
 
+    public getEnum(endPoint: string, bindValue: string, bindLabel: string): Promise<any> {
+        var lstDataSelect: any[] = [];
+
+        return new Promise((resolve) => {
+            this.service.getEnum(endPoint).subscribe((res) => {
+                res.data.forEach((item: any) => {
+                    if (bindValue == "" && bindLabel == "") {
+                        lstDataSelect.push(
+                            {
+                                id: item,
+                                nombre: item,
+                            }
+                        );
+                    } else {
+                        lstDataSelect.push(
+                            {
+                                id: item[bindValue],
+                                nombre: item[bindLabel],
+                            }
+                        );
+                    }
+                });
+
+                resolve(lstDataSelect);
+            });
+        });
+    }
+
     formatearNumeroDB(numero: string) {
         numero = numero.replace(".", "");
         numero = numero.replace(",", ".");
@@ -63,6 +93,8 @@ export class HelperService {
     onClickBack() {
         this._location.back();
     }
+
+   
 
     confirmDelete(callback: any) {
         Swal.fire({
