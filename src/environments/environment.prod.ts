@@ -1,8 +1,8 @@
 export const environment = {
-  production: true,
-  //Local
-  // url: 'https://localhost:44346/api/',
+	production: true,
+	//Local
+	//url: 'https://localhost:44346/api/',
 
-  //Production
-  url: 'https://api.hswrisk.com/api/',
+	//Production
+	url: 'https://api.hswrisk.com/api/',
 };

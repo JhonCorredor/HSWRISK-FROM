@@ -11,216 +11,221 @@ import { PersonasFormComponent } from '../../../security/personas/personas-form/
 import { EmpresaFormComponent } from '../../empresa/empresa-form/empresa-form.component';
 
 @Component({
-  selector: 'app-empleados-form',
-  standalone: false,
-  templateUrl: './empleados-form.component.html',
-  styleUrl: './empleados-form.component.css'
+	selector: 'app-empleados-form',
+	standalone: false,
+	templateUrl: './empleados-form.component.html',
+	styleUrl: './empleados-form.component.css',
 })
 export class EmpleadosFormComponent implements OnInit {
-  img = '../../../../../../assets/no-photo.jpg';
-  frmEmpleados: FormGroup;
-  statusForm: boolean = true;
-  id!: number;
-  botones = ['btn-guardar', 'btn-cancelar'];
-  title = 'Crear Empleados';
-  breadcrumb = [{ name: `Inicio`, icon: `fa-duotone fa-house` }, { name: "Parametros ", icon: "fa-duotone fa-gears" }, { name: "Empleados", icon: "fa-duotone fa-user-tie" }, { name: 'Crear', icon: "fa-duotone fa-octagon-plus" }];
-  listPersonas = signal<DataSelectDto[]>([]);
-  listCargos = signal<DataSelectDto[]>([]);
-  listEmpresas = signal<DataSelectDto[]>([]);
-  listCajas = signal<DataSelectDto[]>([]);
+	img = '../../../../../../assets/no-photo.jpg';
+	frmEmpleados: FormGroup;
+	statusForm: boolean = true;
+	id!: number;
+	botones = ['btn-guardar', 'btn-cancelar'];
+	title = 'Crear Empleados';
+	breadcrumb = [
+		{ name: `Inicio`, icon: `fa-duotone fa-house` },
+		{ name: 'Parametros ', icon: 'fa-duotone fa-gears' },
+		{ name: 'Empleados', icon: 'fa-duotone fa-user-tie' },
+		{ name: 'Crear', icon: 'fa-duotone fa-octagon-plus' },
+	];
+	listPersonas = signal<DataSelectDto[]>([]);
+	listCargos = signal<DataSelectDto[]>([]);
+	listEmpresas = signal<DataSelectDto[]>([]);
+	listCajas = signal<DataSelectDto[]>([]);
 
-  constructor(
-    public routerActive: ActivatedRoute,
-    private service: GeneralParameterService,
-    private helperService: HelperService,
-    private modalService: NgbModal
-  ) {
-    this.frmEmpleados = new FormGroup({
-      Codigo: new FormControl("", [Validators.required]),
-      PersonaId: new FormControl(null, [Validators.required]),
-      EmpresaId: new FormControl(null, [Validators.required]),
-      CargoId: new FormControl(null, [Validators.required]),
-      Activo: new FormControl(true, Validators.required),
-      ContentFirma: new FormControl(""),
-    });
-    this.routerActive.params.subscribe((l) => (this.id = l['id']));
-  }
+	constructor(
+		public routerActive: ActivatedRoute,
+		private service: GeneralParameterService,
+		private helperService: HelperService,
+		private modalService: NgbModal
+	) {
+		this.frmEmpleados = new FormGroup({
+			Codigo: new FormControl('', [Validators.required]),
+			PersonaId: new FormControl(null, [Validators.required]),
+			EmpresaId: new FormControl(null, [Validators.required]),
+			CargoId: new FormControl(null, [Validators.required]),
+			Activo: new FormControl(true, Validators.required),
+			ContentFirma: new FormControl(''),
+			ExtensionFirma: new FormControl(''),
+		});
+		this.routerActive.params.subscribe((l) => (this.id = l['id']));
+	}
 
-  ngOnInit(): void {
-    this.cargarListas();
+	ngOnInit(): void {
+		this.cargarListas();
 
-    if (this.id != undefined && this.id != null) {
-      this.title = 'Editar Empleado';
-      this.breadcrumb = [{ name: `Inicio`, icon: `fa-duotone fa-house` }, { name: "Parametros ", icon: "fa-duotone fa-gears" }, { name: "Empleados", icon: "fa-duotone fa-user-tie" }, { name: 'Editar', icon: "fa-duotone fa-pen-to-square" }];
-      this.service.getById("Empleado", this.id).subscribe((l) => {
+		if (this.id != undefined && this.id != null) {
+			this.title = 'Editar Empleado';
+			this.breadcrumb = [
+				{ name: `Inicio`, icon: `fa-duotone fa-house` },
+				{ name: 'Parametros ', icon: 'fa-duotone fa-gears' },
+				{ name: 'Empleados', icon: 'fa-duotone fa-user-tie' },
+				{ name: 'Editar', icon: 'fa-duotone fa-pen-to-square' },
+			];
+			this.service.getById('Empleado', this.id).subscribe((l) => {
+				this.frmEmpleados.controls['Codigo'].setValue(l.data.codigo);
+				this.frmEmpleados.controls['PersonaId'].setValue(l.data.personaId);
+				this.frmEmpleados.controls['EmpresaId'].setValue(l.data.empresaId);
+				this.frmEmpleados.controls['CargoId'].setValue(l.data.cargoId);
+				this.frmEmpleados.controls['Activo'].setValue(l.data.activo);
 
-        this.frmEmpleados.controls['Codigo'].setValue(l.data.codigo);
-        this.frmEmpleados.controls['PersonaId'].setValue(l.data.personaId);
-        this.frmEmpleados.controls['EmpresaId'].setValue(l.data.empresaId);
-        this.frmEmpleados.controls['CargoId'].setValue(l.data.cargoId);
-        this.frmEmpleados.controls['Activo'].setValue(l.data.activo);
+				//Consulto el archivo
+				this.service.getByTablaId('Archivo', this.id, 'Empleados').subscribe((response) => {
+					if (response.data.length > 0) {
+						response.data.forEach((item: any) => {
+							if (item.nombre == 'FirmaEmpleado') {
+								this.img = item.content;
+							}
+						});
+					}
+				});
+			});
+		}
+	}
 
-        //Consulto el archivo
-        this.service.getByTablaId('Archivo', this.id, "Empleados").subscribe((response) => {
-          if (response.data.length > 0) {
-            response.data.forEach((item: any) => {
-              if (item.nombre == 'FirmaEmpleado') {
-                this.img = item.content;
-              }
-            });
-          }
-        });
-      });
-    }
+	cargarListas() {
+		this.cargarPersonas(false);
+		this.cargarEmpresas(false);
+		this.cargarCargos();
+	}
 
-  }
+	cargarPersonas(nuevo: boolean) {
+		this.service.getAll('Persona').subscribe((res) => {
+			res.data.forEach((item: any) => {
+				this.listPersonas.update((listPersonas) => {
+					const DataSelectDto: DataSelectDto = {
+						id: item.id,
+						textoMostrar: `${item.documento} - ${item.primerNombre} ${item.primerApellido}`,
+						activo: item.activo,
+					};
 
-  cargarListas() {
-    this.cargarPersonas(false);
-    this.cargarEmpresas(false);
-    this.cargarCargos();
-  }
+					return [...listPersonas, DataSelectDto];
+				});
 
-  cargarPersonas(nuevo: boolean) {
-    this.service.getAll('Persona').subscribe((res) => {
-      res.data.forEach((item: any) => {
-        this.listPersonas.update(listPersonas => {
-          const DataSelectDto: DataSelectDto = {
-            id: item.id,
-            textoMostrar: `${item.documento} - ${item.primerNombre} ${item.primerApellido}`,
-            activo: item.activo
-          };
+				if (nuevo) {
+					this.frmEmpleados.controls['PersonaId'].setValue(item.id);
+				}
+			});
+		});
+	}
 
-          return [...listPersonas, DataSelectDto];
-        });
+	cargarCargos() {
+		this.service.getAll('Cargo').subscribe((res) => {
+			res.data.forEach((item: any) => {
+				this.listCargos.update((listCargos) => {
+					const DataSelectDto: DataSelectDto = {
+						id: item.id,
+						textoMostrar: `${item.codigo} - ${item.nombre}`,
+						activo: item.activo,
+					};
 
-        if (nuevo) {
-          this.frmEmpleados.controls['PersonaId'].setValue(item.id);
-        }
-      });
-    });
-  }
+					return [...listCargos, DataSelectDto];
+				});
+			});
+		});
+	}
 
-  cargarCargos() {
-    this.service.getAll('Cargo').subscribe((res) => {
-      res.data.forEach((item: any) => {
-        this.listCargos.update(listCargos => {
-          const DataSelectDto: DataSelectDto = {
-            id: item.id,
-            textoMostrar: `${item.codigo} - ${item.nombre}`,
-            activo: item.activo
-          };
+	cargarEmpresas(nuevo: boolean) {
+		this.service.getAll('Empresa').subscribe((res) => {
+			res.data.forEach((item: any) => {
+				this.listEmpresas.update((listEmpresas) => {
+					const DataSelectDto: DataSelectDto = {
+						id: item.id,
+						textoMostrar: `${item.nit} - ${item.razonSocial}`,
+						activo: item.activo,
+					};
 
-          return [...listCargos, DataSelectDto];
-        });
-      });
-    });
-  }
+					return [...listEmpresas, DataSelectDto];
+				});
 
-  cargarEmpresas(nuevo: boolean) {
-    this.service.getAll('Empresa').subscribe((res) => {
-      res.data.forEach((item: any) => {
-        this.listEmpresas.update(listEmpresas => {
-          const DataSelectDto: DataSelectDto = {
-            id: item.id,
-            textoMostrar: `${item.nit} - ${item.razonSocial}`,
-            activo: item.activo
-          };
+				if (nuevo) {
+					this.frmEmpleados.controls['EmpresaId'].setValue(item.id);
+				}
+			});
+		});
+	}
 
-          return [...listEmpresas, DataSelectDto];
-        });
+	save() {
+		if (this.frmEmpleados.invalid) {
+			this.statusForm = false;
+			this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
+			return;
+		}
+		this.helperService.showLoading();
+		let data = {
+			id: this.id ?? 0,
+			...this.frmEmpleados.value,
+		};
+		this.service.save('Empleado', this.id, data).subscribe(
+			(response) => {
+				if (response.status) {
+					setTimeout(() => {
+						this.helperService.hideLoading();
+					}, 200);
+					this.helperService.showMessage(MessageType.SUCCESS, Messages.SAVESUCCESS);
+					this.helperService.redirectApp(`dashboard/parametros/empleados`);
+				} else {
+					setTimeout(() => {
+						this.helperService.hideLoading();
+					}, 200);
+				}
+			},
+			(error) => {
+				setTimeout(() => {
+					this.helperService.hideLoading();
+				}, 200);
+				this.helperService.showMessage(MessageType.WARNING, error);
+			}
+		);
+	}
 
-        if (nuevo) {
-          this.frmEmpleados.controls['EmpresaId'].setValue(item.id);
-        }
-      });
-    });
-  }
+	cancel() {
+		this.helperService.redirectApp('dashboard/parametros/empleados');
+	}
 
-  save() {
-    if (this.frmEmpleados.invalid) {
-      this.statusForm = false;
-      this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
-      return;
-    }
-    this.helperService.showLoading();
-    let data = {
-      id: this.id ?? 0,
-      ...this.frmEmpleados.value,
-    };
-    this.service.save("Empleado", this.id, data).subscribe(
-      (response) => {
-        if (response.status) {
-          setTimeout(() => {
-            this.helperService.hideLoading();
-          }, 200);
-          this.helperService.showMessage(MessageType.SUCCESS, Messages.SAVESUCCESS);
-          this.helperService.redirectApp(`dashboard/parametros/empleados`);
-        } else {
-          setTimeout(() => {
-            this.helperService.hideLoading();
-          }, 200);
-        }
-      },
-      (error) => {
-        setTimeout(() => {
-          this.helperService.hideLoading();
-        }, 200);
-        this.helperService.showMessage(MessageType.WARNING, error);
-      }
-    );
-  }
+	nuevaPersona() {
+		let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
+		modal.componentInstance.titleData = 'Persona';
+		modal.componentInstance.serviceName = 'Persona';
+		modal.componentInstance.key = 'Ciudad';
+		modal.result.finally(() => {
+			this.listPersonas = signal<DataSelectDto[]>([]);
 
-  cancel() {
-    this.helperService.redirectApp('dashboard/parametros/empleados');
-  }
+			setTimeout(() => {
+				this.cargarPersonas(true);
+			}, 200);
+		});
+	}
 
-  nuevaPersona() {
-    let modal = this.modalService.open(PersonasFormComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
-    modal.componentInstance.titleData = "Persona";
-    modal.componentInstance.serviceName = "Persona";
-    modal.componentInstance.key = "Ciudad";
-    modal.result.finally(() => {
-      this.listPersonas = signal<DataSelectDto[]>([]);
+	nuevaEmpresa() {
+		let modal = this.modalService.open(EmpresaFormComponent, { size: 'xl', keyboard: false, backdrop: true, centered: true });
+		modal.result.finally(() => {
+			this.listEmpresas = signal<DataSelectDto[]>([]);
 
-      setTimeout(() => {
-        this.cargarPersonas(true);
-      }, 200);
-    });
-  }
+			setTimeout(() => {
+				this.cargarEmpresas(true);
+			}, 200);
+		});
+	}
 
-  nuevaEmpresa() {
-    let modal = this.modalService.open(EmpresaFormComponent, { size: 'xl', keyboard: false, backdrop: true, centered: true });
-    modal.result.finally(() => {
-      this.listEmpresas = signal<DataSelectDto[]>([]);
-
-      setTimeout(() => {
-        this.cargarEmpresas(true);
-      }, 200);
-    });
-  }
-
-  fileEvent(event: any) {
-    let archivo: any;
-    let type = event.target.files[0].type.split('/')[1];
-    if (type == 'png' || type == 'jpeg' || type == 'jpg') {
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = async (e: any) => {
-        archivo = await e.target.result; //imagen en base 64
-        this.frmEmpleados.controls["ContentFirma"].setValue(archivo);
-        this.img = archivo;
-      };
-    }
-  }
+	fileEvent(event: any) {
+		let archivo: any;
+		let type = event.target.files[0].type.split('/')[1];
+		if (type == 'png' || type == 'jpeg' || type == 'jpg') {
+			var reader = new FileReader();
+			reader.readAsDataURL(event.target.files[0]);
+			reader.onload = async (e: any) => {
+				archivo = await e.target.result; //imagen en base 64
+				this.frmEmpleados.controls['ContentFirma'].setValue(archivo);
+				this.frmEmpleados.controls['ExtensionFirma'].setValue(type);
+				this.img = archivo;
+			};
+		}
+	}
 }
 @NgModule({
-  declarations: [
-    EmpleadosFormComponent,
-  ],
-  imports: [
-    CommonModule,
-    GeneralModule,
-  ],
+	declarations: [EmpleadosFormComponent],
+	imports: [CommonModule, GeneralModule],
 })
-export class EmpleadosFormModule { }
+export class EmpleadosFormModule {}
