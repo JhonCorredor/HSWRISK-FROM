@@ -46,6 +46,11 @@ export class ClientesFormComponent implements OnInit {
     { nombre: 'OTRO' },
 
   ];
+  ListlevelReading : any []=[ {nombre: 'Bueno' }, { nombre: 'Regular' }, { nombre: 'No lee' }];
+
+
+  listNivelEducativo: any[] = [];
+  ListSectorEducative: any[] = [];
 
   constructor(
     public routerActive: ActivatedRoute,
@@ -69,6 +74,9 @@ export class ClientesFormComponent implements OnInit {
       Acudiente: new FormControl(null, [Validators.required]),
       TelefonoAcudiente: new FormControl(null, [Validators.required]),
       PersonaId: new FormControl(null, [Validators.required]),
+      Parentesco:new FormControl(null, [Validators.required]),
+      SectorEducatives: new FormControl(null, [Validators.required]),
+      LevelReadings :new FormControl(null, [Validators.required]),
       ArlId: new FormControl(null, [Validators.required]),
       EmpresaId: new FormControl(null, [Validators.required]),
       Activo: new FormControl(true, Validators.required),
@@ -79,6 +87,9 @@ export class ClientesFormComponent implements OnInit {
   ngOnInit(): void {
     this.cargarPersonas(false);
     this.cargarArl(false);
+    this.CargarEnum("listNivelEducativo");
+    this.CargarEnum("ListSectorEducative");
+
     this.cargarEmpresas(false);
     if (this.id != undefined && this.id != null) {
       this.title = 'Editar Cliente';
@@ -104,11 +115,28 @@ export class ClientesFormComponent implements OnInit {
         this.frmClientes.controls['TelefonoAcudiente'].setValue(l.data.telefonoAcudiente);
         this.frmClientes.controls['PersonaId'].setValue(l.data.personaId);
         this.frmClientes.controls['ArlId'].setValue(l.data.arlId);
+        this.frmClientes.controls['SectorEducatives'].setValue(l.data.sectorEducatives);
+        this.frmClientes.controls['Parentesco'].setValue(l.data.parentesco);
+        this.frmClientes.controls['LevelReadings'].setValue(l.data.levelReadings);
         this.frmClientes.controls['EmpresaId'].setValue(l.data.empresaId);
         this.frmClientes.controls['Activo'].setValue(l.data.activo);
       });
     }
   }
+
+  
+  CargarEnum( parametro: string) {
+    this.helperService.getEnum(parametro, "description", "description").then((res) => {
+      if (parametro == 'listNivelEducativo'){
+        this.listNivelEducativo = res;
+      }
+      else if (parametro == 'ListSectorEducative'){
+        this.ListSectorEducative = res;
+      }
+     
+    });
+  
+}
 
   save() {
     if (this.frmClientes.invalid) {

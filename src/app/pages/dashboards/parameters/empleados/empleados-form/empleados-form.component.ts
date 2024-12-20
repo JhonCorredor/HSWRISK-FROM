@@ -46,6 +46,8 @@ export class EmpleadosFormComponent implements OnInit {
 			EmpresaId: new FormControl(null, [Validators.required]),
 			CargoId: new FormControl(null, [Validators.required]),
 			Activo: new FormControl(true, Validators.required),
+			Date: new FormControl(""),
+			License: new FormControl(""),
 			ContentFirma: new FormControl(''),
 			ExtensionFirma: new FormControl(''),
 		});
@@ -68,7 +70,10 @@ export class EmpleadosFormComponent implements OnInit {
 				this.frmEmpleados.controls['PersonaId'].setValue(l.data.personaId);
 				this.frmEmpleados.controls['EmpresaId'].setValue(l.data.empresaId);
 				this.frmEmpleados.controls['CargoId'].setValue(l.data.cargoId);
+				this.frmEmpleados.controls['License'].setValue(l.data.license);
 				this.frmEmpleados.controls['Activo'].setValue(l.data.activo);
+				const fechaFormateada = this.helperService.formatDateToInputUpdateForm(l.data.date);
+				this.frmEmpleados.controls['Date'].setValue(fechaFormateada);
 
 				//Consulto el archivo
 				this.service.getByTablaId('Archivo', this.id, 'Empleados').subscribe((response) => {

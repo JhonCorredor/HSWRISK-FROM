@@ -609,8 +609,14 @@ export class InscripcionesIndexComponent implements OnInit {
     }
 
     cargarListaFilter() {
-        var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = this.frmInscripciones.controls["CursoDetalleId"].value; data.nameForeignKey = "CursoDetalleId"; data.fechaInicio = this.formatDate(this.frmInscripciones.controls["FechaInicio"].value); data.fechaFin = this.formatDate(this.frmInscripciones.controls["FechaFin"].value);
-        this.service.datatableKey('Inscripcion', data).subscribe((res) => {
+        var data = new DatatableParameter(); data.pageNumber = '';
+        data.pageSize = ''; data.filter = ''; data.columnOrder = '';
+        data.directionOrder = ''; 
+        data.foreignKey = this.frmInscripciones.controls["CursoDetalleId"].value;
+        data.nameForeignKey = "CursoDetalleId";
+        data.fechaInicio = this.formatDate(this.frmInscripciones.controls["FechaInicio"].value); data.fechaFin = this.formatDate(this.frmInscripciones.controls["FechaFin"].value);
+     
+            this.service.datatableKey('Inscripcion', data).subscribe((res) => {
             // Actualiza los datos de la tabla
             var rol = localStorage.getItem("rol");
             if (rol == "INSTRUCTOR") {

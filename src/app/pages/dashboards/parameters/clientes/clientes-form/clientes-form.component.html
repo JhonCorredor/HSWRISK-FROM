@@ -53,18 +53,30 @@
             [statusForm]="statusForm"></app-forms-messages>
         </div>
         <div class="col-sm-3 col-md-3 col-lg-3">
-          <label>Lecto Escritura</label>
+          <label>Nivel de Escritura</label>
           <ng-select [items]="listaLectoEscritura" bindLabel="nombre" bindValue="nombre"
             formControlName="LectoEscritura">
           </ng-select>
           <app-forms-messages [error]="frmClientes.get('LectoEscritura')" [statusForm]="statusForm"
             [statusForm]="statusForm"></app-forms-messages>
         </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+          <label>Nivel de Lectura *
+          </label>
+          <ng-select [items]="ListlevelReading"  bindLabel="nombre" bindValue="nombre"
+          formControlName="LevelReadings">
+        </ng-select>
+            <app-forms-messages [error]="frmClientes.get('LevelReadings')" [statusForm]="statusForm"
+                [statusForm]="statusForm"></app-forms-messages>
+        </div>
+
       </div>
       <br>
+      
       <p class="text-muted">
         Empresa
       </p>
+
       <div class="row">
         <div class="col-sm-3 col-md-3 col-lg-3">
           <label>Tipo de Cliente</label>
@@ -113,11 +125,22 @@
           <app-forms-messages [error]="frmClientes.get('AreaTrabajo')" [statusForm]="statusForm"
             [statusForm]="statusForm"></app-forms-messages>
         </div>
+
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+          <label>Sector Económico *</label>
+          <ng-select [items]="ListSectorEducative"  bindLabel="nombre" bindValue="nombre"
+              formControlName="SectorEducatives">
+          </ng-select>
+          <app-forms-messages [error]="frmClientes.get('SectorEducatives')" [statusForm]="statusForm"
+              [statusForm]="statusForm"></app-forms-messages>
+      </div> 
       </div>
       <br>
       <p class="text-muted">
         Acudiente
       </p>
+
       <div class="row">
         <div class="col-sm-3 col-md-3 col-lg-3">
           <label>Nombre</label>
@@ -131,6 +154,13 @@
           <app-forms-messages [error]="frmClientes.get('TelefonoAcudiente')" [statusForm]="statusForm"
             [statusForm]="statusForm"></app-forms-messages>
         </div>
+
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Parentesco </label>
+          <input type="text" class="form-control" formControlName="Parentesco" />
+          <app-forms-messages [error]="frmClientes.get('Parentesco')"
+              [statusForm]="statusForm" [statusForm]="statusForm"></app-forms-messages>
+      </div>
       </div>
       <br>
       <p class="text-muted">Salud</p>
