@@ -104,12 +104,7 @@
                             <app-forms-messages [error]="frmInscripcion.get('Genero')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
-                        <div class="col-sm-2 col-md-2 col-lg-2" *ngIf="isUsenOtherLevelEducative">
-                            <label>Fecha de Nacimiento</label>
-                            <input type="text" class="form-control"  formControlName="CountryOfBirth"  />
-                            <app-forms-messages [error]="frmInscripcion.get('CountryOfBirth')" [statusForm]="statusForm"
-                                [statusForm]="statusForm"></app-forms-messages>
-                        </div>
+                        
                         <div class="col-sm-2 col-md-2 col-lg-2" >
                             <label>Fecha de Nacimiento</label>
                             <input type="date" class="form-control"  formControlName="DateBirth"  />
@@ -201,12 +196,6 @@
                             <app-forms-messages [error]="frmInscripcion.get('CompanyName')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div> -->
-                        
-                       
-                    </div>
-                    <br>
-
-                    <div class="row">
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Nivel de Lectura *
                             </label>
@@ -216,6 +205,13 @@
                             <app-forms-messages [error]="frmInscripcion.get('LevelReading')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
+                        
+                       
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        
 
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Nivel Educativo *</label>
@@ -264,8 +260,8 @@
                         </div>
                         <div class="col-sm-3 col-md-3 col-lg-3">
                             <label>Parentesco *</label>
-                            <input type="text" class="form-control" formControlName="TelefonoAcudiente" />
-                            <app-forms-messages [error]="frmInscripcion.get('TelefonoAcudiente')"
+                            <input type="text" class="form-control" formControlName="Parentesco" />
+                            <app-forms-messages [error]="frmInscripcion.get('Parentesco')"
                                 [statusForm]="statusForm" [statusForm]="statusForm"></app-forms-messages>
                         </div>
                     </div>

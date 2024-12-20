@@ -150,11 +150,12 @@ export class ClientesImportComponent implements OnInit {
     readFile(data: any) {
         console.log(data);
         for (let i = 1; i < data.length; i++) {
+         
             var element = data[i];
             if (element.length > 1) {
-                var genero = 1;
+                var genero = "Masculino";
                 if (element[9] == "F") {
-                    genero = 2
+                    genero = "Femenino"
                 };
                 var correoValidado = this.validarCorreo(element[7]);
 
@@ -162,6 +163,38 @@ export class ClientesImportComponent implements OnInit {
                     this.helperService.showMessage(MessageType.WARNING, "El valor del correo no coincide con las restricciones de validación de datos definidas.");
                     break;
                 }
+               // Validar campos requeridos
+            const requiredFields = [
+                { name: "PrimerNombre", value: element[0] },
+                { name: "PrimerApellido", value: element[2] },
+                { name: "TipoDocumento", value: element[4] },
+                { name: "Documento", value: element[5] },
+                { name: "Direccion", value: element[6] },
+                { name: "Email", value: element[7] },
+                { name: "LevelReadings", value: element[12] },
+                { name: "NivelEducativo", value: element[13] },
+                { name: "AreaTrabajo", value: element[14] },
+                { name: "CargoActual", value: element[15] },
+                { name: "SectorEducatives", value: element[16] },
+                { name: "Rh", value: element[17] },
+                { name: "Alergias", value: element[18] },
+                { name: "Medicamentos", value: element[19] },
+                { name: "Lesiones", value: element[20] },
+                { name: "Enfermedades", value: element[21] },
+                { name: "Acudiente", value: element[22] },
+                { name: "Parentesco", value: element[23] },
+                { name: "TelefonoAcudiente", value: element[24] },
+            ];
+
+            const emptyField = requiredFields.find(field => !field.value || field.value.toString().trim() === "");
+            if (emptyField) {
+                this.helperService.showMessage(
+                    MessageType.WARNING,
+                    `El campo ${emptyField.name} es obligatorio y no puede estar vacío.`
+                );
+                break;
+            }
+
 
                 var cliente: any = {
                     PrimerNombre: element[0],
@@ -174,17 +207,21 @@ export class ClientesImportComponent implements OnInit {
                     Email: element[7],
                     Telefono: element[8].toString(),
                     Genero: genero,
-                    FechaNacimiento: new Date(this.excelStartDate.getTime() + (element[10] - 1) * 24 * 60 * 60 * 1000),
-                    NivelEducativo: element[11],
-                    AreaTrabajo: element[12],
-                    CargoActual: element[13],
-                    Rh: element[14],
-                    LectoEscritura: element[15],
-                    Alergias: element[16],
-                    Medicamentos: element[17],
-                    Lesiones: element[18],
-                    Enfermedades: element[19],
-                    Acudiente: element[20],
+                    DateBirth: new Date(this.excelStartDate.getTime() + (element[10] - 1) * 24 * 60 * 60 * 1000),
+                    LevelReadings:element[11],
+                    LectoEscritura:element[12],
+                    NivelEducativo: element[13],
+                    AreaTrabajo: element[14],
+                    CargoActual: element[15],
+                    SectorEducatives: element[16],
+                    Rh: element[17],
+                    Alergias: element[18],
+                    Medicamentos: element[19],
+
+                    Lesiones: element[20],
+                    Enfermedades: element[21],
+                    Acudiente: element[22],
+                    Parentesco:element[23],
                     TelefonoAcudiente: element[21].toString(),
                     Codigo: "",
                     TipoCliente: "EMPRESA",

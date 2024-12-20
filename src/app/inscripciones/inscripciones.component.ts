@@ -79,7 +79,6 @@ export class InscripcionesComponent implements OnInit {
             Alergias: new FormControl("NO REFIERE", [Validators.required]),
             Medicamentos: new FormControl("NO REFIERE", [Validators.required]),
             Lesiones: new FormControl("NO REFIERE", [Validators.required]),
-            Acudiente: new FormControl(null, [Validators.required]),
             TelefonoAcudiente: new FormControl(null, [Validators.required]),
             PersonaId: new FormControl(0, [Validators.required]),
             ArlId: new FormControl(null, [Validators.required]),
@@ -91,6 +90,10 @@ export class InscripcionesComponent implements OnInit {
             //add new atribute
             SectorEducative:  new FormControl(null, [Validators.required]),
             DateBirth: new FormControl(null, [Validators.required]),
+
+            Parentesco:new FormControl(null, [Validators.required]),
+            Acudiente: new FormControl(null, [Validators.required]),
+            
             DocumentoIdentidad: new FormControl(null, [Validators.required]),
             CertificadoAptitudMedica:new FormControl(null, [Validators.required]),
             CopiaRutEmpresa:new FormControl(null, [Validators.required]),
@@ -364,7 +367,8 @@ export class InscripcionesComponent implements OnInit {
         
         let cliente = {
             Id: 0,
-            LevelReading:this.frmInscripcion.controls["LevelReading"].value,
+            LevelReadings:this.frmInscripcion.controls["LevelReading"].value,
+            SectorEducatives: this.frmInscripcion.controls["SectorEducative"].value,
             Activo: this.frmInscripcion.controls["Activo"].value,
             Codigo: this.frmInscripcion.controls["Codigo"].value,
             TipoCliente: this.frmInscripcion.controls["TipoCliente"].value,
@@ -377,11 +381,13 @@ export class InscripcionesComponent implements OnInit {
             Alergias: this.frmInscripcion.controls["Alergias"].value,
             Medicamentos: this.frmInscripcion.controls["Medicamentos"].value,
             Lesiones: this.frmInscripcion.controls["Lesiones"].value,
-            Acudiente: this.frmInscripcion.controls["Acudiente"].value,
+
             TelefonoAcudiente: this.frmInscripcion.controls["TelefonoAcudiente"].value,
+            Acudiente : this.frmInscripcion.controls["Acudiente"].value,
+            Parentesco : this.frmInscripcion.controls["Parentesco"].value,
             PersonaId: this.frmInscripcion.controls["PersonaId"].value,
             ArlId: this.frmInscripcion.controls["ArlId"].value,
-            SectorEducative: this.frmInscripcion.controls["SectorEducative"].value,
+            
             EmpresaId: this.frmInscripcion.controls["EmpresaId"].value,
         }
 
@@ -487,18 +493,20 @@ export class InscripcionesComponent implements OnInit {
                 console.log("Error al guardar el documento de identidad.");
             }
         });
-
-        //Guardo el documento de la eps
-        data.Nombre = "Soporte de Pago";
-        data.Content = this.contentSoporte;
-        data.Extension = "jpg";
-        this.service.save("Archivo", 0, data).subscribe((res: any) => {
-            if (res.status) {
-                console.log("Soporte de pago guardado correctamente");
-            } else {
-                console.log("Error al guardar el soporte de pago");
-            }
-        });
+        
+        if(this.contentSoporte !=null){
+            //Guardo el documento de la eps
+            data.Nombre = "Soporte de Pago";
+            data.Content = this.contentSoporte;
+            data.Extension = "jpg";
+            this.service.save("Archivo", 0, data).subscribe((res: any) => {
+                if (res.status) {
+                    console.log("Soporte de pago guardado correctamente");
+                } else {
+                    console.log("Error al guardar el soporte de pago");
+                }
+            });  
+        }
 
         //Guardo la copia del certificado en la aptitud medica
         data.Nombre = "Copia del certificado de Aptitud";
