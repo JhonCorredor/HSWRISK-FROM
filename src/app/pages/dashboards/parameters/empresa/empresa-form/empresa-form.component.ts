@@ -65,6 +65,9 @@ export class EmpresaFormComponent implements OnInit {
       CiudadId: new FormControl(null, Validators.required),
       ConvenioId: new FormControl(null),
       Activo: new FormControl(true, Validators.required),
+      //add new atributes
+      NombreRepresentante:new FormControl(null, Validators.required),
+      NumeroIndentificacion:new FormControl(null, Validators.required),
     });
     this.routerActive.params.subscribe((l) => (this.id = l['id']));
   }
@@ -91,6 +94,10 @@ export class EmpresaFormComponent implements OnInit {
         this.frmEmpresas.controls['CiudadId'].setValue(l.data.ciudadId);
         this.frmEmpresas.controls['ConvenioId'].setValue(l.data.convenioId);
         this.frmEmpresas.controls['Activo'].setValue(l.data.activo);
+
+        this.frmEmpresas.controls['NombreRepresentante'].setValue(l.data.nombreRepresentante);
+        this.frmEmpresas.controls['NumeroIndentificacion'].setValue(l.data.numeroIndentificacion);
+        
         //Consulto el archivo
         var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = this.id; data.nameForeignKey = 'TablaId';
         this.service.datatableKey('Archivo', data).subscribe((response) => {

@@ -43,6 +43,7 @@ export class PersonasFormComponent implements OnInit {
       Direccion: new FormControl("", [Validators.required, Validators.maxLength(150)]),
       Telefono: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       Activo: new FormControl(true, Validators.required),
+      DateBirth:new FormControl(true, Validators.required),
       Genero: new FormControl(null, [Validators.required]),
       Key_Id: new FormControl(null, Validators.required),
     });
@@ -58,6 +59,9 @@ export class PersonasFormComponent implements OnInit {
         this.frmPersonas.controls['SegundoNombre'].setValue(l.data.segundoNombre);
         this.frmPersonas.controls['PrimerApellido'].setValue(l.data.primerApellido);
         this.frmPersonas.controls['SegundoApellido'].setValue(l.data.segundoApellido);
+
+        const fechaFormateada = this.helperService.formatDateToInputUpdateForm(l.data.dateBirth);
+        this.frmPersonas.controls['DateBirth'].setValue(fechaFormateada);
         this.frmPersonas.controls['Email'].setValue(l.data.email);
         this.frmPersonas.controls['Direccion'].setValue(l.data.direccion);
         this.frmPersonas.controls['Telefono'].setValue(l.data.telefono);
@@ -73,6 +77,8 @@ export class PersonasFormComponent implements OnInit {
       this.titulo = `Crear ${this.titleData}`;
     }
 
+    
+
     this.cargarListaForeingKey();
 
     this.ListTipoIdentificacion = [
@@ -87,6 +93,7 @@ export class PersonasFormComponent implements OnInit {
       { id: 2, textoMostrar: 'Femenino' },
     ];
   }
+
 
   cargarListaForeingKey() {
     this.service.getAll(this.key).subscribe((r) => {

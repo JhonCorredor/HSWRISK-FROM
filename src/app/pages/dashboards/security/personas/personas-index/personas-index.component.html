@@ -18,6 +18,7 @@
                         <th class="text-center">TELÉFONO</th>
                         <th class="text-center">EMAIL</th>
                         <th class="text-center">GENERO</th>
+                        <th class="text-center">FECHA DE NACIMIENTO</th>
                         <th class="text-center">CIUDAD</th>
                         <th class="text-center">ESTADO</th>
                         <th class="text-center">ACCIONES</th>
@@ -33,6 +34,7 @@
                         <td>{{ item.email }}</td>
                         <td *ngIf="item.genero == 1; else elseBlockG">M</td>
                         <ng-template #elseBlockG><td>F</td></ng-template>
+                        <td>{{ item.dateBirth | date: 'dd/MM/yyyy' }}</td>
                         <td>{{ item.ciudad }}</td>
                         <td *ngIf="item.activo; else elseBlock"><label class='text-center text-success'>Activo</label></td>
                         <ng-template #elseBlock><td><label class='text-center text-danger'>Inactivo</label></td></ng-template>

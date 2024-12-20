@@ -49,6 +49,7 @@ export class PersonasIndexComponent implements OnInit {
             primerApellido: item.primerApellido,
             segundoApellido: item.segundoApellido,
             direccion: item.direccion,
+            dateBirth: item.dateBirth,
             telefono: item.telefono,
             email: item.email,
             genero: item.genero,

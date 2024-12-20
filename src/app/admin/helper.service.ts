@@ -49,6 +49,17 @@ export class HelperService {
         return '';
     }
 
+
+
+    public formatDateToInputUpdateForm(dateString: string): string {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Mes en formato MM
+        const day = date.getDate().toString().padStart(2, '0'); // Día en formato DD
+        return `${year}-${month}-${day}`;
+      }
+    
+    
     public getEnum(endPoint: string, bindValue: string, bindLabel: string): Promise<any> {
         var lstDataSelect: any[] = [];
 

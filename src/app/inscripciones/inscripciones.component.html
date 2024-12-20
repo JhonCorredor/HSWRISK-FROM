@@ -104,11 +104,24 @@
                             <app-forms-messages [error]="frmInscripcion.get('Genero')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2" *ngIf="isUsenOtherLevelEducative">
+                            <label>Fecha de Nacimiento</label>
+                            <input type="text" class="form-control"  formControlName="CountryOfBirth"  />
+                            <app-forms-messages [error]="frmInscripcion.get('CountryOfBirth')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2" >
+                            <label>Fecha de Nacimiento</label>
+                            <input type="date" class="form-control"  formControlName="DateBirth"  />
+                            <app-forms-messages [error]="frmInscripcion.get('DateBirth')" [statusForm]="statusForm"
+                                [statusForm]="statusForm"></app-forms-messages>
+                        </div>
+
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>País de Nacimiento *</label>
-                            <ng-select [items]="ListCountry" bindLabel="nombre" bindValue="nombre"
-                                formControlName="CountryOfBirth"></ng-select>
-                            <app-forms-messages [error]="frmInscripcion.get('Genero')"
+                            <ng-select [items]="listCiudades()" bindLabel="textoMostrar" bindValue="id"
+                                formControlName="CiudadId"></ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('CiudadId')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                         
@@ -132,15 +145,15 @@
                             <app-forms-messages [error]="frmInscripcion.get('Telefono')" [statusForm]=statusForm
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
+                    </div>
+                    <br>
+                    <div class = "row">
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Dirección *</label>
                             <input type="text" class="form-control" formControlName="Direccion">
                             <app-forms-messages [error]="frmInscripcion.get('Direccion')" [statusForm]=statusForm
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
-                    </div>
-                    <br>
-                    <div class = "row">
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Nivel de Escritura *</label>
                             <ng-select [items]="listaLectoEscritura" bindLabel="nombre" bindValue="nombre"
@@ -175,7 +188,8 @@
                             <app-forms-messages [error]="frmInscripcion.get('AreaTrabajo')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
-                        <div class="col-sm-2 col-md-2 col-lg-2">
+                        
+                        <!-- <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Razón Social *
                                 <span data-bs-toggle="tooltip" data-bs-placement="left"
                                 title="'EMPLEADOR' registre la Razón Social de la empresa donde labora el trabajador, si es independiente el trabajador es el mismo empleador."
@@ -186,8 +200,13 @@
                             <input type="text" class="form-control"  formControlName="CompanyName"  />
                             <app-forms-messages [error]="frmInscripcion.get('CompanyName')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
-                        </div>
+                        </div> -->
                         
+                       
+                    </div>
+                    <br>
+
+                    <div class="row">
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Nivel de Lectura *
                             </label>
@@ -197,10 +216,6 @@
                             <app-forms-messages [error]="frmInscripcion.get('LevelReading')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
-                    </div>
-                    <br>
-
-                    <div class="row">
 
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Nivel Educativo *</label>
@@ -225,7 +240,9 @@
                             </ng-select>
                             <app-forms-messages [error]="frmInscripcion.get('SectorEducative')" [statusForm]="statusForm"
                                 [statusForm]="statusForm"></app-forms-messages>
-                        </div>   
+                        </div>  
+                        
+                      
                     </div>
                     <br>
                     <div class="row">
@@ -247,7 +264,7 @@
                         </div>
                         <div class="col-sm-3 col-md-3 col-lg-3">
                             <label>Parentesco *</label>
-                            <input type="number" class="form-control" formControlName="TelefonoAcudiente" />
+                            <input type="text" class="form-control" formControlName="TelefonoAcudiente" />
                             <app-forms-messages [error]="frmInscripcion.get('TelefonoAcudiente')"
                                 [statusForm]="statusForm" [statusForm]="statusForm"></app-forms-messages>
                         </div>
@@ -335,16 +352,30 @@
                     <p class="text-muted">Documentos</p>
                     <div class="row">
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                            <label>Documento de Identidad *</label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+                            <label>Documento de Identidad *
+                                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                                title="Por favor, adjunte una copia escaneada y legible de su documento de identidad."
+                                class="ms-2">
+                                <i class="fa-light fa-circle-question"></i>
+                              </span>
+
+                            </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
                             <input type="file" class="form-control mt-2" accept=".pdf"
-                                formControlName="DocumentoIdentidad" (change)="onChangeDocumento($event)">
+                                formControlName="DocumentoIdentidad" (change)="onChangeDocumentos($event,'DocumentoIdentidad')">
                             <app-forms-messages [error]="frmInscripcion.get('DocumentoIdentidad')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                            <label>Soporte de pago *</label>&nbsp;<span class="badge bg-info">.jpg</span>
+                            <label>Soporte de pago 
+                                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                                title="Por favor, adjunte una copia escaneada y legible del soporte de pago."
+                                class="ms-2">
+                                <i class="fa-light fa-circle-question"></i>
+                              </span>
+
+                            </label>&nbsp;<span class="badge bg-info">.jpg</span>
                             <input type="file" class="form-control my-2" accept=".jpg" formControlName="Pago"
-                                (change)="onChangeSoporte($event)">
+                            (change)="onChangeDocumentos($event,'Pago')">
                             <app-forms-messages [error]="frmInscripcion.get('Pago')"
                                 [statusForm]=statusForm></app-forms-messages>
                             <!-- <a class="text-success text-decoration-underline" href="javascript: void(0);"
@@ -363,7 +394,7 @@
 
                             </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
                             <input type="file" class="form-control mt-2" accept=".pdf"
-                                formControlName="DocumentoIdentidad" (change)="onChangeCertificadoAptitudMedica($event)">
+                                formControlName="CertificadoAptitudMedica" (change)="onChangeDocumentos($event,'CertificadoAptitudMedica')">
                             <app-forms-messages [error]="frmInscripcion.get('CertificadoAptitudMedica')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
@@ -377,14 +408,13 @@
                               </span>
                             </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
                             <input type="file" class="form-control mt-2" accept=".pdf"
-                                formControlName="DocumentoIdentidad" (change)="onChangeCopiaRutEmpresa($event)">
+                                formControlName="CopiaRutEmpresa" (change)="onChangeDocumentos($event,'CopiaRutEmpresa')">
                             <app-forms-messages [error]="frmInscripcion.get('CopiaRutEmpresa')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                     </div>
                     <br>
 
-                    /*reentrenameinto*/
                     <div class = "row" *ngIf="manejoDeCertificadoEntrenamiento">
                         <div class="col-sm-5 col-md-5 col-lg-5">
                             <label>Copia del Certificado del Proceso de Capacitación Y Entrenamiento   *
@@ -395,8 +425,8 @@
                               </span>
                             </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
                             <input type="file" class="form-control mt-2" accept=".pdf"
-                                formControlName="DocumentoIdentidad" (change)="onChangeCertificadoCapacitacionEntrenamiento($event)">
-                            <app-forms-messages [error]="frmInscripcion.get('CertificadoAptitudMedica')"
+                                formControlName="CertificadoCapacitacionEntrenamiento" (change)="onChangeDocumentos($event,'CertificadoCapacitacionEntrenamiento')">
+                            <app-forms-messages [error]="frmInscripcion.get('CertificadoCapacitacionEntrenamiento')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                     </div>

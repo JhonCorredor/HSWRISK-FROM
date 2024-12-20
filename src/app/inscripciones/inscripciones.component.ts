@@ -5,7 +5,6 @@ import { DataSelectDto } from '../generic/dataSelectDto';
 import { HelperService, Messages, MessageType } from '../admin/helper.service';
 import { DatatableParameter } from '../admin/datatable.parameters';
 import Swal from 'sweetalert2';
-import { country } from './countryData';
 
 @Component({
     selector: 'app-inscripciones',
@@ -84,16 +83,22 @@ export class InscripcionesComponent implements OnInit {
             TelefonoAcudiente: new FormControl(null, [Validators.required]),
             PersonaId: new FormControl(0, [Validators.required]),
             ArlId: new FormControl(null, [Validators.required]),
-            OtherLevel: new FormControl(null, [Validators.required]),
+            OtherLevel: new FormControl(""),
             EmpresaId: new FormControl(null, [Validators.required]),
             CursoId: new FormControl(null, [Validators.required]),
             CursoDetalleId: new FormControl(null, [Validators.required]),
+            Pago: new FormControl(""),
             //add new atribute
             SectorEducative:  new FormControl(null, [Validators.required]),
-            CountryOfBirth:  new FormControl(null, [Validators.required]),
-            CompanyName: new FormControl(null, [Validators.required]),
+            DateBirth: new FormControl(null, [Validators.required]),
             DocumentoIdentidad: new FormControl(null, [Validators.required]),
-            Pago: new FormControl(null, [Validators.required]),
+            CertificadoAptitudMedica:new FormControl(null, [Validators.required]),
+            CopiaRutEmpresa:new FormControl(null, [Validators.required]),
+            LevelReading: new FormControl(null, [Validators.required]),
+            CertificadoCapacitacionEntrenamiento: new FormControl(
+                null,
+                this.manejoDeCertificadoEntrenamiento ? [Validators.required] : []
+            ),
         });
     }
 
@@ -268,17 +273,19 @@ export class InscripcionesComponent implements OnInit {
 
     onChangeCursoDetalle(event: any) {
         if (typeof event != "undefined") {
-            debugger
+        
             this.cursoDetalle = true;
             this.service.getById("CursoDetalle", event.id).subscribe((res: any) => {
                 this.precio = this.helperService.formaterNumber(res.data.precio).toString();
-
-                this.service.getById("Nivel", res.data.nivelId).subscribe((res: any) => {
-                    for (let item of res.data) {
-                        if (item.nombre === 'REENTRENAMIENTO SECTORIAL') {
-                            console.log('Found the item:', item);
-                            this.manejoDeCertificadoEntrenamiento = true;
-                            break; // Exit the loop once the item is found
+                this.service.getById("Nivel", res.data.nivelId).subscribe((res: any) => {                    
+                    if (res.data.nombre == 'REENTRENAMIENTO SECTORIAL') {                          
+                        this.manejoDeCertificadoEntrenamiento = true;
+                        const certificadoControl = this.frmInscripcion.get('CertificadoCapacitacionEntrenamiento');
+                        if (certificadoControl) {
+                            // Añadir Validators.required
+                            certificadoControl.setValidators([Validators.required]);
+                            // Actualizar el estado del control
+                            certificadoControl.updateValueAndValidity();
                         }
                     }
                 });
@@ -311,9 +318,21 @@ export class InscripcionesComponent implements OnInit {
     save() {
         if (this.frmInscripcion.invalid) {
             this.statusForm = false
-            this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
+         
+            const invalidControls = Object.keys(this.frmInscripcion.controls).filter(key => {
+                return this.frmInscripcion.get(key)?.invalid;
+            });
+
+         // Mostrar un mensaje detallado con los nombres de los controles inválidos
+            const invalidFields = invalidControls.join(', ');
+            this.helperService.showMessage(
+                MessageType.WARNING, 
+                `Campos inválidos: ${invalidFields}. Por favor, verifique.`
+            );
             return;
         }
+
+        
 
         this.helperService.showLoading();
         this.frmInscripcion.controls['Telefono'].setValue(String(this.frmInscripcion.controls['Telefono'].value));
@@ -337,13 +356,15 @@ export class InscripcionesComponent implements OnInit {
             Direccion: this.frmInscripcion.controls["Direccion"].value,
             Telefono: this.frmInscripcion.controls["Telefono"].value,
             Email: this.frmInscripcion.controls["Email"].value,
+            DateBirth:this.frmInscripcion.controls["DateBirth"].value,
             Genero: this.frmInscripcion.controls["Genero"].value,
             CiudadId: this.frmInscripcion.controls["CiudadId"].value,
             Activo: this.frmInscripcion.controls["Activo"].value,
         }
-
+        
         let cliente = {
             Id: 0,
+            LevelReading:this.frmInscripcion.controls["LevelReading"].value,
             Activo: this.frmInscripcion.controls["Activo"].value,
             Codigo: this.frmInscripcion.controls["Codigo"].value,
             TipoCliente: this.frmInscripcion.controls["TipoCliente"].value,
@@ -360,6 +381,7 @@ export class InscripcionesComponent implements OnInit {
             TelefonoAcudiente: this.frmInscripcion.controls["TelefonoAcudiente"].value,
             PersonaId: this.frmInscripcion.controls["PersonaId"].value,
             ArlId: this.frmInscripcion.controls["ArlId"].value,
+            SectorEducative: this.frmInscripcion.controls["SectorEducative"].value,
             EmpresaId: this.frmInscripcion.controls["EmpresaId"].value,
         }
 
@@ -530,52 +552,31 @@ export class InscripcionesComponent implements OnInit {
     }
 
     //Events Input
-    onChangeDocumento(event: any) {
-        if (typeof event != "undefined") {
-            const file: File = event.target.files[0];
-            this.convertToBase64(file).then((base64Content: string) => {
-                this.contentDocumento = base64Content;
-            }).catch((error: any) => {
-                this.helperService.showMessage(MessageType.ERROR, error);
-            });
-        }
-    }
 
-    onChangeSoporte(event: any) {
+
+    onChangeDocumentos(event: any, document : string) {
         if (typeof event != "undefined") {
             const file: File = event.target.files[0];
             this.convertToBase64(file).then((base64Content: string) => {
-                this.contentSoporte = base64Content;
-            }).catch((error: any) => {
-                this.helperService.showMessage(MessageType.ERROR, error);
-            });
-        }
-    }
-    onChangeCertificadoAptitudMedica(event: any) {
-        if (typeof event != "undefined") {
-            const file: File = event.target.files[0];
-            this.convertToBase64(file).then((base64Content: string) => {
-                this.contentCertificadoAptitudMedica = base64Content;
-            }).catch((error: any) => {
-                this.helperService.showMessage(MessageType.ERROR, error);
-            });
-        }
-    }
-    onChangeCopiaRutEmpresa(event: any){
-        if (typeof event != "undefined") {
-            const file: File = event.target.files[0];
-            this.convertToBase64(file).then((base64Content: string) => {
-                this.CopiaRutEmpresa = base64Content;
-            }).catch((error: any) => {
-                this.helperService.showMessage(MessageType.ERROR, error);
-            });
-        }
-    }
-    onChangeCertificadoCapacitacionEntrenamiento(event: any){
-        if (typeof event != "undefined") {
-            const file: File = event.target.files[0];
-            this.convertToBase64(file).then((base64Content: string) => {
-                this.CertificadoCapacitacionEntrenamiento = base64Content;
+                switch (document) {
+                    case 'DocumentoIdentidad':
+                        this.contentDocumento = base64Content;
+                        break;
+                    case 'Pago':
+                        this.contentSoporte = base64Content;
+                        break;
+                    case 'CertificadoAptitudMedica':
+                        this.contentCertificadoAptitudMedica = base64Content;
+                        break;
+                    case 'CopiaRutEmpresa':
+                        this.CopiaRutEmpresa = base64Content;
+                        break;
+                    case 'CertificadoCapacitacionEntrenamiento':
+                        this.CertificadoCapacitacionEntrenamiento = base64Content;
+                        break;
+                    default:
+                        break;
+                }
             }).catch((error: any) => {
                 this.helperService.showMessage(MessageType.ERROR, error);
             });
