@@ -194,8 +194,6 @@ export class ClientesImportComponent implements OnInit {
                 );
                 break;
             }
-
-
                 var cliente: any = {
                     PrimerNombre: element[0],
                     SegundoNombre: element[1],
