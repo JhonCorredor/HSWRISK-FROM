@@ -45,11 +45,13 @@ export class InscripcionesComponent implements OnInit {
     cursoDetalle = false;
     manejoDeCertificadoEntrenamiento = false;
     precio = "0";
+
     contentDocumento: string = "";
     contentSoporte: string = "";
     CopiaRutEmpresa:string = "";
     contentCertificadoAptitudMedica: string = "";
     CertificadoCapacitacionEntrenamiento:string = "";
+    CopiaSeguridadSocialOARl: string = "";
 
     constructor(
         private service: GeneralParameterService,
@@ -67,7 +69,7 @@ export class InscripcionesComponent implements OnInit {
             Telefono: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             Activo: new FormControl(true, Validators.required),
             Genero: new FormControl(null, [Validators.required]),
-            CiudadId: new FormControl(null, Validators.required),
+            CiudadId: new FormControl(""),
             Codigo: new FormControl(""),
             TipoCliente: new FormControl(null, [Validators.required]),
             NivelEducativo: new FormControl(null, [Validators.required]),
@@ -87,6 +89,7 @@ export class InscripcionesComponent implements OnInit {
             CursoId: new FormControl(null, [Validators.required]),
             CursoDetalleId: new FormControl(null, [Validators.required]),
             Pago: new FormControl(""),
+            CountryBirth:new FormControl("",[Validators.required]),
             //add new atribute
             SectorEducative:  new FormControl(null, [Validators.required]),
             DateBirth: new FormControl(null, [Validators.required]),
@@ -96,6 +99,7 @@ export class InscripcionesComponent implements OnInit {
             
             DocumentoIdentidad: new FormControl(null, [Validators.required]),
             CertificadoAptitudMedica:new FormControl(null, [Validators.required]),
+            CopiaSeguridadSocialOARl:new FormControl(null, [Validators.required]),
             CopiaRutEmpresa:new FormControl(null, [Validators.required]),
             LevelReading: new FormControl(null, [Validators.required]),
             CertificadoCapacitacionEntrenamiento: new FormControl(
@@ -280,7 +284,7 @@ export class InscripcionesComponent implements OnInit {
             this.cursoDetalle = true;
             this.service.getById("CursoDetalle", event.id).subscribe((res: any) => {
                 this.precio = this.helperService.formaterNumber(res.data.precio).toString();
-                this.service.getById("Nivel", res.data.nivelId).subscribe((res: any) => {                    
+                this.service.getById("Nivel", res.data.nivelId).subscribe((res: any) => { 
                     if (res.data.nombre == 'REENTRENAMIENTO SECTORIAL') {                          
                         this.manejoDeCertificadoEntrenamiento = true;
                         const certificadoControl = this.frmInscripcion.get('CertificadoCapacitacionEntrenamiento');
@@ -360,6 +364,7 @@ export class InscripcionesComponent implements OnInit {
             Telefono: this.frmInscripcion.controls["Telefono"].value,
             Email: this.frmInscripcion.controls["Email"].value,
             DateBirth:this.frmInscripcion.controls["DateBirth"].value,
+            CountryBirth: this.frmInscripcion.controls["CountryBirth"].value,
             Genero: this.frmInscripcion.controls["Genero"].value,
             CiudadId: this.frmInscripcion.controls["CiudadId"].value,
             Activo: this.frmInscripcion.controls["Activo"].value,
@@ -511,7 +516,7 @@ export class InscripcionesComponent implements OnInit {
         //Guardo la copia del certificado en la aptitud medica
         data.Nombre = "Copia del certificado de Aptitud";
         data.Content = this.contentCertificadoAptitudMedica;
-        data.Extension = "jpg";
+        data.Extension = "pdf";
         this.service.save("Archivo", 0, data).subscribe((res: any) => {
             if (res.status) {
                 console.log("Soporte de pago guardado correctamente");
@@ -521,9 +526,21 @@ export class InscripcionesComponent implements OnInit {
         });
 
          //Guardo la copia del runt
-         data.Nombre = "Soporte del Runt de la empresa ";
+         data.Nombre = "Soporte del Runt de la empresa";
          data.Content = this.CopiaRutEmpresa;
          data.Extension = "jpg";
+         this.service.save("Archivo", 0, data).subscribe((res: any) => {
+             if (res.status) {
+                 console.log("Soporte de pago guardado correctamente");
+             } else {
+                 console.log("Error al guardar el soporte de pago");
+             }
+         });
+
+         //Guardo la copia del Ultimo Pago de Seguridad Social Vigente
+         data.Nombre = "Ultimo Pago de Seguridad Social Vigente o Arl";
+         data.Content = this.CopiaSeguridadSocialOARl;
+         data.Extension = "pdf";
          this.service.save("Archivo", 0, data).subscribe((res: any) => {
              if (res.status) {
                  console.log("Soporte de pago guardado correctamente");
@@ -535,7 +552,7 @@ export class InscripcionesComponent implements OnInit {
          //Guardo la copia del copia del certificado del proceso
          data.Nombre = "Soporte certificado del proceso de capacitacion";
          data.Content = this.CertificadoCapacitacionEntrenamiento;
-         data.Extension = "jpg";
+         data.Extension = "pdf";
          this.service.save("Archivo", 0, data).subscribe((res: any) => {
              if (res.status) {
                  console.log("Soporte de pago guardado correctamente");
@@ -582,6 +599,9 @@ export class InscripcionesComponent implements OnInit {
                     case 'CertificadoCapacitacionEntrenamiento':
                         this.CertificadoCapacitacionEntrenamiento = base64Content;
                         break;
+                    case 'CopiaSeguridadSocialOARl':
+                        this.CopiaSeguridadSocialOARl = base64Content;
+                        break;    
                     default:
                         break;
                 }

@@ -53,6 +53,7 @@ export class PersonasIndexComponent implements OnInit {
             telefono: item.telefono,
             email: item.email,
             genero: item.genero,
+            countryBirth: item.countryBirth,
             ciudad: item.ciudad,
             ciudadId: item.ciudadId,
           };

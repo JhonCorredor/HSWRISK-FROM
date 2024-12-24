@@ -14,11 +14,21 @@ import Swal from 'sweetalert2';
 })
 export class ClientesArchivosComponent implements OnInit {
     @Input() ClienteId: any = null;
+    @Input() manejoDeCertificadoEntrenamiento: Boolean = false;
+
     frmArchivosClientes: FormGroup;
     statusForm: boolean = true;
     listClientesArchivos = signal<Archivo[]>([]);
     contentDocumento: string = "";
     contentEps: string = "";
+
+
+    contentSoporte: string = "";
+    CopiaRutEmpresa:string = "";
+    contentCertificadoAptitudMedica: string = "";
+    CertificadoCapacitacionEntrenamiento:string = "";
+    CopiaSeguridadSocialOARl: string = "";
+
     botones = ['btn-guardar'];
 
     constructor(
@@ -255,6 +265,38 @@ export class ClientesArchivosComponent implements OnInit {
         }
     }
 
+    onChangeDocumentos(event: any, document : string) {
+        if (typeof event != "undefined") {
+            const file: File = event.target.files[0];
+            this.convertToBase64(file).then((base64Content: string) => {
+                switch (document) {
+                    case 'DocumentoIdentidad':
+                        this.contentDocumento = base64Content;
+                        break;
+                    case 'Pago':
+                        this.contentSoporte = base64Content;
+                        break;
+                    case 'CertificadoAptitudMedica':
+                        this.contentCertificadoAptitudMedica = base64Content;
+                        break;
+                    case 'CopiaRutEmpresa':
+                        this.CopiaRutEmpresa = base64Content;
+                        break;
+                    case 'CertificadoCapacitacionEntrenamiento':
+                        this.CertificadoCapacitacionEntrenamiento = base64Content;
+                        break;
+                    case 'CopiaSeguridadSocialOARl':
+                        this.CopiaSeguridadSocialOARl = base64Content;
+                        break;    
+                    default:
+                        break;
+                }
+            }).catch((error: any) => {
+                this.helperService.showMessage(MessageType.ERROR, error);
+            });
+        
+        }
+    }
     onChangeSoporte(event: any) {
         this.helperService.showLoading();
         if (typeof event != "undefined") {
@@ -279,7 +321,17 @@ export class ClientesArchivosComponent implements OnInit {
         }
     }
 
-    save() {
+    save(){
+        this.PorocedSave("DocumentoIdentidad");
+        this.PorocedSave("CertificadoAptitudMedica");
+
+        this.PorocedSave("CopiaRutEmpresa");
+        this.PorocedSave("CertificadoCapacitacionEntrenamiento");
+        this.PorocedSave("CopiaSeguridadSocialOARl");
+         this.PorocedSave("Pago");
+    }
+    PorocedSave( document?:string ) {
+
         let data = {
             Nombre: "",
             TablaId: this.ClienteId,
@@ -288,48 +340,71 @@ export class ClientesArchivosComponent implements OnInit {
             Content: "",
             Activo: true,
         };
-        this.helperService.showLoading();
-        //Guardo el documento de identidad
-        if (this.contentDocumento != "") {
-            data.Nombre = "Documento de Identidad";
-            data.Content = this.contentDocumento;
-            this.service.save("Archivo", 0, data).subscribe(
-                (response) => {
-                    if (response.status) {
-                        setTimeout(() => {
-                            this.helperService.hideLoading();
-                        }, 200);
-                        this.helperService.showMessage(MessageType.SUCCESS, "Documento de identidad guardado correctamente.");
-                        this.frmArchivosClientes.reset();
-                        this.refrescarTabla();
-                    } else {
-                        setTimeout(() => {
-                            this.helperService.hideLoading();
-                        }, 200);
-                    }
-                },
-                (error) => {
-                    setTimeout(() => {
-                        this.helperService.hideLoading();
-                    }, 200);
-                    this.frmArchivosClientes.reset();
-                    this.helperService.showMessage(MessageType.WARNING, error);
-                }
-            );
-        }
+        var mensaje ="";
 
-        if (this.contentEps != "") {
-            //Guardo el documento de la eps
-            data.Nombre = "Soporte de Pago";
-            data.Content = this.contentEps;
-            data.Extension = "jpg";
+        if(document !=null){
+            switch (document) {
+                case 'DocumentoIdentidad':
+                    if (this.contentDocumento != "") {
+                        data.Nombre = "Documento de Identidad";
+                        data.Content = this.contentDocumento;
+                    }
+                    break;
+                case 'Pago':
+                    if (this.contentEps != "") {
+                        //Guardo el documento de la eps
+                        data.Nombre = "Soporte de Pago";
+                        data.Content = this.contentEps;
+                        data.Extension = "jpg";
+                    }     
+                    break;
+
+                case 'CertificadoAptitudMedica':
+                    
+                    if (this.contentCertificadoAptitudMedica != "") {
+                        //Guardo el documento de la eps
+                        data.Nombre = "Copia del certificado de Aptitud";
+                        data.Content = this.contentCertificadoAptitudMedica;
+                        data.Extension = "pdf";
+                    } 
+                    
+                    break;
+                case 'CopiaRutEmpresa':
+                    if (this.CopiaRutEmpresa != "") {
+                        //Guardo el documento de la eps
+                        data.Nombre = "Soporte del Runt de la empresa";
+                        data.Content = this.CopiaRutEmpresa;
+                        data.Extension = "pdf";
+                    }
+                    break;
+                case 'CertificadoCapacitacionEntrenamiento':
+                    if (this.CertificadoCapacitacionEntrenamiento != "") {
+                        //Guardo el documento de la eps
+                        data.Nombre = "Soporte certificado del proceso de capacitacion";
+                        data.Content = this.CertificadoCapacitacionEntrenamiento;
+                        data.Extension = "jpg";
+                    }
+                    break;
+                case 'CopiaSeguridadSocialOARl':
+                    if (this.CopiaSeguridadSocialOARl != "") {
+                        //Guardo el documento de la eps
+                        data.Nombre = "Ultimo Pago de Seguridad Social Vigente o Arl";
+                        data.Content = this.CopiaSeguridadSocialOARl;
+                        data.Extension = "jpg";
+                    }
+                    break;    
+                default:
+                    break;
+            }
+            this.helperService.showLoading();
+
             this.service.save("Archivo", 0, data).subscribe(
                 (response) => {
                     if (response.status) {
                         setTimeout(() => {
                             this.helperService.hideLoading();
                         }, 200);
-                        this.helperService.showMessage(MessageType.SUCCESS, "Soporte de Pago guardado correctamente.");
+                        this.helperService.showMessage(MessageType.SUCCESS, `${data.Nombre} guardado correctamente`);
                         this.frmArchivosClientes.reset();
                         this.refrescarTabla();
                     } else {
@@ -346,6 +421,6 @@ export class ClientesArchivosComponent implements OnInit {
                     this.helperService.showMessage(MessageType.WARNING, error);
                 }
             );
-        }
+        }      
     }
 }

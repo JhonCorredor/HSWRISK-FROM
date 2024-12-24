@@ -25,6 +25,7 @@ export class PersonasFormComponent implements OnInit {
   public lista: any[] = [];
   public listGeneros: any[] = [];
   public ListTipoIdentificacion: any[] = [];
+  ListCountry: any[] = [];
 
   constructor(
     public routerActive: ActivatedRoute,
@@ -43,13 +44,16 @@ export class PersonasFormComponent implements OnInit {
       Direccion: new FormControl("", [Validators.required, Validators.maxLength(150)]),
       Telefono: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       Activo: new FormControl(true, Validators.required),
-      DateBirth:new FormControl(true, Validators.required),
+      DateBirth:new FormControl(null, Validators.required),
+      CountryBirth: new FormControl(null, Validators.required),
       Genero: new FormControl(null, [Validators.required]),
-      Key_Id: new FormControl(null, Validators.required),
+     
     });
   }
 
   ngOnInit(): void {
+    this.CargarEnum('ListCountry');
+    this.CargarEnum('LisGender')
     if (this.id != undefined && this.id != null) {
       this.titulo = `Editar ${this.titleData}`;
       this.service.getById(this.serviceName, this.id).subscribe(l => {
@@ -59,6 +63,8 @@ export class PersonasFormComponent implements OnInit {
         this.frmPersonas.controls['SegundoNombre'].setValue(l.data.segundoNombre);
         this.frmPersonas.controls['PrimerApellido'].setValue(l.data.primerApellido);
         this.frmPersonas.controls['SegundoApellido'].setValue(l.data.segundoApellido);
+        this.frmPersonas.controls['CountryBirth'].setValue(l.data.countryBirth);
+        
 
         const fechaFormateada = this.helperService.formatDateToInputUpdateForm(l.data.dateBirth);
         this.frmPersonas.controls['DateBirth'].setValue(fechaFormateada);
@@ -67,33 +73,36 @@ export class PersonasFormComponent implements OnInit {
         this.frmPersonas.controls['Telefono'].setValue(l.data.telefono);
         this.frmPersonas.controls['Activo'].setValue(l.data.activo);
         this.frmPersonas.controls['Genero'].setValue(l.data.genero);
-
-        var keyId = this.toCamelCase(this.key);
-        this.frmPersonas.controls['Key_Id'].setValue(
-          l.data[keyId + 'Id']
-        );
       })
     } else {
       this.titulo = `Crear ${this.titleData}`;
     }
 
-    
+    this.ListTipoIdentificacion = [
+      { id: 'CC', textoMostrar: 'Cedula de Ciudadania' },
+      { id: 'CE', textoMostrar: 'Cedula Extranjeria' },
+      { id: 'PP', textoMostrar: 'Permiso Protección Temporal' },
+      { id: 'PE', textoMostrar: 'Permiso Especial Permanencia' },
+      
+   ];
 
     this.cargarListaForeingKey();
 
-    this.ListTipoIdentificacion = [
-      { id: 'CC', textoMostrar: 'Cedula de Ciudadania' },
-      { id: 'PAS', textoMostrar: 'Pasaporte' },
-      { id: 'TI', textoMostrar: 'Tarjeta de Identidad' },
-      { id: 'CE', textoMostrar: 'Cedula de Extranjeria' },
-    ];
-
-    this.listGeneros = [
-      { id: 1, textoMostrar: 'Masculino' },
-      { id: 2, textoMostrar: 'Femenino' },
-    ];
   }
 
+
+
+  CargarEnum( parametro: string) {
+    this.helperService.getEnum(parametro, "description", "description").then((res) => {
+      if (parametro == 'ListCountry') {
+        this.ListCountry = res;
+      }else if (parametro == 'LisGender'){
+        this.listGeneros = res;
+      }
+      
+    });
+  
+}
 
   cargarListaForeingKey() {
     this.service.getAll(this.key).subscribe((r) => {
@@ -111,7 +120,7 @@ export class PersonasFormComponent implements OnInit {
     this.helperService.showLoading();
     let data = {
       id: this.id ?? 0,
-      [this.key + 'Id']: this.frmPersonas.controls['Key_Id'].value,
+      // [this.key + 'Id']: this.frmPersonas.controls['Key_Id'].value,
       ...this.frmPersonas.value,
     };
     this.service.save(this.serviceName, this.id, data).subscribe(

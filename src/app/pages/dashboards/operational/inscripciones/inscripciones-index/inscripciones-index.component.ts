@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
 export class InscripcionesIndexComponent implements OnInit {
     title = 'Listado de Inscripciones';
     breadcrumb!: any[];
-    botones: String[] = ['btn-importar-cliente', 'btn-nuevo'];
+    botones: String[] = ['btn-importar-cliente', 'btn-nuevo','btn-descargar-archivo'];
     listCursos = signal<DataSelectDto[]>([]);
     listCursosDetalles = signal<DataSelectDto[]>([]);
     curso = false;
@@ -407,46 +407,115 @@ export class InscripcionesIndexComponent implements OnInit {
         })
     }
 
-    download(data: DatatableParameter) {
+    Report() {
         this.helperService.showLoading();
-        this.service.datatableKey("Certificado", data).subscribe((res: any) => {
-            if (res.status) {
-                this.service.generarCertificado("Certificado", res.data[0].id).subscribe((certificado: any) => {
-                    var fileName = `${res.data[0].codigo}.${certificado.data.extension}`;
-                    //Decodificar el contenido base64
-                    var base64String = certificado.data.content;
+        this.service.generarReport().subscribe(
+            (certificado: any) => {
+                if (certificado && certificado.data ) {
+                    const base64String = certificado.data;
                     const binaryString = window.atob(base64String);
                     const binaryLen = binaryString.length;
                     const bytes = new Uint8Array(binaryLen);
+    
                     for (let i = 0; i < binaryLen; i++) {
                         bytes[i] = binaryString.charCodeAt(i);
                     }
-
-                    // Crear el blob
-                    const blob = new Blob([bytes], { type: `application/${certificado.data.extension}` });
-
-                    // Crear la URL del objeto
+    
+                    const blob = new Blob([bytes], { type: `application/exel` });
                     const url = window.URL.createObjectURL(blob);
-
-                    // Crear un enlace <a> en el DOM
+    
+                    // Crear un enlace dinámico para descargar el archivo
                     const a = document.createElement('a');
-                    document.body.appendChild(a);
                     a.style.display = 'none';
                     a.href = url;
-                    a.download = fileName;
-
-                    setTimeout(() => {
-                        this.helperService.hideLoading();
-                    }, 200);
-                    // Disparar un evento de clic en el enlace
+                    a.download = `Report.${certificado.data.extension || 'xlsx'}`; // Nombre dinámico
+    
+                    document.body.appendChild(a);
                     a.click();
-
-                    // Liberar recursos
+    
+                    // Limpiar recursos
                     window.URL.revokeObjectURL(url);
                     document.body.removeChild(a);
-                });
+                
+    
+                    this.helperService.hideLoading();
+                } else {
+                    this.helperService.hideLoading();
+                    throw new Error('Datos del certificado no válidos.');
+                }
+            },
+            (error) => {
+                // Manejar errores de la API o datos faltantes
+                const errorMessage = error?.message || "Error desconocido al generar el reporte.";
+                this.helperService.showMessage(MessageType.ERROR, errorMessage);
+                this.helperService.hideLoading();
+            }
+        );
+    }
+    
+
+
+    download(data: DatatableParameter) {
+        this.helperService.showLoading();
+        this.service.datatableKey("Certificado", data).subscribe((res: any) => {
+            try {
+                
+                if (res.status && res.data && res.data.length > 0) {
+                    // Si el status es verdadero y existen datos, generamos el certificado
+                    this.service.generarCertificado("Certificado", res.data[0].id).subscribe(
+                        
+                        (certificado: any) => {
+                        var fileName = `${res.data[0].codigo}.${certificado.data.extension}`;
+                        var base64String = certificado.data.content;
+                        const binaryString = window.atob(base64String);
+                        const binaryLen = binaryString.length;
+                        const bytes = new Uint8Array(binaryLen);
+                        for (let i = 0; i < binaryLen; i++) {
+                            bytes[i] = binaryString.charCodeAt(i);
+                        }
+        
+                        const blob = new Blob([bytes], { type: `application/${certificado.data.extension}` });
+                        const url = window.URL.createObjectURL(blob);
+        
+                        const a = document.createElement('a');
+                        document.body.appendChild(a);
+                        a.style.display = 'none';
+                        a.href = url;
+                        a.download = fileName;
+        
+                        setTimeout(() => {
+                            this.helperService.hideLoading();
+                        }, 200);
+        
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                    },(error)=>{
+                        
+                         // Si el status es falso o no hay datos, mostramos el mensaje de error
+                        this.helperService.showMessage(MessageType.ERROR, error || "Error desconocido.");
+                        this.helperService.hideLoading();
+                    }
+                
+                );
+                } else {
+                    // Si el status es falso o no hay datos, mostramos el mensaje de error
+                    this.helperService.showMessage(MessageType.ERROR, res.message || "Error desconocido.");
+                    this.helperService.hideLoading();
+                }
+            } catch (error: unknown) {
+                // Si ocurre un error durante el proceso, mostramos el mensaje de error
+                if (error instanceof Error) {
+                    this.helperService.showMessage(MessageType.ERROR, error.message || "Ocurrió un error inesperado.");
+                    this.helperService.hideLoading();
+                } else {
+                    this.helperService.showMessage(MessageType.ERROR, "Ocurrió un error inesperado.");
+                    this.helperService.hideLoading();
+                }
             }
         });
+        
+        
     }
 
     openInNewTab(data: DatatableParameter) {

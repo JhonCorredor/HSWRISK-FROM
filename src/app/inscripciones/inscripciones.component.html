@@ -70,10 +70,11 @@
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Número Identificación *</label>
-                            <input type="text" class="form-control" formControlName="Documento">
+                            <input type="text" class="form-control" formControlName="Documento" oninput="this.value=this.value.replace(/[^0-9]/g, '')">
                             <app-forms-messages [error]="frmInscripcion.get('Documento')" [statusForm]=statusForm
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
+                        
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Primer Nombre *</label>
                             <input type="text" class="form-control" (input)="automaticToUperCase($event,'PrimerNombre')" formControlName="PrimerNombre">
@@ -114,13 +115,12 @@
 
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>País de Nacimiento *</label>
-                            <ng-select [items]="listCiudades()" bindLabel="textoMostrar" bindValue="id"
-                                formControlName="CiudadId"></ng-select>
-                            <app-forms-messages [error]="frmInscripcion.get('CiudadId')"
+                                <ng-select [items]="ListCountry"  bindLabel="nombre" bindValue="nombre"
+                                formControlName="CountryBirth"> </ng-select>
+                            <app-forms-messages [error]="frmInscripcion.get('CountryBirth')"
                                 [statusForm]=statusForm></app-forms-messages>
                         </div>
                         
-
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label>Hemoclasificación  (Grupo sanguíneo-RH) *</label>
                             <ng-select [items]="listaRh" bindLabel="nombre" bindValue="nombre" formControlName="Rh">
@@ -410,9 +410,22 @@
                         </div>
                     </div>
                     <br>
+                    <div class = "row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Copia del Ultimó Pago de Seguridad Social Vigente, en el caso estar recién ingresado adjunte Documento de Afiliación con Radicado de ARl y EPS. *
+                                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                                title="Adjuntar Ultimó Pago de Seguridad Social Vigente, en el caso estar recién ingresado adjunte Documento de Afiliación con Radicado de ARl y EPS. (unidos en un mismo archivo)."
+                                class="ms-2">
+                                <i class="fa-light fa-circle-question"></i>
+                              </span>
+                            </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+                            <input type="file" class="form-control mt-2" accept=".pdf"
+                                formControlName="CopiaSeguridadSocialOARl" (change)="onChangeDocumentos($event,'CopiaSeguridadSocialOARl')">
+                            <app-forms-messages [error]="frmInscripcion.get('CopiaSeguridadSocialOARl')"
+                                [statusForm]=statusForm></app-forms-messages>
+                        </div>
 
-                    <div class = "row" *ngIf="manejoDeCertificadoEntrenamiento">
-                        <div class="col-sm-5 col-md-5 col-lg-5">
+                        <div class="col-sm-5 col-md-5 col-lg-5"  *ngIf="manejoDeCertificadoEntrenamiento">
                             <label>Copia del Certificado del Proceso de Capacitación Y Entrenamiento   *
                                 <span data-bs-toggle="tooltip" data-bs-placement="left"
                                 title="Adjuntar Copia del Certificado del Proceso de Capacitación y Entrenamiento de Trabajador Autorizado (o Anterior Nivel Avanzado).  APLICA SOLO CUANDO ES CURSO DE REENTRENO SECTORIAL."
@@ -427,6 +440,7 @@
                         </div>
                     </div>
                     <br>
+                       
                     <div class="row">
                         <div class="col-lg-12 text-end">
                             <button class="submitBnt btn btn-primary" (click)="save()">Inscribirse</button>

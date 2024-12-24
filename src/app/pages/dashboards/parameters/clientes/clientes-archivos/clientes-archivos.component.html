@@ -1,19 +1,81 @@
 <form [formGroup]="frmArchivosClientes" class="my-3">
     <div class="row">
-        <div class="col-sm-4 col-md-4 col-lg-4">
+       <div class="col-sm-6 col-md-6 col-lg-6">
             <label>Documento de Identidad</label>&nbsp;<span class="badge bg-danger">.Pdf</span>
             <input type="file" class="form-control mt-2" accept=".pdf" formControlName="DocumentoIdentidad"
                 (change)="onChangeDocumento($event)">
         </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
+       <div class="col-sm-6 col-md-6 col-lg-6">
             <label>Soporte de pago *</label>&nbsp;<span class="badge bg-info">.jpg</span>
             <input type="file" class="form-control my-2" accept=".jpg" formControlName="Pago"
                 (change)="onChangeSoporte($event)">
             <a class="text-success text-decoration-underline" href="javascript: void(0);"
                 (click)="CertificadoBancario()">Ver datos bancarios</a>
         </div>
+
+
     </div>
     <br>
+    <div class = "row">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <label>Copia del Certificado de Aptitud Médica *
+                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                title="Adjuntar Copia del Certificado de Aptitud Médica que certifique que el trabajador o aprendiz cumple con las condiciones de salud para desarrollar trabajo en alturas ."
+                class="ms-2">
+                <i class="fa-light fa-circle-question"></i>
+              </span>
+
+            </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+            <input type="file" class="form-control mt-2" accept=".pdf"
+                formControlName="CertificadoAptitudMedica" (change)="onChangeDocumentos($event,'CertificadoAptitudMedica')">
+            <app-forms-messages [error]="frmArchivosClientes.get('CertificadoAptitudMedica')"
+                [statusForm]=statusForm></app-forms-messages>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <label>  Copia del  Rut de la empresa y/o independiente *
+                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                title="Adjuntar Copia del  Rut de la empresa y/o independiente (completo donde se vea el nombre del representante legal)."
+                class="ms-2">
+                <i class="fa-light fa-circle-question"></i>
+              </span>
+            </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+            <input type="file" class="form-control mt-2" accept=".pdf"
+                formControlName="CopiaRutEmpresa" (change)="onChangeDocumentos($event,'CopiaRutEmpresa')">
+            <app-forms-messages [error]="frmArchivosClientes.get('CopiaRutEmpresa')"
+                [statusForm]=statusForm></app-forms-messages>
+        </div>
+    </div>
+    <br>
+    <div class = "row">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <label>Copia del Ultimó Pago de Seguridad Social Vigente, en el caso estar recién ingresado adjunte Documento de Afiliación con Radicado de ARl y EPS. *
+                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                title="Adjuntar Ultimó Pago de Seguridad Social Vigente, en el caso estar recién ingresado adjunte Documento de Afiliación con Radicado de ARl y EPS. (unidos en un mismo archivo)."
+                class="ms-2">
+                <i class="fa-light fa-circle-question"></i>
+              </span>
+            </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+            <input type="file" class="form-control mt-2" accept=".pdf"
+                formControlName="CopiaRutEmpresa" (change)="onChangeDocumentos($event,'CopiaSeguridadSocialOARl')">
+            <app-forms-messages [error]="frmArchivosClientes.get('CopiaSeguridadSocialOARl')"
+                [statusForm]=statusForm></app-forms-messages>
+        </div>
+
+        <div class="col-sm-5 col-md-5 col-lg-5"  *ngIf="manejoDeCertificadoEntrenamiento">
+            <label>Copia del Certificado del Proceso de Capacitación Y Entrenamiento   *
+                <span data-bs-toggle="tooltip" data-bs-placement="left"
+                title="Adjuntar Copia del Certificado del Proceso de Capacitación y Entrenamiento de Trabajador Autorizado (o Anterior Nivel Avanzado).  APLICA SOLO CUANDO ES CURSO DE REENTRENO SECTORIAL."
+                class="ms-2">
+                <i class="fa-light fa-circle-question"></i>
+              </span>
+            </label>&nbsp;<span class="badge bg-danger">.Pdf</span>
+            <input type="file" class="form-control mt-2" accept=".pdf"
+                formControlName="CertificadoCapacitacionEntrenamiento" (change)="onChangeDocumentos($event,'CertificadoCapacitacionEntrenamiento')">
+            <app-forms-messages [error]="frmArchivosClientes.get('CertificadoCapacitacionEntrenamiento')"
+                [statusForm]=statusForm></app-forms-messages>
+        </div>
+    </div>
     <div class="d-flex justify-content-end">
         <div>
             <app-botones [botones]="botones" (eventSave)="save()"></app-botones>

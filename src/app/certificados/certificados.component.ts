@@ -151,9 +151,19 @@ export class CertificadosComponent implements OnInit {
 
         this.service.getCertificado("Certificado", data).subscribe((res: any) => {
             // Actualiza los datos de la tabla
+
+            if (!res.status || !res.data || res.data.length === 0) {
+
+                // Mostrar el mensaje de error si no se encontró el empleado o si no hay datos
+                this.helperService.showMessage(MessageType.WARNING, "No se encontraron certificados con este numero de indentificación");
+                this.helperService.hideLoading();
+                return; 
+            }
+
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
                 dtInstance.clear().rows.add(res.data).draw();
             });
+
         });
 
         setTimeout(() => {

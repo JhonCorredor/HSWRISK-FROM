@@ -51,13 +51,13 @@ export class CoverComponent implements OnInit {
 
 		// redirect to home if already logged in
 		if (this.authenticationService.currentUserValue) {
-			this.router.navigate(['/dashboard']);
+			this.router.navigate(['/dashboard/operativo/inscripciones']);
 		}
 	}
 
 	ngOnInit(): void {
 		if (sessionStorage.getItem('currentUser')) {
-			this.router.navigate(['/dashboard']);
+			this.router.navigate(['/dashboard/operativo/inscripciones']);
 		}
 
 		if (document.cookie.indexOf("userName") > -1 && document.cookie.indexOf("password") > -1) {
@@ -124,7 +124,7 @@ export class CoverComponent implements OnInit {
 				sessionStorage.setItem('toast', 'true');
 				sessionStorage.setItem('currentUser', JSON.stringify(res.data));
 				sessionStorage.setItem('token', res.data.token);
-				this.router.navigate(['/dashboard']);
+				this.router.navigate(['/dashboard/operativo/inscripciones']);
 			}
 		}, (error: any) => {
 			this._helperService.hideLoading();

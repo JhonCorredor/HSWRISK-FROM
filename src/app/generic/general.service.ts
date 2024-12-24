@@ -79,6 +79,9 @@ export class GeneralParameterService {
     return this.http.post<any>(`${this.url}${ruta}/generarCertificado/${id}`, { headers: this.header });
   }
   
-
+  public generarReport(): Observable<any> {
+    return this.http.post<any>(`${this.url}Certificado/generateReport`, { headers: this.header });
+  }
+  
 
 }

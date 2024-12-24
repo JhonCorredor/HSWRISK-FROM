@@ -8,8 +8,9 @@
             </span>
         </h4>
         <div class="flex-shrink-0">
-            <app-botones #botonesSuperior [botones]="botones" [dropdown]="false" (eventNew)="nuevo()"
+            <app-botones #botonesSuperior [botones]="botones" [dropdown]="false"  (eventNew)="nuevo()"  (eventDowloand)="Report()" 
                 (eventImportarCliente)="importarDatos()"></app-botones>
+                       
         </div>
     </div>
     <div class="card-body" style="padding: 40px;">

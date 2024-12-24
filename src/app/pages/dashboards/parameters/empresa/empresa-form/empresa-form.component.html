@@ -85,11 +85,48 @@
           <app-forms-messages [error]="frmEmpresas.get('NumeroIndentificacion')" [statusForm]="statusForm"
             [statusForm]="statusForm"></app-forms-messages>
         </div>
-
+    
         <div class="col-sm-1 col-md-1 col-lg-1">
           <label>Activo</label><br />
           <ui-switch formControlName="Activo"></ui-switch>
         </div>
+
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Contra Caidas 
+            <span data-bs-toggle="tooltip" data-bs-placement="left"
+              title="¿La Empresa tiene Implementado el Programa de Prevención y Protección Contra Caídas? Según Res 4272 2021 Articulo 4"
+              class="ms-2">
+              <i class="fa-light fa-circle-question"></i>
+            </span>
+          </label>
+          <br />
+          <ui-switch 
+            formControlName="ContraCaídas" 
+            (change)="ModificData($event)">
+          </ui-switch>
+        </div>
+        
+        
+
+      </div>
+      <br>
+      <div class = "row" *ngIf="visibleInput">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+          <label>Nombre del administrador Contra Caidas</label>
+          <input type="text" class="form-control" formControlName="NombreDelAdministradorContraCaídas" />
+          <app-forms-messages [error]="frmEmpresas.get('NombreDelAdministradorContraCaídas')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+
+        <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Nombre del Representante</label>
+          <ng-select [items]="ListEnfasisSectorial"  bindLabel="nombre" bindValue="nombre"
+          formControlName="EnfasisDecapacitacion">
+      </ng-select>
+          <app-forms-messages [error]="frmEmpresas.get('EnfasisDecapacitacion')" [statusForm]="statusForm"
+            [statusForm]="statusForm"></app-forms-messages>
+        </div>
+
       </div>
     </form>
   </div>

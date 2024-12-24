@@ -26,6 +26,9 @@ export class EmpresaFormComponent implements OnInit {
   title = 'Crear Empresa';
   listCiudades = signal<DataSelectDto[]>([]);
   listConvenios = signal<DataSelectDto[]>([]);
+  ListEnfasisSectorial: any[] = [];
+  visibleInput = false;
+
   breadcrumb = [
     { name: `Inicio`, icon: `fa-duotone fa-house` },
     { name: 'Operativo', icon: 'fa-duotone fa-shop' },
@@ -42,6 +45,10 @@ export class EmpresaFormComponent implements OnInit {
   ) {
     this.frmEmpresas = new FormGroup({
       RazonSocial: new FormControl(null, [Validators.required]),
+      NombreDelAdministradorContraCaídas: new FormControl("",),
+      EnfasisDecapacitacion: new FormControl(""),
+      ContraCaídas:new FormControl(null, [Validators.required]),
+
       Nit: new FormControl(null, [
         Validators.required,
         Validators.maxLength(20),
@@ -75,6 +82,8 @@ export class EmpresaFormComponent implements OnInit {
   ngOnInit(): void {
     this.cargarCiudades();
     this.cargarConvenios();
+    this.CargarEnum('ListEnfasisSectorial');
+
 
     if (this.id != undefined && this.id != null) {
       this.title = 'Editar Empresa';
@@ -94,7 +103,12 @@ export class EmpresaFormComponent implements OnInit {
         this.frmEmpresas.controls['CiudadId'].setValue(l.data.ciudadId);
         this.frmEmpresas.controls['ConvenioId'].setValue(l.data.convenioId);
         this.frmEmpresas.controls['Activo'].setValue(l.data.activo);
-
+        this.frmEmpresas.controls['NombreDelAdministradorContraCaídas'].setValue(l.data.nombreDelAdministradorContraCaídas);
+        this.frmEmpresas.controls['EnfasisDecapacitacion'].setValue(l.data.enfasisDecapacitacion);
+        this.frmEmpresas.controls['ContraCaídas'].setValue(l.data.contraCaídas);
+        if(l.data.contraCaídas){
+          this.visibleInput = true;
+        }
         this.frmEmpresas.controls['NombreRepresentante'].setValue(l.data.nombreRepresentante);
         this.frmEmpresas.controls['NumeroIndentificacion'].setValue(l.data.numeroIndentificacion);
         
@@ -113,6 +127,39 @@ export class EmpresaFormComponent implements OnInit {
     }
   }
 
+  CargarEnum( parametro: string) {
+    this.helperService.getEnum(parametro, "description", "description").then((res) => {
+      if (parametro == 'ListEnfasisSectorial') {
+        this.ListEnfasisSectorial = res;
+      }
+    });
+  
+}
+ModificData(newValue: boolean): void {
+  console.log('Nuevo estado del switch:', newValue);
+
+  // Actualiza el estado de visibleInput basado en el valor emitido
+  this.visibleInput = newValue;
+
+  if (newValue) {
+    const NombreDelAdministradorContraCaídas = this.frmEmpresas.get('NombreDelAdministradorContraCaídas');
+                        if (NombreDelAdministradorContraCaídas) {
+                            // Añadir Validators.required
+                            NombreDelAdministradorContraCaídas.setValidators([Validators.required]);
+                            // Actualizar el estado del control
+                            NombreDelAdministradorContraCaídas.updateValueAndValidity();}
+
+  const EnfasisDecapacitacion = this.frmEmpresas.get('EnfasisDecapacitacion');
+  if (EnfasisDecapacitacion) {
+      // Añadir Validators.required
+      EnfasisDecapacitacion.setValidators([Validators.required]);
+      // Actualizar el estado del control
+      EnfasisDecapacitacion.updateValueAndValidity();}
+    console.log('El switch está activado.');
+  } else {
+    console.log('El switch está desactivado.');
+  }
+}
   cargarCiudades() {
     this.service.getAll('Ciudad').subscribe((res) => {
       res.data.forEach((item: any) => {

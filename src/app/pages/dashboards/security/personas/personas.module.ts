@@ -12,6 +12,7 @@ export interface Persona extends Base {
   email: string;
   genero: number;
   ciudad: string;
+  countryBirth: string;
   dateBirth:Date;
   ciudadId: number;
 }
