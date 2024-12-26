@@ -118,13 +118,36 @@
             [statusForm]="statusForm"></app-forms-messages>
         </div>
 
-        <div class="col-sm-3 col-md-3 col-lg-3">
-          <label>Nombre del Representante</label>
-          <ng-select [items]="ListEnfasisSectorial"  bindLabel="nombre" bindValue="nombre"
-          formControlName="EnfasisDecapacitacion">
-      </ng-select>
-          <app-forms-messages [error]="frmEmpresas.get('EnfasisDecapacitacion')" [statusForm]="statusForm"
-            [statusForm]="statusForm"></app-forms-messages>
+        <!-- <div class="col-sm-3 col-md-3 col-lg-3">
+          <label>Enfasis</label>
+          <ng-select 
+            [items]="ListEnfasisSectorial"
+            bindLabel="nombre" 
+            bindValue="nombre"
+            [multiple]="true"
+            formControlName="EnfasisDecapacitacion">
+          </ng-select>
+          <app-forms-messages 
+            [error]="frmEmpresas.get('EnfasisDecapacitacion')" 
+            [statusForm]="statusForm"
+            [statusForm]="statusForm">
+          </app-forms-messages>
+        </div> -->
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+          <label>Énfasis</label>
+          <ng-select 
+            [items]="ListEnfasisSectorial"
+            [multiple]="true"
+            [virtualScroll]="true"
+            bindLabel="nombre"
+            bindValue="nombre"
+            formControlName="EnfasisDecapacitacion">
+          </ng-select>
+          <app-forms-messages 
+            [error]="frmEmpresas.get('ListEnfasisSectorial')"
+            [statusForm]="statusForm">
+          </app-forms-messages>
         </div>
 
       </div>

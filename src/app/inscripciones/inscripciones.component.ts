@@ -528,7 +528,7 @@ export class InscripcionesComponent implements OnInit {
          //Guardo la copia del runt
          data.Nombre = "Soporte del Runt de la empresa";
          data.Content = this.CopiaRutEmpresa;
-         data.Extension = "jpg";
+         data.Extension = "pdf";
          this.service.save("Archivo", 0, data).subscribe((res: any) => {
              if (res.status) {
                  console.log("Soporte de pago guardado correctamente");

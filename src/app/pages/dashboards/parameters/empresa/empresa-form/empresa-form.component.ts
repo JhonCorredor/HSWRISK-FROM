@@ -9,6 +9,7 @@ import { GeneralParameterService } from '../../../../../generic/general.service'
 import { DataSelectDto } from '../../../../../generic/dataSelectDto';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { fetchCrmDealSuccess } from 'src/app/store/CRM/crm_action';
 
 @Component({
   selector: 'app-empresa-form',
@@ -45,9 +46,11 @@ export class EmpresaFormComponent implements OnInit {
   ) {
     this.frmEmpresas = new FormGroup({
       RazonSocial: new FormControl(null, [Validators.required]),
-      NombreDelAdministradorContraCaídas: new FormControl("",),
+
+      NombreDelAdministradorContraCaídas: new FormControl(""),
       EnfasisDecapacitacion: new FormControl(""),
-      ContraCaídas:new FormControl(null, [Validators.required]),
+
+      ContraCaídas: new FormControl(false),
 
       Nit: new FormControl(null, [
         Validators.required,
@@ -65,16 +68,13 @@ export class EmpresaFormComponent implements OnInit {
         Validators.required,
         Validators.maxLength(100),
       ]),
-      Web: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(100),
-      ]),
+      Web: new FormControl(''),
       CiudadId: new FormControl(null, Validators.required),
       ConvenioId: new FormControl(null),
       Activo: new FormControl(true, Validators.required),
       //add new atributes
-      NombreRepresentante:new FormControl(null, Validators.required),
-      NumeroIndentificacion:new FormControl(null, Validators.required),
+      NombreRepresentante: new FormControl(null, Validators.required),
+      NumeroIndentificacion: new FormControl(null, Validators.required),
     });
     this.routerActive.params.subscribe((l) => (this.id = l['id']));
   }
@@ -104,14 +104,20 @@ export class EmpresaFormComponent implements OnInit {
         this.frmEmpresas.controls['ConvenioId'].setValue(l.data.convenioId);
         this.frmEmpresas.controls['Activo'].setValue(l.data.activo);
         this.frmEmpresas.controls['NombreDelAdministradorContraCaídas'].setValue(l.data.nombreDelAdministradorContraCaídas);
-        this.frmEmpresas.controls['EnfasisDecapacitacion'].setValue(l.data.enfasisDecapacitacion);
+        // this.frmEmpresas.controls['EnfasisDecapacitacion'].setValue(l.data.enfasisDecapacitacion);
         this.frmEmpresas.controls['ContraCaídas'].setValue(l.data.contraCaídas);
-        if(l.data.contraCaídas){
+        if (l.data.contraCaídas) {
           this.visibleInput = true;
         }
+        const enfasisDecapacitacionSeleccionados = l.data.enfasisDecapacitacion.split(', ');
+        const diasIds = enfasisDecapacitacionSeleccionados.map((nombre: string) => {
+          return this.ListEnfasisSectorial.find((d) => d.nombre === nombre)?.nombre;
+        });
+
+        this.frmEmpresas.get('EnfasisDecapacitacion')?.setValue(diasIds);
         this.frmEmpresas.controls['NombreRepresentante'].setValue(l.data.nombreRepresentante);
         this.frmEmpresas.controls['NumeroIndentificacion'].setValue(l.data.numeroIndentificacion);
-        
+
         //Consulto el archivo
         var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = this.id; data.nameForeignKey = 'TablaId';
         this.service.datatableKey('Archivo', data).subscribe((response) => {
@@ -126,40 +132,69 @@ export class EmpresaFormComponent implements OnInit {
       });
     }
   }
-
-  CargarEnum( parametro: string) {
+  CargarEnum(parametro: string) {
     this.helperService.getEnum(parametro, "description", "description").then((res) => {
-      if (parametro == 'ListEnfasisSectorial') {
+      if (parametro === 'ListEnfasisSectorial') {
+        // Transformar los datos al formato requerido por ng-select
         this.ListEnfasisSectorial = res;
       }
     });
-  
-}
-ModificData(newValue: boolean): void {
-  console.log('Nuevo estado del switch:', newValue);
-
-  // Actualiza el estado de visibleInput basado en el valor emitido
-  this.visibleInput = newValue;
-
-  if (newValue) {
-    const NombreDelAdministradorContraCaídas = this.frmEmpresas.get('NombreDelAdministradorContraCaídas');
-                        if (NombreDelAdministradorContraCaídas) {
-                            // Añadir Validators.required
-                            NombreDelAdministradorContraCaídas.setValidators([Validators.required]);
-                            // Actualizar el estado del control
-                            NombreDelAdministradorContraCaídas.updateValueAndValidity();}
-
-  const EnfasisDecapacitacion = this.frmEmpresas.get('EnfasisDecapacitacion');
-  if (EnfasisDecapacitacion) {
-      // Añadir Validators.required
-      EnfasisDecapacitacion.setValidators([Validators.required]);
-      // Actualizar el estado del control
-      EnfasisDecapacitacion.updateValueAndValidity();}
-    console.log('El switch está activado.');
-  } else {
-    console.log('El switch está desactivado.');
   }
-}
+
+
+  ModificData(newValue: boolean): void {
+    console.log('Nuevo estado del switch:', newValue);
+
+    // Actualiza el estado de visibleInput basado en el valor emitido
+    this.visibleInput = newValue;
+    
+    if (newValue) {
+      const NombreDelAdministradorContraCaídas = this.frmEmpresas.get('NombreDelAdministradorContraCaídas');
+      if (NombreDelAdministradorContraCaídas) {
+        // Añadir Validators.required
+        NombreDelAdministradorContraCaídas.setValidators([Validators.required]);
+        // Actualizar el estado del control
+        NombreDelAdministradorContraCaídas.updateValueAndValidity();
+      }
+
+
+      const EnfasisDecapacitacion = this.frmEmpresas.get('EnfasisDecapacitacion');
+      if (EnfasisDecapacitacion) {
+        // Añadir Validators.required
+        EnfasisDecapacitacion.setValidators([Validators.required]);
+        // Actualizar el estado del control
+        EnfasisDecapacitacion.updateValueAndValidity();
+      }
+    }
+    else {
+      const NombreDelAdministradorContraCaídas = this.frmEmpresas.get('NombreDelAdministradorContraCaídas');
+      if (NombreDelAdministradorContraCaídas) {
+        // Añadir Validators.required
+        NombreDelAdministradorContraCaídas.setValidators([]);
+        // Actualizar el estado del control
+        this.frmEmpresas.get('NombreDelAdministradorContraCaídas')?.setValue("");
+        NombreDelAdministradorContraCaídas.updateValueAndValidity();
+      }
+
+
+      const EnfasisDecapacitacion = this.frmEmpresas.get('EnfasisDecapacitacion');
+      if (EnfasisDecapacitacion) {
+        // Añadir Validators.required
+        EnfasisDecapacitacion.setValidators([]);
+        // Actualizar el estado del control
+        this.frmEmpresas.get('EnfasisDecapacitacion')?.setValue("");
+        EnfasisDecapacitacion.updateValueAndValidity();
+      }
+    }
+
+  }
+
+
+
+
+
+
+
   cargarCiudades() {
     this.service.getAll('Ciudad').subscribe((res) => {
       res.data.forEach((item: any) => {
@@ -198,6 +233,10 @@ ModificData(newValue: boolean): void {
       this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
       return;
     }
+
+
+
+
     this.helperService.showLoading();
     if (this.id != undefined && this.id != null) {
       var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = this.id; data.nameForeignKey = 'TablaId';
@@ -230,6 +269,13 @@ ModificData(newValue: boolean): void {
 
   guardarEmpresa(nuevo: boolean, imagen: boolean) {
     this.frmEmpresas.controls['Telefono'].setValue(this.frmEmpresas.controls['Telefono'].value.toString());
+
+    
+    if(this.frmEmpresas.get('ContraCaídas')?.value ==true){
+      const valores = this.frmEmpresas.get('EnfasisDecapacitacion')?.value.join(', ');
+      this.frmEmpresas.get('EnfasisDecapacitacion')?.setValue(valores);
+    }
+
     let data = {
       id: this.id ?? 0,
       ...this.frmEmpresas.value,
@@ -306,7 +352,7 @@ ModificData(newValue: boolean): void {
   fileEvent(event: any) {
     let archivo: any;
     let type = event.target.files[0].type.split('/')[1];
-    
+
     let { name } = event.target.files[0];
     if (type == 'png' || type == 'jpeg' || type == 'jpg') {
       var reader = new FileReader();

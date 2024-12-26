@@ -184,6 +184,7 @@ export class ClientesImportComponent implements OnInit {
                 { name: "Acudiente", value: element[22] },
                 { name: "Parentesco", value: element[23] },
                 { name: "TelefonoAcudiente", value: element[24] },
+                { name: "CountryBirth", value: element[24] },
             ];
 
             const emptyField = requiredFields.find(field => !field.value || field.value.toString().trim() === "");
@@ -215,12 +216,12 @@ export class ClientesImportComponent implements OnInit {
                     Rh: element[17],
                     Alergias: element[18],
                     Medicamentos: element[19],
-
                     Lesiones: element[20],
                     Enfermedades: element[21],
                     Acudiente: element[22],
                     Parentesco:element[23],
                     TelefonoAcudiente: element[21].toString(),
+                    CountryBirth: element[24],
                     Codigo: "",
                     TipoCliente: "EMPRESA",
                     ArlId: this.frmImportCliente.controls["ArlId"].value,

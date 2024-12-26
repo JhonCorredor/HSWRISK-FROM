@@ -83,11 +83,6 @@ export class CertificadosComponent implements OnInit {
                     className: 'text-center',
                 },
                 {
-                    title: 'DESCRIPCIÓN',
-                    data: 'descripcion',
-                    className: 'text-center',
-                },
-                {
                     title: 'FECHA DE EXPEDICIÓN',
                     data: 'fechaExpedicion',
                     className: 'text-center',
@@ -109,8 +104,8 @@ export class CertificadosComponent implements OnInit {
                     className: 'text-center',
                 },
                 {
-                    title: 'DURACIÓN',
-                    data: 'duracion',
+                    title: 'NIVEL',
+                    data: 'nivel',
                     className: 'text-center',
                 },
                 {
