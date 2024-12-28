@@ -233,18 +233,22 @@ export class InscripcionesComponent implements OnInit {
     cargarEmpresas() {
         this.service.getAll('Empresa').subscribe((res) => {
             res.data.forEach((item: any) => {
-                if (item.razonSocial == "INDEPENDIENTE") {
+
+                var textoMostrar= "";
+                if(item.razonSocial == "INDEPENDIENTE"){
+                    textoMostrar = `${item.razonSocial}`
+                }else{
+                    textoMostrar = `${item.nit} - ${item.razonSocial}`
+                }
                     this.listEmpresas.update(listEmpresas => {
                         const DataSelectDto: DataSelectDto = {
                             id: item.id,
-                            textoMostrar: `${item.nit} - ${item.razonSocial}`,
+                            textoMostrar: textoMostrar,
                             activo: item.activo
                         };
 
                         return [...listEmpresas, DataSelectDto];
                     });
-                };
-                this.frmInscripcion.controls["EmpresaId"].setValue(item.id);
             });
         });
     }

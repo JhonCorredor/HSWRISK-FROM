@@ -139,6 +139,7 @@ export class ClientesFormComponent implements OnInit {
 }
 
   save() {
+    debugger
     if (this.frmClientes.invalid) {
       this.statusForm = false;
       this.helperService.showMessage(MessageType.WARNING, Messages.EMPTYFIELD);
@@ -271,10 +272,19 @@ export class ClientesFormComponent implements OnInit {
   cargarEmpresas(nuevo: boolean) {
     this.service.getAll('Empresa').subscribe((res) => {
       res.data.forEach((item: any) => {
+
+        
+        var textoMostrar= "";
+        if(item.razonSocial == "INDEPENDIENTE"){
+            textoMostrar = `${item.razonSocial}`
+        }else{
+            textoMostrar = `${item.nit} - ${item.razonSocial}`
+        }
+
         this.listEmpresas.update(listEmpresas => {
           const DataSelectDto: DataSelectDto = {
             id: item.id,
-            textoMostrar: `${item.nit} - ${item.razonSocial}`,
+            textoMostrar: textoMostrar,
             activo: item.activo
           };
 
