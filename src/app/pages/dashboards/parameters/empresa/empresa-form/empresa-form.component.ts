@@ -313,6 +313,9 @@ export class EmpresaFormComponent implements OnInit {
         }
       },
       (error) => {
+     
+          // Si el status es falso o no hay datos, mostramos el mensaje de error
+     
         setTimeout(() => {
           this.helperService.hideLoading();
         }, 200);

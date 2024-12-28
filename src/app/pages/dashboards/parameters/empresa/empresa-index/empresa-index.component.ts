@@ -187,7 +187,15 @@ export class EmpresaIndexComponent implements OnInit {
             }
           });
         }
-      });
+      },(error)=>{
+         // Si el status es falso o no hay datos, mostramos el mensaje de error
+         this.helperService.showMessage(MessageType.ERROR, error.message || "Error desconocido.");
+         this.helperService.hideLoading();
+      }
+    
+    
+    
+    );
 
       this.service.delete('Empresa', id).subscribe(
         (response) => {
