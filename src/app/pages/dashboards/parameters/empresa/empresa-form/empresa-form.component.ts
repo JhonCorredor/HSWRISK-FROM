@@ -106,15 +106,24 @@ export class EmpresaFormComponent implements OnInit {
         this.frmEmpresas.controls['NombreDelAdministradorContraCaídas'].setValue(l.data.nombreDelAdministradorContraCaídas);
         // this.frmEmpresas.controls['EnfasisDecapacitacion'].setValue(l.data.enfasisDecapacitacion);
         this.frmEmpresas.controls['ContraCaídas'].setValue(l.data.contraCaídas);
+        
         if (l.data.contraCaídas) {
           this.visibleInput = true;
+          this.ModificData(true);
+        };
+        if (l.data.contraCaídas == false) {
+          this.visibleInput = false;
+          this.ModificData(false);
         }
-        const enfasisDecapacitacionSeleccionados = l.data.enfasisDecapacitacion.split(', ');
-        const diasIds = enfasisDecapacitacionSeleccionados.map((nombre: string) => {
-          return this.ListEnfasisSectorial.find((d) => d.nombre === nombre)?.nombre;
-        });
-
+        if(l.data.contraCaídas){
+            const enfasisDecapacitacionSeleccionados = l.data.enfasisDecapacitacion.split(', ');
+          const diasIds = enfasisDecapacitacionSeleccionados.map((nombre: string) => {
+            return this.ListEnfasisSectorial.find((d) => d.nombre === nombre)?.nombre;
+          });
         this.frmEmpresas.get('EnfasisDecapacitacion')?.setValue(diasIds);
+        }
+        
+
         this.frmEmpresas.controls['NombreRepresentante'].setValue(l.data.nombreRepresentante);
         this.frmEmpresas.controls['NumeroIndentificacion'].setValue(l.data.numeroIndentificacion);
 

@@ -334,12 +334,14 @@
                     <div class="row">
                         <div class="col-sm-3 col-md-3 col-lg-3">
                             <label>Nombre *</label>
-                            <ng-select [items]="listCursos()" bindLabel="textoMostrar" bindValue="id"
+                             <ng-select [items]="listCursos()" bindLabel="textoMostrar" bindValue="id"
                                 formControlName="CursoId" (change)="onChangeCurso($event)">
                             </ng-select>
+                           
                             <app-forms-messages [error]="frmInscripcion.get('CursoId')"
                                 [statusForm]="statusForm"></app-forms-messages>
                         </div>
+                        
                         <div class="col-sm-5 col-md-5 col-lg-5" *ngIf="curso">
                             <label>Detalle del Curso *</label>
                             <ng-select [items]="listCursosDetalles()" bindLabel="textoMostrar" bindValue="id"

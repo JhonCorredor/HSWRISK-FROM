@@ -163,7 +163,7 @@ export class IncripcionesFormComponent implements OnInit {
                 this.listCursosDetalles.update((listCursosDetalles) => {
                     const DataSelectDto: DataSelectDto = {
                         id: item.id,
-                        textoMostrar: `${item.curso} - ${item.salon} - ${item.nivel} - ${item.jornada}`,
+                        textoMostrar: `${item.curso} - ${item.salon} - ${item.nivel} - ${item.jornada} - Fecha Inicio: ${this.helperService.convertDateUTCToDMA(item.fechaInicio)} `,
                         activo: item.activo,
                     };
 
