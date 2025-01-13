@@ -139,6 +139,19 @@ export class InscripcionesIndexComponent implements OnInit {
                     className: 'text-center',
                 },
                 {
+                    title: 'INSTRUCTOR',
+                    data: 'instructor',
+                    className: 'text-center',
+                },
+                {
+                    title: 'FECHA DE INICIO',
+                    data: 'fechaInicio',
+                    className: 'text-center',
+                    render: (item: any) => {
+                        return this.helperService.convertDateUTCToDMA(item);
+                    },
+                },
+                {
                     title: 'PAGO&nbsp;&nbsp;<input class="form-check-input btn-dropdown-pago-all" type="checkbox">',
                     data: 'id',
                     className: 'text-center',

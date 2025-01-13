@@ -1,3 +1,27 @@
+::ng-deep .ng-select .ng-select-container {
+    height: auto !important;
+    min-height: 36px;
+  }
+  
+  ::ng-deep .ng-select .ng-option {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    padding: 8px 10px !important;
+    line-height: 1.4 !important;
+  }
+  
+  ::ng-deep .ng-select .ng-value-container {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    padding: 8px 10px !important;
+  }
+  
+  ::ng-deep .ng-select .ng-value {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+  }
+
+
 .file-upload {
     background-color: #ffffff;
     width: 600px;
@@ -83,25 +107,3 @@
     padding: 20px;
 }
 
-::ng-deep .ng-select .ng-select-container {
-    height: auto !important;
-    min-height: 36px;
-  }
-  
-  ::ng-deep .ng-select .ng-option {
-    white-space: normal !important;
-    word-wrap: break-word !important;
-    padding: 8px 10px !important;
-    line-height: 1.4 !important;
-  }
-  
-  ::ng-deep .ng-select .ng-value-container {
-    white-space: normal !important;
-    word-wrap: break-word !important;
-    padding: 8px 10px !important;
-  }
-  
-  ::ng-deep .ng-select .ng-value {
-    white-space: normal !important;
-    word-wrap: break-word !important;
-  }

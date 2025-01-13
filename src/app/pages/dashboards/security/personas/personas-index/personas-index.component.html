@@ -32,8 +32,7 @@
                         <td>{{ item.direccion }}</td>
                         <td>{{ item.telefono }}</td>
                         <td>{{ item.email }}</td>
-                        <td *ngIf="item.genero == 1; else elseBlockG">M</td>
-                        <ng-template #elseBlockG><td>F</td></ng-template>
+                        <td>{{ item.genero }}</td>
                         <td>{{ item.dateBirth | date: 'dd/MM/yyyy' }}</td>
                         <td>{{ item.countryBirth }}</td>
                         <td *ngIf="item.activo; else elseBlock"><label class='text-center text-success'>Activo</label></td>

@@ -31,6 +31,7 @@ export class ClientesImportComponent implements OnInit {
     listCursos = signal<DataSelectDto[]>([]);
     curso = false;
     excelStartDate = new Date('1899-12-30');
+    ListSectorEducative: any[] = [];
 
     constructor(
         public routerActive: ActivatedRoute,
@@ -44,6 +45,7 @@ export class ClientesImportComponent implements OnInit {
             CiudadId: new FormControl(null, Validators.required),
             ArlId: new FormControl(null, Validators.required),
             CursoDetalleId: new FormControl(null, [Validators.required]),
+            SectorEducative :new FormControl(null, [Validators.required]),
             UsuarioRegistro: new FormControl("", [Validators.required]),
         });
     }
@@ -56,6 +58,7 @@ export class ClientesImportComponent implements OnInit {
         this.cargarCursos();
         this.cargarUsuario();
         this.validarEmpleado();
+        this.CargarEnum('ListSectorEducative');
     }
 
     cargarArl() {
@@ -148,10 +151,10 @@ export class ClientesImportComponent implements OnInit {
     }
 
     readFile(data: any) {
-        console.log(data);
+        // console.log(data);
         for (let i = 1; i < data.length; i++) {
-         
             var element = data[i];
+            
             if (element.length > 1) {
                 var genero = "Masculino";
                 if (element[9] == "F") {
@@ -206,22 +209,23 @@ export class ClientesImportComponent implements OnInit {
                     Email: element[7],
                     Telefono: element[8].toString(),
                     Genero: genero,
-                    DateBirth: new Date(this.excelStartDate.getTime() + (element[10] - 1) * 24 * 60 * 60 * 1000),
+                    DateBirth:  this.excelDateToJSDateTime(element[10]),             
                     LevelReadings:element[11],
                     LectoEscritura:element[12],
                     NivelEducativo: element[13],
                     AreaTrabajo: element[14],
                     CargoActual: element[15],
-                    SectorEducatives: element[16],
-                    Rh: element[17],
-                    Alergias: element[18],
-                    Medicamentos: element[19],
-                    Lesiones: element[20],
-                    Enfermedades: element[21],
-                    Acudiente: element[22],
-                    Parentesco:element[23],
-                    TelefonoAcudiente: element[21].toString(),
+                    Rh: element[16],
+                    
+                    Alergias: element[17],
+                    Medicamentos: element[18],
+                    Lesiones: element[19],
+                    Enfermedades: element[20],
+                    Acudiente: element[21],
+                    Parentesco:element[22],
+                    TelefonoAcudiente: element[23].toString(),
                     CountryBirth: element[24],
+                    SectorEducatives: this.frmImportCliente.controls["SectorEducative"].value,
                     Codigo: "",
                     TipoCliente: "EMPRESA",
                     ArlId: this.frmImportCliente.controls["ArlId"].value,
@@ -234,6 +238,19 @@ export class ClientesImportComponent implements OnInit {
                 this.clientes.push(cliente);
             }
         }
+    }
+
+    convertToDate(dateString: string): Date {
+        const [day, month, year] = dateString.split('/');
+        return new Date(Number(year), Number(month) - 1, Number(day)); // Meses en JavaScript son 0-indexados
+      }
+
+       excelDateToJSDateTime(excelDate: number): Date {
+        const excelBaseDate = new Date(1900, 0, 1); // Base: 1 de enero de 1900
+        const jsDate = new Date(excelBaseDate.getTime() + (excelDate - 2) * 24 * 60 * 60 * 1000);
+        return jsDate; // Devuelve un objeto Date en formato DateTime
+    
+    
     }
 
     upload() {
@@ -303,6 +320,18 @@ export class ClientesImportComponent implements OnInit {
             })
         }
     }
+
+
+    CargarEnum( parametro: string) {
+        this.helperService.getEnum(parametro, "description", "description").then((res) => {
+         
+            this.ListSectorEducative = res;
+          
+         
+        });
+      
+    }
+
 
     cargarUsuario() {
         var personaId = localStorage.getItem("persona_Id");

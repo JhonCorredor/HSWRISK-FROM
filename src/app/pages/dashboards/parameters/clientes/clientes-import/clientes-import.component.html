@@ -23,6 +23,14 @@
                             [statusForm]=statusForm></app-forms-messages>
                     </div>
                     <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label>Sector Económico *</label>
+                        <ng-select [items]="ListSectorEducative"  bindLabel="nombre" bindValue="nombre"
+                            formControlName="SectorEducative">
+                        </ng-select>
+                        <app-forms-messages [error]="frmImportCliente.get('SectorEducative')" [statusForm]="statusForm"
+                            [statusForm]="statusForm"></app-forms-messages>
+                    </div>  
+                    <div class="col-sm-3 col-md-3 col-lg-3">
                         <button type="button" class="btn btn-outline-secondary mt-4" (click)="downloadFile()"><i
                                 class="fa-duotone fa-file-arrow-down"></i> Descargar Plantilla</button>
                     </div>
@@ -36,6 +44,7 @@
                         <app-forms-messages [error]="frmImportCliente.get('ArlId')"
                             [statusForm]=statusForm></app-forms-messages>
                     </div>
+                    
                     <div class="col-sm-3 col-md-3 col-lg-3">
                         <label>Curso</label>
                         <ng-select [items]="listCursos()" bindLabel="textoMostrar" bindValue="id"
