@@ -12,6 +12,9 @@ import { DataSelectDto } from 'src/app/generic/dataSelectDto';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClientesImportComponent } from '../../../parameters/clientes/clientes-import/clientes-import.component';
 import Swal from 'sweetalert2';
+import { ReportExelComponent } from '../../../Additional/ReportExel/report-exel/report-exel.component';
+import { values } from 'lodash';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-inscripciones-index',
@@ -33,9 +36,14 @@ export class InscripcionesIndexComponent implements OnInit {
     frmInscripciones: FormGroup;
     statusForm: boolean = true;
 
+     rol = localStorage.getItem("rol");
+     userIdStr = localStorage.getItem("userId");
+     userId = this.userIdStr ? parseInt(this.userIdStr) : 0;  
+
     constructor(
         private service: GeneralParameterService,
         public helperService: HelperService,
+        public router: Router,
         private modalService: NgbModal,
         private datePipe: DatePipe
     ) {
@@ -70,7 +78,7 @@ export class InscripcionesIndexComponent implements OnInit {
     validarEmpleado() {
         this.helperService.showLoading();
         var usuarioId = localStorage.getItem("userId");
-        var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = Number(usuarioId); data.nameForeignKey = "UsuarioId";
+        var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = Number(usuarioId); data.nameForeignKey = "UsuarioId";data.fechaFin = ""; data.fechaInicio= "";data.extra= "";
         this.service.datatableKey("UsuarioRol", data).subscribe((res: any) => {
             if (res.status) {
                 res.data.forEach((element: any) => {
@@ -79,6 +87,11 @@ export class InscripcionesIndexComponent implements OnInit {
                         if (roles.data.codigo == "INSTRUCTOR") {
                             //Cambiar consulta a la de instructores
                             data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.fechaInicio = ''; data.fechaFin = ''; data.foreignKey = ""; data.nameForeignKey = "";
+                            data.nameForeignKey ="EmpleadoId";
+                            data.foreignKey = this.userId;
+                            data.fechaFin = '';
+                            data.fechaInicio = '';
+
                             this.cargarListaInstructores(data);
                         } else {
                             this.helperService.hideLoading();
@@ -102,14 +115,40 @@ export class InscripcionesIndexComponent implements OnInit {
             ajax: (dataTablesParameters: any, callback: any) => {
                 var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = '';
                
-                this.service.datatable('Inscripcion', data).subscribe((res) => {
-                    callback({
-                        recordsTotal: res.data.length,
-                        recordsFiltered: res.data.length,
-                        draw: dataTablesParameters.draw,
-                        data: res.data,
+                
+                
+
+                if (rol == "INSTRUCTOR") {
+
+                    data.nameForeignKey ="EmpleadoId";
+                    data.foreignKey = this.userId;
+                    data.fechaFin = '';
+                    data.fechaInicio = '';
+
+    
+                    this.service.dataTableInstructor('Inscripcion', data).subscribe((res) => {
+                        callback({
+                            recordsTotal: res.data.length,
+                            recordsFiltered: res.data.length,
+                            draw: dataTablesParameters.draw,
+                            data: res.data,
+                        });
                     });
-                });
+                  
+                }else{
+                    this.service.datatable('Inscripcion', data).subscribe((res) => {
+                        callback({
+                            recordsTotal: res.data.length,
+                            recordsFiltered: res.data.length,
+                            draw: dataTablesParameters.draw,
+                            data: res.data,
+                        });
+                    });
+                }
+
+
+               
+
             },
             columns: [
                 {
@@ -127,6 +166,11 @@ export class InscripcionesIndexComponent implements OnInit {
                     className: 'text-center',
                 },
                 {
+                    title: 'INSTRUCTOR',
+                    data: 'instructor',
+                    className: 'text-center',
+                },  
+                {
                     title: 'CLIENTE',
                     data: 'cliente',
                     className: 'text-center',
@@ -140,12 +184,18 @@ export class InscripcionesIndexComponent implements OnInit {
                     title: 'DETALLE DEL CURSO',
                     data: 'cursoDetalle',
                     className: 'text-center',
+                    render: function (id: any, type: any, row: any, meta: any) {
+                        // Combina cursoId y cursoDetalleId en una cadena separada por "|"
+                        return ` ${row.cursoDetalle}
+                        
+                        <button class="btn btn-sm text-secondary btn-details" 
+                                type="button" 
+                                data-id="${row.cursoId}|${row.cursoDetalleId}">
+                            <i class="fa-duotone fa-eye"></i> Ver Detalles
+                        </button>`;
+                    }
                 },
-                {
-                    title: 'INSTRUCTOR',
-                    data: 'instructor',
-                    className: 'text-center',
-                },   
+                 
                 {
                     title: 'FECHA DE INICIO',
                     data: 'fechaInicio',
@@ -205,16 +255,25 @@ export class InscripcionesIndexComponent implements OnInit {
                 },
             ],
             drawCallback: () => {
-              
+                var rol = localStorage.getItem("rol"); // Obtiene el rol del usuario
+
                     $('.btn-dropdown-pago')
                     .off()
                     .on('change', (event: any) => {
-                        this.validarPago(event.currentTarget.dataset.id);
+                        var rol = localStorage.getItem("rol"); // Obtiene el rol del usuario
+                        if (rol != "INSTRUCTOR") {
+                            
+                            this.validarPago(event.currentTarget.dataset.id);
+                        } 
                     });
+
                     $('.btn-dropdown-pago-all')
                         .off()
                         .on('change', (event: any) => {
-                         this.validarPagoAll();
+                            if (rol != "INSTRUCTOR") {
+                                this.validarPagoAll();
+                            } 
+                         
                     });
 
                     
@@ -246,8 +305,27 @@ export class InscripcionesIndexComponent implements OnInit {
                         var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = event.currentTarget.dataset.id; data.nameForeignKey = "InscripcionId"; data.fechaInicio = "", data.fechaFin = "";
                         this.openInNewTab(data);
                     });
+                    $('.btn-details')
+                    .off()
+                    .on('click', (event: any) => {
+                        // Obtiene el valor de data-id y lo divide en cursoId y cursoDetalleId
+                        const data = event.currentTarget.dataset.id.split('|');
+                        const cursoId = data[0];          // Primer parámetro
+                        const cursoDetalleId = data[1];  // Segundo parámetro
+                
+                        // Llama a la función con los parámetros
+                        this.viewDetails(cursoId, cursoDetalleId);
+                    });   
             },
         };
+    }
+
+    viewDetails(id: number, detailsId: number) {
+        this.router.navigate([`dashboard/operativo/cursos/editar/${id}`], {
+            state: {
+                detalleId: detailsId, // Pasando el valor correctamente
+            },
+        });
     }
 
     updateEstado(id: any, estado: string) {
@@ -286,6 +364,10 @@ export class InscripcionesIndexComponent implements OnInit {
                                     var rol = localStorage.getItem("rol");
                                     if (rol == "INSTRUCTOR") {
                                         var data = new DatatableParameter; data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.fechaInicio = ''; data.fechaFin = ''; data.foreignKey = ""; data.nameForeignKey = "";
+                                        data.nameForeignKey ="EmpleadoId";
+                                            data.foreignKey = this.userId;
+                                            data.fechaFin = '';
+                                            data.fechaInicio = '';
                                         this.cargarListaInstructores(data);
                                     } else {
                                         this.refrescarTabla();
@@ -309,6 +391,7 @@ export class InscripcionesIndexComponent implements OnInit {
                 $(".form-check-input").prop("checked", false);
             }
         });
+    
     }
 
     validarPagoAll() {
@@ -428,49 +511,14 @@ export class InscripcionesIndexComponent implements OnInit {
     }
 
     Report() {
-        this.helperService.showLoading();
-        this.service.generarReport().subscribe(
-            (certificado: any) => {
-                if (certificado && certificado.data ) {
-                    const base64String = certificado.data;
-                    const binaryString = window.atob(base64String);
-                    const binaryLen = binaryString.length;
-                    const bytes = new Uint8Array(binaryLen);
-    
-                    for (let i = 0; i < binaryLen; i++) {
-                        bytes[i] = binaryString.charCodeAt(i);
-                    }
-    
-                    const blob = new Blob([bytes], { type: `application/exel` });
-                    const url = window.URL.createObjectURL(blob);
-    
-                    // Crear un enlace dinámico para descargar el archivo
-                    const a = document.createElement('a');
-                    a.style.display = 'none';
-                    a.href = url;
-                    a.download = `Report.${certificado.data.extension || 'xlsx'}`; // Nombre dinámico
-    
-                    document.body.appendChild(a);
-                    a.click();
-    
-                    // Limpiar recursos
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                
-    
-                    this.helperService.hideLoading();
-                } else {
-                    this.helperService.hideLoading();
-                    throw new Error('Datos del certificado no válidos.');
-                }
-            },
-            (error) => {
-                // Manejar errores de la API o datos faltantes
-                const errorMessage = error?.message || "Error desconocido al generar el reporte.";
-                this.helperService.showMessage(MessageType.ERROR, errorMessage);
-                this.helperService.hideLoading();
+        let modal = this.modalService.open(ReportExelComponent, { size: 'lg', keyboard: false, backdrop: true, centered: true });
+        modal.result.then(res => {
+            if (res) {
+                this.refrescarTabla();
             }
-        );
+        })
+
+        
     }
     
 
@@ -634,6 +682,8 @@ export class InscripcionesIndexComponent implements OnInit {
         })
     }
 
+
+
     cargarCursos() {
         this.service.getAll('Curso').subscribe((res) => {
             res.data.forEach((item: any) => {
@@ -694,7 +744,7 @@ export class InscripcionesIndexComponent implements OnInit {
         }
 
         this.helperService.showLoading();
-        this.cargarListaFilter();
+        //this.cargarListaFilter();
     }
 
     cargarListaFilter() {
@@ -709,7 +759,11 @@ export class InscripcionesIndexComponent implements OnInit {
             // Actualiza los datos de la tabla
             var rol = localStorage.getItem("rol");
             if (rol == "INSTRUCTOR") {
-                this.cargarListaInstructores(data);
+                data.nameForeignKey ="EmpleadoId";
+                data.foreignKey = this.userId;
+                data.fechaFin = '';
+                data.fechaInicio = '';
+               this.cargarListaInstructores(data);
             } else {
                 this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
                     dtInstance.clear().rows.add(res.data).draw();
@@ -735,7 +789,7 @@ export class InscripcionesIndexComponent implements OnInit {
             // Actualiza los datos de la tabla
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
                 dtInstance.clear().rows.add(res.data).draw();
-                dtInstance.column(5).visible(false);
+                dtInstance.column(6).visible(false);
             });
 
             setTimeout(() => {

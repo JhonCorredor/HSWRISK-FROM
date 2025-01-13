@@ -33,7 +33,10 @@ export class GeneralParameterService {
   }
 
   public datatableKey(ruta: String, data: DatatableParameter): Observable<any> {
-    return this.http.get<any>(`${this.url}${ruta}/datatable?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}&FechaInicio=${data.fechaInicio}&FechaFin=${data.fechaFin}`, { headers: this.header });
+    if(data.extra == null || data.extra ==""){
+      data.extra = "";
+    }
+    return this.http.get<any>(`${this.url}${ruta}/datatable?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}&FechaInicio=${data.fechaInicio}&FechaFin=${data.fechaFin}&Extra=${data.extra} `, { headers: this.header });
   }
 
   public dataTableAbierto(ruta: String, data: DatatableParameter): Observable<any> {
@@ -79,8 +82,8 @@ export class GeneralParameterService {
     return this.http.post<any>(`${this.url}${ruta}/generarCertificado/${id}`, { headers: this.header });
   }
   
-  public generarReport(): Observable<any> {
-    return this.http.post<any>(`${this.url}Certificado/generateReport`, { headers: this.header });
+  public generarReport(data:any): Observable<any> {
+    return this.http.post<any>(`${this.url}Certificado/generateReport`,data, { headers: this.header });
   }
   
 

@@ -19,6 +19,7 @@ export class CursosDetallesComponent implements OnInit {
     @Input() CursoId: any = null;
     frmCursoDetalles: FormGroup;
     statusForm: boolean = true;
+    @Input() DetailsViewId : any = null;
     listEmpleados = signal<DataSelectDto[]>([]);
     listSalones = signal<DataSelectDto[]>([]);
     listNiveles = signal<DataSelectDto[]>([]);
@@ -49,6 +50,14 @@ export class CursosDetallesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+   
+        if(this.DetailsViewId >0){
+            const index = this.botones.indexOf('btn-guardar');
+            if (index !== -1) {
+                this.botones.splice(index, 1);
+            }
+        }
+
         this.cargarLista();
         this.cargarSelect();
     }
@@ -192,6 +201,12 @@ export class CursosDetallesComponent implements OnInit {
 
     getData(): Promise<any> {
         var data = new DatatableParameter(); data.pageNumber = ""; data.pageSize = ""; data.filter = ""; data.columnOrder = ""; data.directionOrder = ""; data.foreignKey = this.CursoId; data.nameForeignKey = "CursoId";
+       
+        if(this.DetailsViewId !=null){
+            data.extra = this.DetailsViewId;
+            data.foreignKey = "";
+            data.nameForeignKey = "";
+        }
         return new Promise((resolve, reject) => {
             this.service.datatableKey("CursoDetalle", data).subscribe(
                 (datos) => {

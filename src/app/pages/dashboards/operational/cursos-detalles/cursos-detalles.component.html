@@ -92,7 +92,7 @@
                             <th class="text-center">SALON</th>
                             <th class="text-center">NIVEL</th>
                             <th class="text-center">JORNADA</th>
-                            <th class="text-center">ACCIONES</th>
+                            <th class="text-center" *ngIf="DetailsViewId == 0">ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,7 +111,7 @@
                             <td>{{ item.salon }}</td>
                             <td>{{ item.nivel }}</td>
                             <td>{{ item.jornada }}</td>
-                            <td>
+                            <td *ngIf="DetailsViewId == 0">
                                 <button class="btn btn-sm text-secondary" type="button" (click)="update(item)"><i
                                         class="fa-duotone fa-pen-to-square"></i> Editar</button>
                                 <button class="btn btn-sm text-secondary" type="button"

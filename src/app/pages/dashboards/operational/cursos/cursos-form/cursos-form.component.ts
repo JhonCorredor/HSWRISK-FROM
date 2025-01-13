@@ -21,6 +21,8 @@ export class CursosFormComponent implements OnInit {
     botones = ['btn-guardar', 'btn-cancelar'];
     title = "";
     breadcrumb = [{ name: `Inicio`, icon: `fa-duotone fa-house` }, { name: 'Operativo', icon: 'fa-duotone fa-shop' }, { name: 'Curso', icon: "fa-duotone fa-person-chalkboard" }, { name: 'Crear', icon: "fa-duotone fa-octagon-plus" }];
+    viewDetails = false;
+    detailsView= 0;
 
     constructor(
         public routerActive: ActivatedRoute,
@@ -39,6 +41,19 @@ export class CursosFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        const state = history.state;
+        if(state.detalleId >0){
+            this.viewDetails = true;
+            this.detailsView =state.detalleId;
+
+            const index = this.botones.indexOf('btn-guardar');
+            if (index !== -1) {
+                this.botones.splice(index, 1);
+            }
+        }
+
+
+
         if (this.id != undefined && this.id != null) {
             this.title = `Editar Curso`;
             this.breadcrumb = [{ name: `Inicio`, icon: `fa-duotone fa-house` }, { name: 'Operativo', icon: 'fa-duotone fa-shop' }, { name: 'Curso', icon: "fa-duotone fa-person-chalkboard" }, { name: 'Editar', icon: "fa-duotone fa-pen-to-square" }];
@@ -90,7 +105,12 @@ export class CursosFormComponent implements OnInit {
     }
 
     cancel() {
-        this.helperService.redirectApp('dashboard/operativo/cursos');
+        if(this.detailsView >0){
+            this.helperService.redirectApp('dashboard/operativo/inscripciones');
+        }else{
+            this.helperService.redirectApp('dashboard/operativo/cursos');
+        }
+     
     }
 }
 
