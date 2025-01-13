@@ -90,6 +90,7 @@ export class InscripcionesIndexComponent implements OnInit {
     }
 
     cargarLista() {
+        var rol = localStorage.getItem("rol");
         this.dtOptions = {
             dom: 'Blfrtip',
             processing: true,
@@ -100,6 +101,7 @@ export class InscripcionesIndexComponent implements OnInit {
             language: LANGUAGE_DATATABLE,
             ajax: (dataTablesParameters: any, callback: any) => {
                 var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = '';
+               
                 this.service.datatable('Inscripcion', data).subscribe((res) => {
                     callback({
                         recordsTotal: res.data.length,
@@ -118,6 +120,7 @@ export class InscripcionesIndexComponent implements OnInit {
                         return this.helperService.convertDateTime(item);
                     },
                 },
+             
                 {
                     title: 'CÓDIGO',
                     data: 'codigo',
@@ -142,7 +145,7 @@ export class InscripcionesIndexComponent implements OnInit {
                     title: 'INSTRUCTOR',
                     data: 'instructor',
                     className: 'text-center',
-                },
+                },   
                 {
                     title: 'FECHA DE INICIO',
                     data: 'fechaInicio',
@@ -202,16 +205,20 @@ export class InscripcionesIndexComponent implements OnInit {
                 },
             ],
             drawCallback: () => {
-                $('.btn-dropdown-pago')
+              
+                    $('.btn-dropdown-pago')
                     .off()
                     .on('change', (event: any) => {
                         this.validarPago(event.currentTarget.dataset.id);
                     });
-                $('.btn-dropdown-pago-all')
-                    .off()
-                    .on('change', (event: any) => {
-                        this.validarPagoAll();
+                    $('.btn-dropdown-pago-all')
+                        .off()
+                        .on('change', (event: any) => {
+                         this.validarPagoAll();
                     });
+
+                    
+               
                 $('.check-curso')
                     .off()
                     .on('change', (event: any) => {

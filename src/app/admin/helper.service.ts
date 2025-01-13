@@ -213,9 +213,19 @@ export class HelperService {
             this._spinner.hide();
         }, 500);
     }
-
-    convertDateUTCToDMA(date: any) {
-        let dateSplit = date.split('T')[0].split('-');
+    convertDateUTCToDMA(date: any): string {
+        if (!date || typeof date !== 'string') {
+            // Manejar caso donde el dato no sea válido
+            return 'Fecha no disponible';
+        }
+    
+        // Validar el formato esperado antes de dividir
+        if (!date.includes('T')) {
+            return 'Formato incorrecto';
+        }
+    
+        // Procesar la fecha si todo está correcto
+        const dateSplit = date.split('T')[0].split('-');
         return `${dateSplit[2]}/${dateSplit[1]}/${dateSplit[0]}`;
     }
 

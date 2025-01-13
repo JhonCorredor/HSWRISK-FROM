@@ -240,7 +240,7 @@ export class ClientesImportComponent implements OnInit {
         }
     }
 
-    convertToDate(dateString: string): Date {
+        convertToDate(dateString: string): Date {
         const [day, month, year] = dateString.split('/');
         return new Date(Number(year), Number(month) - 1, Number(day)); // Meses en JavaScript son 0-indexados
       }
@@ -249,9 +249,7 @@ export class ClientesImportComponent implements OnInit {
         const excelBaseDate = new Date(1900, 0, 1); // Base: 1 de enero de 1900
         const jsDate = new Date(excelBaseDate.getTime() + (excelDate - 2) * 24 * 60 * 60 * 1000);
         return jsDate; // Devuelve un objeto Date en formato DateTime
-    
-    
-    }
+        }
 
     upload() {
         if (this.frmImportCliente.invalid) {
