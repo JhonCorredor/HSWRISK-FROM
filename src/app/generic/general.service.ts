@@ -36,6 +36,7 @@ export class GeneralParameterService {
     if(data.extra == null || data.extra ==""){
       data.extra = "";
     }
+   
     return this.http.get<any>(`${this.url}${ruta}/datatable?PageSize=${data.pageSize}&PageNumber=${data.pageNumber}&Filter=${data.filter}&ColumnOrder=${data.columnOrder}&DirectionOrder=${data.directionOrder}&ForeignKey=${data.foreignKey}&NameForeignKey=${data.nameForeignKey}&FechaInicio=${data.fechaInicio}&FechaFin=${data.fechaFin}&Extra=${data.extra} `, { headers: this.header });
   }
 

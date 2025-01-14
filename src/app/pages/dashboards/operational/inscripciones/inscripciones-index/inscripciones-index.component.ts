@@ -13,7 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClientesImportComponent } from '../../../parameters/clientes/clientes-import/clientes-import.component';
 import Swal from 'sweetalert2';
 import { ReportExelComponent } from '../../../Additional/ReportExel/report-exel/report-exel.component';
-import { values } from 'lodash';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -63,8 +63,14 @@ export class InscripcionesIndexComponent implements OnInit {
 
     ngOnInit(): void {
         this.cargarCursos();
-        this.cargarLista();
-        this.validarEmpleado();
+        this.cargarLista(false);
+        this.validarEmpleado().then((value: boolean)=>{
+            if(!value){
+                this.cargarListaAdmin();
+            }         
+        })
+        
+        
     }
 
     ngAfterViewInit() {
@@ -75,34 +81,43 @@ export class InscripcionesIndexComponent implements OnInit {
         this.dtTrigger.unsubscribe();
     }
 
-    validarEmpleado() {
-        this.helperService.showLoading();
-        var usuarioId = localStorage.getItem("userId");
-        var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = Number(usuarioId); data.nameForeignKey = "UsuarioId";data.fechaFin = ""; data.fechaInicio= "";data.extra= "";
-        this.service.datatableKey("UsuarioRol", data).subscribe((res: any) => {
-            if (res.status) {
-                res.data.forEach((element: any) => {
-                    this.service.getById("Rol", element.rolId).subscribe((roles: any) => {
-                        localStorage.setItem("rol", roles.data.codigo);
-                        if (roles.data.codigo == "INSTRUCTOR") {
-                            //Cambiar consulta a la de instructores
-                            data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.fechaInicio = ''; data.fechaFin = ''; data.foreignKey = ""; data.nameForeignKey = "";
-                            data.nameForeignKey ="EmpleadoId";
-                            data.foreignKey = this.userId;
-                            data.fechaFin = '';
-                            data.fechaInicio = '';
-
-                            this.cargarListaInstructores(data);
-                        } else {
-                            this.helperService.hideLoading();
-                        }
+    validarEmpleado():Promise<boolean> {
+        return new Promise((resolve,reject)=>{
+            this.helperService.showLoading();
+            var usuarioId = localStorage.getItem("userId");
+            var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = Number(usuarioId); data.nameForeignKey = "UsuarioId";data.fechaFin = ""; data.fechaInicio= "";data.extra= "";
+            this.service.datatableKey("UsuarioRol", data).subscribe((res: any) => {
+                if (res.status) {
+                    res.data.forEach((element: any) => {
+                        this.service.getById("Rol", element.rolId).subscribe((roles: any) => {
+                            localStorage.setItem("rol", roles.data.codigo);
+                            if (roles.data.codigo == "INSTRUCTOR") {
+                                //Cambiar consulta a la de instructores
+                                data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.fechaInicio = ''; data.fechaFin = ''; data.foreignKey = ""; data.nameForeignKey = "";
+                                data.nameForeignKey ="EmpleadoId";
+                                data.foreignKey = this.userId;
+                                data.fechaFin = '';
+                                data.fechaInicio = '';
+                                resolve(true);
+                                this.cargarListaInstructores(data);
+                            } else {
+                                data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.fechaInicio = ''; data.fechaFin = ''; data.foreignKey = ""; data.nameForeignKey = "";
+                                data.nameForeignKey ="";
+                                data.foreignKey = "";
+                                data.fechaFin = '';
+                                data.fechaInicio = '';
+                                resolve(false);
+                                this.helperService.hideLoading();
+                            }
+                        });
                     });
-                });
-            }
-        });
+                }
+            });
+        })
+       
     }
 
-    cargarLista() {
+    cargarLista(dataQuery?:any, start?:boolean) {
         var rol = localStorage.getItem("rol");
         this.dtOptions = {
             dom: 'Blfrtip',
@@ -113,42 +128,39 @@ export class InscripcionesIndexComponent implements OnInit {
             order: [0, 'desc'],
             language: LANGUAGE_DATATABLE,
             ajax: (dataTablesParameters: any, callback: any) => {
-                var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = '';
-               
-                
-                
-
-                if (rol == "INSTRUCTOR") {
-
-                    data.nameForeignKey ="EmpleadoId";
-                    data.foreignKey = this.userId;
-                    data.fechaFin = '';
-                    data.fechaInicio = '';
-
-    
-                    this.service.dataTableInstructor('Inscripcion', data).subscribe((res) => {
-                        callback({
-                            recordsTotal: res.data.length,
-                            recordsFiltered: res.data.length,
-                            draw: dataTablesParameters.draw,
-                            data: res.data,
-                        });
-                    });
-                  
-                }else{
-                    this.service.datatable('Inscripcion', data).subscribe((res) => {
-                        callback({
-                            recordsTotal: res.data.length,
-                            recordsFiltered: res.data.length,
-                            draw: dataTablesParameters.draw,
-                            data: res.data,
-                        });
-                    });
-                }
-
-
-               
-
+                // var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = '';
+                // if(start){
+                //     debugger
+                //     if (dataQuery.foreignKey != null || dataQuery.nameForeignKey != null) {
+                    
+                //         data.nameForeignKey ="EmpleadoId";
+                //         data.foreignKey = this.userId;
+                //         data.fechaFin = '';
+                //         data.fechaInicio = '';
+        
+        
+                //         this.service.dataTableInstructor('Inscripcion', data).subscribe((res) => {
+                //             callback({
+                //                 recordsTotal: res.data.length,
+                //                 recordsFiltered: res.data.length,
+                //                 draw: dataTablesParameters.draw,
+                //                 data: res.data,
+                //             });
+                //             this.helperService.hideLoading();
+                //         });
+                      
+                //     }else{
+                //         this.service.datatable('Inscripcion', data).subscribe((res) => {
+                //             callback({
+                //                 recordsTotal: res.data.length,
+                //                 recordsFiltered: res.data.length,
+                //                 draw: dataTablesParameters.draw,
+                //                 data: res.data,
+                //             });
+                //             this.helperService.hideLoading();
+                //         });
+                //     }     
+                // }
             },
             columns: [
                 {
@@ -785,6 +797,21 @@ export class InscripcionesIndexComponent implements OnInit {
 
     cargarListaInstructores(data: DatatableParameter) {
         this.service.dataTableInstructor('Inscripcion', data).subscribe((res) => {
+            // Actualiza los datos de la tabla
+            this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                dtInstance.clear().rows.add(res.data).draw();
+                dtInstance.column(6).visible(false);
+            });
+
+            setTimeout(() => {
+                this.helperService.hideLoading();
+            }, 500);
+        });
+    }
+    cargarListaAdmin() {
+        var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = '';
+
+        this.service.datatable('Inscripcion', data).subscribe((res) => {
             // Actualiza los datos de la tabla
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
                 dtInstance.clear().rows.add(res.data).draw();

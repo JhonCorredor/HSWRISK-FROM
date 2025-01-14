@@ -23,6 +23,8 @@ export class CursosDetallesComponent implements OnInit {
     listEmpleados = signal<DataSelectDto[]>([]);
     listSalones = signal<DataSelectDto[]>([]);
     listNiveles = signal<DataSelectDto[]>([]);
+    listDisponibilidad = signal<DataSelectDto[]>([]);
+
     listJornadas = signal<DataSelectDto[]>([]);
     listEstados = signal<DataSelectDto[]>([]);
     listCursoDetalles = signal<CursoDetalle[]>([]);
@@ -66,6 +68,8 @@ export class CursosDetallesComponent implements OnInit {
         this.cargarEmpleados();
         this.cargarSalones();
         this.cargarNiveles();
+        
+
         this.cargarJornadas();
         this.cargarEstados();
     }
@@ -139,7 +143,8 @@ export class CursosDetallesComponent implements OnInit {
     cargarEstados() {
         this.service.getAll('Estado').subscribe((res) => {
             res.data.forEach((item: any) => {
-                if (item.codigo == "ABIERTO") {
+                
+                if (item.codigo == "ABIERTO" || item.codigo == "CERRADO") {
                     this.listEstados.update(listEstados => {
                         const DataSelectDto: DataSelectDto = {
                             id: item.id,
@@ -200,9 +205,16 @@ export class CursosDetallesComponent implements OnInit {
     }
 
     getData(): Promise<any> {
-        var data = new DatatableParameter(); data.pageNumber = ""; data.pageSize = ""; data.filter = ""; data.columnOrder = ""; data.directionOrder = ""; data.foreignKey = this.CursoId; data.nameForeignKey = "CursoId";
+        var data = new DatatableParameter(); 
+        data.foreignKey = this.CursoId; 
+        data.nameForeignKey = "CursoId";
        
-        if(this.DetailsViewId !=null){
+        data.pageNumber = ""; data.pageSize = ""; 
+        data.filter = ""; data.columnOrder = ""; 
+        data.directionOrder = ""; 
+        
+        if(this.DetailsViewId >0){
+            
             data.extra = this.DetailsViewId;
             data.foreignKey = "";
             data.nameForeignKey = "";

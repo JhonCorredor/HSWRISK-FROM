@@ -157,7 +157,8 @@ export class IncripcionesFormComponent implements OnInit {
 
     cargarCursoDetalle(cursoId: number) {
         var data = new DatatableParameter(); data.pageNumber = ''; data.pageSize = ''; data.filter = ''; data.columnOrder = ''; data.directionOrder = ''; data.foreignKey = cursoId; data.nameForeignKey = "CursoId";
-
+        data.fechaFin = "";
+        data.fechaInicio = "";
         this.service.dataTableAbierto('CursoDetalle', data).subscribe((res) => {
             res.data.forEach((item: any) => {
                 this.listCursosDetalles.update((listCursosDetalles) => {
