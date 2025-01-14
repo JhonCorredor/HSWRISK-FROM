@@ -1,5 +1,5 @@
 import { Component, NgModule, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataSelectDto } from 'src/app/generic/dataSelectDto';
 import { ActivatedRoute } from '@angular/router';
@@ -30,6 +30,8 @@ export class ReportExelComponent {
         private service: GeneralParameterService,
         private helperService: HelperService,
         private modalActive: NgbActiveModal,
+         private datePipe: DatePipe
+        
     ) {
         this.reportForm = new FormGroup({
             CourseId: new FormControl(0),
@@ -116,7 +118,11 @@ export class ReportExelComponent {
     reportDowload(){
       this.helperService.showLoading();
       var data = {
-        ...this.reportForm.value
+
+        ...this.reportForm.value,
+        EndDate: this.formatDate(this.reportForm.controls["EndDate"].value),
+        StartDate: this.formatDate(this.reportForm.controls["StartDate"].value)
+
       }
       this.service.generarReport(data).subscribe(
           (certificado: any) => {
@@ -160,6 +166,14 @@ export class ReportExelComponent {
               this.helperService.hideLoading();
           }
       );
+    }
+    
+    formatDate(inputDate: string): string {
+        // Convert input string to Date object
+        let dateObject = new Date(inputDate);
+
+        // Format the date using DatePipe
+        return this.datePipe.transform(dateObject, 'yyyy-MM-dd HH:mm:ss') || "Invalid Date";
     }
 }
 

@@ -744,7 +744,7 @@ export class InscripcionesIndexComponent implements OnInit {
         }
 
         this.helperService.showLoading();
-        //this.cargarListaFilter();
+        this.cargarListaFilter();
     }
 
     cargarListaFilter() {
@@ -761,8 +761,7 @@ export class InscripcionesIndexComponent implements OnInit {
             if (rol == "INSTRUCTOR") {
                 data.nameForeignKey ="EmpleadoId";
                 data.foreignKey = this.userId;
-                data.fechaFin = '';
-                data.fechaInicio = '';
+               
                this.cargarListaInstructores(data);
             } else {
                 this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
