@@ -8,6 +8,7 @@ import { HelperService, MessageType } from 'src/app/admin/helper.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatatableParameter } from 'src/app/admin/datatable.parameters';
 import { GeneralModule } from 'src/app/general/general.module';
+import { values } from 'lodash';
 
 @Component({
   selector: 'app-report-exel',
@@ -37,8 +38,8 @@ export class ReportExelComponent {
             CourseId: new FormControl(0),
             EnterpriseId: new FormControl(0),
             CourseDetailId: new FormControl(0),
-            StartDate: new FormControl(null),
-            EndDate: new FormControl(null),
+            StartDate: new FormControl(""),
+            EndDate: new FormControl(""),
         });
     }
 
@@ -117,6 +118,27 @@ export class ReportExelComponent {
     //dowload report 
     reportDowload(){
       this.helperService.showLoading();
+      const startDate = this.reportForm.controls["StartDate"].value;
+      const endDate = this.reportForm.controls["EndDate"].value;
+      const CourseId =this.reportForm.controls["CourseId"].value;
+      const CourseDetailId = this.reportForm.controls["CourseDetailId"].value;
+      if(CourseId >0){
+        if(CourseDetailId == 0 || CourseDetailId == null){
+            this.helperService.showMessage(MessageType.WARNING, "Por favor, complete el campo del detalle del curso.");
+            this.helperService.hideLoading();
+            return; 
+        }
+      }
+      
+      if (!startDate && !endDate) {
+      } else if (!startDate || !endDate) {
+        // Si uno de los campos está vacío, lanza una alerta
+        this.helperService.showMessage(MessageType.WARNING, "Por favor, complete ambos campos de fecha.");
+        this.helperService.hideLoading();
+        return; // Detenemos la ejecución
+      }
+
+
       var data = {
 
         ...this.reportForm.value,
@@ -170,10 +192,13 @@ export class ReportExelComponent {
     
     formatDate(inputDate: string): string {
         // Convert input string to Date object
-        let dateObject = new Date(inputDate);
-
-        // Format the date using DatePipe
-        return this.datePipe.transform(dateObject, 'yyyy-MM-dd HH:mm:ss') || "Invalid Date";
+        var value: any; 
+        if(inputDate != null && inputDate != ""){
+            let dateObject = new Date(inputDate);
+            // Format the date using DatePipe
+            value =this.datePipe.transform(dateObject, 'yyyy-MM-dd HH:mm:ss') || "Invalid Date";        
+        }
+        return value;
     }
 }
 
