@@ -120,7 +120,7 @@ export class InscripcionesComponent implements OnInit {
         this.ListTipoIdentificacion = [
             { id: 'CC', textoMostrar: 'Cedula de Ciudadania' },
             { id: 'CE', textoMostrar: 'Cedula Extranjeria' },
-            { id: 'PP', textoMostrar: 'Permiso Protección Temporal' },
+            { id: 'PPT', textoMostrar: 'Permiso Protección Temporal' },
             { id: 'PE', textoMostrar: 'Permiso Especial Permanencia' },
             
          ];
